@@ -130,14 +130,15 @@ public:
 
     void removeArrow(Arrow *arrow);
     void removeArrowPolar(Arrow *arrow,QString polar);
-
     void removeArrows();
-    Diagram::DiagramType diagramType() const { return myDiagramType; }
-    QPolygonF polygon() const { return myPolygon; }
     bool addArrowState(Arrow *arrow, QString polar, QString rota);
+
+    QPolygonF polygon() const { return myPolygon; }
+
     void setText(QString text, QColor color);
 
     QPixmap image() const;
+    Diagram::DiagramType diagramType() const { return myDiagramType; }
     int type() const override { return Type;}
     Diagram::DiagramType myDiagramType;
     QList<Arrow *> arrows;

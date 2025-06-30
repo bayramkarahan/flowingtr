@@ -72,6 +72,7 @@ MainWindow::MainWindow()
 
     scene = new DiagramScene(itemMenu, this);
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
+
     connect(scene, SIGNAL(itemInserted(Diagram::DiagramType)),
             this, SLOT(itemInserted(Diagram::DiagramType)));
     connect(scene, SIGNAL(textInserted(QGraphicsTextItem*)),
@@ -87,6 +88,7 @@ MainWindow::MainWindow()
     layout->addWidget(toolBoxRight);
     */
     view = new QGraphicsView(scene);
+    view->setDragMode(QGraphicsView::RubberBandDrag);
     QSplitter *splitter = new QSplitter(Qt::Horizontal, this);
     splitter->addWidget(toolBoxLeft);
     splitter->addWidget(view);
@@ -123,7 +125,7 @@ MainWindow::MainWindow()
     apptTitle="flowingtr"+version;
     setWindowTitle(apptTitle);
    //// setCentralWidget(widget);
-    setWindowIcon(QIcon(":/images/prg.png"));
+    setWindowIcon(QIcon(":/images/flowingtr.svg"));
     setUnifiedTitleAndToolBarOnMac(true);
 
     this->setWindowState(Qt::WindowMaximized);
@@ -663,6 +665,22 @@ void MainWindow::worker()
 void MainWindow::stop()
 {
     runState=false;
+}
+void MainWindow::verticalAlignSlot()
+{//dikey
+    scene->alignCenterVertical();
+}
+void MainWindow::horizontalAlignmentSlot()
+{//yatay
+    scene->alignCenterHorizontal();
+}
+void MainWindow::minimizeSlot()
+{
+    scene->scaleSelectedItems(0.75);
+}
+void MainWindow::maximizeSlot()
+{
+    scene->scaleSelectedItems(1.25);
 }
 void MainWindow::newFile()
 {
@@ -1483,6 +1501,35 @@ toolBoxRight->addItem(compositeWidget, tr("Değişkenler ve Açıklama"));
 //! [23]
 void MainWindow::createActions()
 {
+    horizontalAlignmentAction = new QAction(QIcon(":/images/yatay.svg"),
+                                tr("Yatay Hizala"), this);
+    horizontalAlignmentAction->setShortcut(tr("Ctrl+H"));
+    horizontalAlignmentAction->setStatusTip(tr("Yatay Hizala"));
+    connect(horizontalAlignmentAction, SIGNAL(triggered()), this, SLOT(horizontalAlignmentSlot()));
+
+    verticalAlignAction = new QAction(QIcon(":/images/dikey.svg"),
+                                tr("Dikey Hizala"), this);
+    verticalAlignAction->setShortcut(tr("Ctrl+H"));
+    verticalAlignAction->setStatusTip(tr("Dikey Hizala"));
+    connect(verticalAlignAction, SIGNAL(triggered()), this, SLOT(verticalAlignSlot()));
+
+
+    maximizeAction = new QAction(QIcon(":/images/maximize.svg"),
+                                            tr("Büyült"), this);
+    maximizeAction->setShortcut(tr("Ctrl++"));
+    maximizeAction->setStatusTip(tr("Büyült"));
+    connect(maximizeAction, SIGNAL(triggered()), this, SLOT(maximizeSlot()));
+
+
+    minimizeAction = new QAction(QIcon(":/images/minimize.svg"),
+                                            tr("Küçült"), this);
+    minimizeAction->setShortcut(tr("Ctrl+-"));
+    minimizeAction->setStatusTip(tr("Küçült"));
+    connect(minimizeAction, SIGNAL(triggered()), this, SLOT(minimizeSlot()));
+
+
+
+
     toFrontAction = new QAction(QIcon(":/images/bringtofront.png"),
                                 tr("Öne Ge&tir"), this);
     toFrontAction->setShortcut(tr("Ctrl+F"));
@@ -1627,10 +1674,16 @@ void MainWindow::createMenus()
    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     itemMenu = menuBar()->addMenu(tr("&Düzen"));
-    itemMenu->addAction(deleteAction);
-    itemMenu->addSeparator();
+
+    itemMenu->addAction(horizontalAlignmentAction);
+    itemMenu->addAction(verticalAlignAction);
+    itemMenu->addAction(maximizeAction);
+    itemMenu->addAction(minimizeAction);
     itemMenu->addAction(toFrontAction);
     itemMenu->addAction(sendBackAction);
+    itemMenu->addSeparator();
+    itemMenu->addAction(deleteAction);
+
 
     runMenu = menuBar()->addMenu(tr("&Çalıştır"));
     runMenu->addAction(runAction);
@@ -1696,6 +1749,11 @@ void MainWindow::createToolbars()
     pointerToolbar->addWidget(linePointerButton);
     /*************************************************************/
     editToolBar = addToolBar(tr("Edit"));
+    editToolBar->addAction(horizontalAlignmentAction);
+    editToolBar->addAction(verticalAlignAction);
+    editToolBar->addAction(maximizeAction);
+    editToolBar->addAction(minimizeAction);
+
     editToolBar->addAction(toFrontAction);
     editToolBar->addAction(sendBackAction);
     editToolBar->addAction(deleteAction);

@@ -108,6 +108,11 @@ private slots:
     void pointerGroupClicked(int id);
     void bringToFront();
     void sendToBack();
+    void verticalAlignSlot();
+    void horizontalAlignmentSlot();
+    void maximizeSlot();
+    void minimizeSlot();
+
     void itemInserted(Diagram::DiagramType diagramItemType);
     void textInserted(QGraphicsTextItem *item);
     void currentFontChanged(const QFont &font);
@@ -159,6 +164,10 @@ private:
     QAction *addAction;
     QAction *deleteAction;
 
+    QAction *maximizeAction;
+    QAction *minimizeAction;
+    QAction *horizontalAlignmentAction;
+    QAction *verticalAlignAction;
     QAction *toFrontAction;
     QAction *sendBackAction;
     QAction *aboutAction;

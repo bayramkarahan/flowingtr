@@ -107,8 +107,7 @@ OBJECTS       = mainwindow.o \
 		moc_variableloopdialog.o \
 		moc_variableoutputdialog.o \
 		moc_variableprocessdialog.o
-DIST          = ../../images/prg.png \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
+DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf \
@@ -174,6 +173,7 @@ DIST          = ../../images/prg.png \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -300,6 +300,7 @@ Makefile: ../../flowingtr.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qm
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -389,6 +390,7 @@ Makefile: ../../flowingtr.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qm
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -461,8 +463,11 @@ qrc_icons.cpp: ../../icons.qrc \
 		../../images/close.png \
 		../../images/underline.png \
 		../../images/delete.png \
-		../../images/prg.png \
 		../../images/bold.png \
+		../../images/dikey.svg \
+		../../images/yatay.svg \
+		../../images/maximize.svg \
+		../../images/minimize.svg \
 		../../images/floodfill.png \
 		../../images/bringtofront.png \
 		../../images/textpointer.png \
@@ -473,6 +478,7 @@ qrc_icons.cpp: ../../icons.qrc \
 		../../images/background4.png \
 		../../images/linecolor.png \
 		../../images/about.png \
+		../../images/flowingtr.svg \
 		../../images/run.png \
 		../../images/linepointer.png \
 		../../images/save.png \
@@ -778,10 +784,10 @@ uninstall_desktop_file: FORCE
 
 install_icon: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/flowingtr || mkdir -p $(INSTALL_ROOT)/usr/share/flowingtr
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/images/prg.png $(INSTALL_ROOT)/usr/share/flowingtr/prg.png
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/images/flowingtr.svg $(INSTALL_ROOT)/usr/share/flowingtr/flowingtr.svg
 
 uninstall_icon: FORCE
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/prg.png
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/flowingtr.svg
 	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/flowingtr/ 
 
 

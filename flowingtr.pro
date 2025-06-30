@@ -39,7 +39,7 @@ RESOURCES   = \
 target.path = /usr/bin
 desktop_file.files = flowingtr.desktop
 desktop_file.path = /usr/share/applications/
-icon.files = images/prg.png
+icon.files = images/flowingtr.svg
 icon.path = /usr/share/flowingtr
 
 doc.files = doc/*.ftr
@@ -47,6 +47,3 @@ doc.path = /usr/share/flowingtr/doc/
 
 #target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/diagramscene
 INSTALLS += target desktop_file icon doc
-
-DISTFILES += \
-    images/prg.png

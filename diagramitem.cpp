@@ -1002,6 +1002,11 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         else  renkdrm= true;
     }
 
+    if(this->myDiagramType==Diagram::DiagramType::Loop)
+    {
+        if(polarCount>3)renkdrm= false;
+        else  renkdrm= true;
+    }
     myPolygon=item->sekilStore(myDiagramType,this->boundingRect());
     if(myDiagramType==Diagram::DiagramType::Start){
         label.setText("Başla");labelAlgoritma.setText("Başla");

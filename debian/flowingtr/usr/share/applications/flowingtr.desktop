@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=Flowchart Application
+Name=flowingtr Application
 Name[tr]=Akış Diyagram Uygulaması
 Type=Application
 Comment=Qt based Tabanlı Akış Diyagram Application
@@ -11,4 +11,4 @@ Icon=/usr/share/flowingtr/prg.png
 Categories=Qt;Utility;
 Keywords=flowingtr;diyagram;flow,chart,flowchart;
 GenericName=flowingtr
-Name[tr_TR]=flowingtr.desktop
+Name[tr_TR]=flowingtr

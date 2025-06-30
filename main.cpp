@@ -60,7 +60,7 @@ int main(int argv, char *args[])
 
     QApplication app(argv, args);
     MainWindow mainWindow;
-    mainWindow.setGeometry(0, 0, 900, 600);
+   // mainWindow.setGeometry(0, 0, 900, 600);
     mainWindow.show();
 
 

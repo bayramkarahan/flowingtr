@@ -55,7 +55,8 @@
 #include "diagramtextitem.h"
 #include<dotsignal.h>
 #include <QGraphicsScene>
-
+#include <QQueue>
+#include <QKeyEvent>
 QT_BEGIN_NAMESPACE
 class QGraphicsSceneMouseEvent;
 class QMenu;
@@ -83,7 +84,9 @@ public:
     void setTextColor(const QColor &color);
     void setItemColor(const QColor &color);
     void setFont(const QFont &font);
-
+    void alignCenterHorizontal();
+    void alignCenterVertical();
+    QList<QList<QGraphicsItem*>> getAlignmentGroups();
 public slots:
     void setMode(Mode mode);
     void setItemType(Diagram::DiagramType type);
@@ -91,6 +94,7 @@ public slots:
     void saveScene(const QString &filePath);
     void loadScene(const QString &filePath);
     void saveAsPng(const QString &filePath);
+    void scaleSelectedItems(qreal factor);
 
 signals:
     void itemInserted(Diagram::DiagramType diagramItemType);
@@ -101,6 +105,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+    void keyPressEvent(QKeyEvent *event) override;
 
 private:
     bool haveStateItem(Diagram::DiagramType diagramItemType);

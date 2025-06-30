@@ -461,6 +461,28 @@ bool DiagramScene::isItemChange(int type)
 
 //! [14]
 
+
+void DiagramScene::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Delete) {
+        QList<QGraphicsItem *> selectedItemsList = selectedItems();
+        for (QGraphicsItem *item : selectedItemsList) {
+            // Eğer özel bir DiagramItem ise, onun üzerinden özel temizleme gerekiyorsa burada yap
+            removeItem(item);
+            delete item;
+        }
+    } else {
+        QGraphicsScene::keyPressEvent(event);  // Diğer tuşlar için varsayılan davranış
+    }
+}
+
+void DiagramScene::scaleSelectedItems(qreal factor)
+{
+    for (QGraphicsItem *item : selectedItems()) {
+        item->setScale(item->scale() * factor);
+    }
+}
+
 void DiagramScene::saveScene(const QString &filePath)
 {
     QJsonArray itemsArray;
@@ -592,7 +614,7 @@ void DiagramScene::loadScene(const QString &filePath)
                 QJsonObject ptObj = ptVal.toObject();
                 polygon << QPointF(ptObj["x"].toDouble(), ptObj["y"].toDouble());
             }
-            item->setPolygon(polygon);
+           /// item->setPolygon(polygon);
 
             QString labelText = obj["labelText"].toString();
             QString labelAlgoritmaText = obj["labelAlgoritmaText"].toString();
@@ -699,4 +721,163 @@ void DiagramScene::saveAsPng(const QString &filePath)
     QPainter painter(&image);
     this->render(&painter, QRectF(), bounds);
     image.save(filePath, "PNG");
+}
+
+void DiagramScene::alignCenterHorizontal()
+{
+    /*yatay hizala*/
+    // Bütün sahnedeki itemleri seç
+    ///for (QGraphicsItem *item : items())
+    ///    item->setSelected(true);
+
+    if (selectedItems().isEmpty()) return;
+
+    QList<QList<QGraphicsItem*>> groups;
+
+    // 1- Önce grupları belirle
+    for (QGraphicsItem *item : selectedItems()) {
+        DiagramItem *dItem = qgraphicsitem_cast<DiagramItem*>(item);
+        if (!dItem) continue;
+
+        // Eğer item daha önce bir gruba eklenmiş mi, kontrol et
+        bool inGroup = false;
+        for (const QList<QGraphicsItem*> &g : groups) {
+            if (g.contains(dItem)) {
+                inGroup = true;
+                break;
+            }
+        }
+        if (inGroup) continue;
+
+        // Eğer Loop ise, loop + bağlı elemanlar bir grup
+        if (dItem->myDiagramType == Diagram::Loop) {
+            QList<QGraphicsItem*> group;
+            group << dItem;
+
+            // Bottom -> Left bağlantılı olanları da ekle
+            for (Arrow *arrow : dItem->arrows) {
+                if (arrow->myStartItem == dItem && arrow->myStartPolar == "bottom") {
+                    DiagramItem *target = arrow->myEndItem;
+                    if (target) group << target;
+                }
+                if (arrow->myStartItem == dItem && arrow->myStartPolar == "left") {
+                    DiagramItem *target = arrow->myEndItem;
+                    if (target) group << target;
+                }
+            }
+            groups << group;
+        } else {
+            // Diğer bağımsız itemler
+            groups << (QList<QGraphicsItem*>() << dItem);
+        }
+    }
+
+    // 2- Şimdi her grubun merkez x'ini al
+    qreal totalX = 0;
+    for (const QList<QGraphicsItem*> &group : groups) {
+        qreal groupSumX = 0;
+        for (QGraphicsItem *item : group)
+            groupSumX += item->pos().x();
+        qreal groupCenterX = groupSumX / group.size();
+        totalX += groupCenterX;
+    }
+    qreal averageX = totalX / groups.size();
+
+    // 3- Şimdi her grubu ortalama x'e göre kaydır
+    for (const QList<QGraphicsItem*> &group : groups) {
+        qreal groupSumX = 0;
+        for (QGraphicsItem *item : group)
+            groupSumX += item->pos().x();
+        qreal groupCenterX = groupSumX / group.size();
+        qreal offsetX = averageX - groupCenterX;
+
+        for (QGraphicsItem *item : group) {
+            QPointF oldPos = item->pos();
+            item->setPos(oldPos.x() + offsetX, oldPos.y());
+        }
+    }
+
+    // 4- Son olarak tüm Arrow'ları güncelle
+    for (QGraphicsItem *item : items()) {
+        Arrow* arrow = qgraphicsitem_cast<Arrow*>(item);
+        if (arrow)
+            arrow->updatePosition();
+    }
+
+    update();
+}
+
+void DiagramScene::alignCenterVertical()
+{
+    /*dikey hizalama*/
+    if (selectedItems().isEmpty()) return;
+
+    QList<QList<QGraphicsItem*>> groups;
+
+    // 1- Grupları belirle
+    for (QGraphicsItem *item : selectedItems()) {
+        DiagramItem *dItem = qgraphicsitem_cast<DiagramItem*>(item);
+        if (!dItem) continue;
+
+        // Daha önce gruba eklenmiş mi kontrol
+        bool inGroup = false;
+        for (const QList<QGraphicsItem*> &g : groups) {
+            if (g.contains(dItem)) {
+                inGroup = true;
+                break;
+            }
+        }
+        if (inGroup) continue;
+
+        // Loop ise: loop + bağlı bottom ve left nesneleri grup
+        if (dItem->myDiagramType == Diagram::Loop) {
+            QList<QGraphicsItem*> group;
+            group << dItem;
+
+            for (Arrow *arrow : dItem->arrows) {
+                if (arrow->myStartItem == dItem && (arrow->myStartPolar == "bottom" || arrow->myStartPolar == "left")) {
+                    DiagramItem *target = arrow->myEndItem;
+                    if (target) group << target;
+                }
+            }
+            groups << group;
+        } else {
+            // Bağımsız item
+            groups << (QList<QGraphicsItem*>() << dItem);
+        }
+    }
+
+    // 2- Grupların ortalama Y merkezini bul
+    qreal totalY = 0;
+    for (const QList<QGraphicsItem*> &group : groups) {
+        qreal groupSumY = 0;
+        for (QGraphicsItem *item : group)
+            groupSumY += item->pos().y();
+        qreal groupCenterY = groupSumY / group.size();
+        totalY += groupCenterY;
+    }
+    qreal averageY = totalY / groups.size();
+
+    // 3- Grupları kaydır
+    for (const QList<QGraphicsItem*> &group : groups) {
+        qreal groupSumY = 0;
+        for (QGraphicsItem *item : group)
+            groupSumY += item->pos().y();
+        qreal groupCenterY = groupSumY / group.size();
+        qreal offsetY = averageY - groupCenterY;
+
+        for (QGraphicsItem *item : group) {
+            QPointF oldPos = item->pos();
+            item->setPos(oldPos.x(), oldPos.y() + offsetY);
+        }
+    }
+
+    // 4- Tüm Arrow'ları güncelle
+    for (QGraphicsItem *item : items()) {
+        Arrow* arrow = qgraphicsitem_cast<Arrow*>(item);
+        if (arrow)
+            arrow->updatePosition();
+    }
+
+    update();
 }
