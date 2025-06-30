@@ -24,7 +24,7 @@ VariableEditorDialog::VariableEditorDialog(QWidget *parent)
     tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked);
     // Sütun başlıklarını sabit tutmak istiyorsanız:
     tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-    tableWidget->setColumnWidth(0, 50); // Label
+    tableWidget->setColumnWidth(0, 80); // Label
     tableWidget->setColumnWidth(1, 50); // Value
     tableWidget->setColumnWidth(2, 50); // Type
     connect(tableWidget, &QTableWidget::cellDoubleClicked, this, [=](int row, int) {

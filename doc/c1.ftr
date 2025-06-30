@@ -1,68 +1,12 @@
 {
     "globalVariables": [
-        {
-            "endValue": -2084647104,
-            "expression": "",
-            "inputMessage": "",
-            "label": "ad",
-            "operationType": -897486528,
-            "outputMessage": "",
-            "startValue": 32732,
-            "stepValue": 22082,
-            "value": "bayram",
-            "valueType": "number"
-        }
     ],
     "items": [
         {
-            "backgroundColor": "#ffff00",
-            "diagramType": 23,
+            "backgroundColor": "#000000",
+            "diagramType": 24,
             "id": 0,
-            "labelText": "<br>Adınızı Giriniz ad = ?",
-            "polygon": [
-                {
-                    "x": -100,
-                    "y": 50
-                },
-                {
-                    "x": -70,
-                    "y": -50
-                },
-                {
-                    "x": 100,
-                    "y": -50
-                },
-                {
-                    "x": 70,
-                    "y": 50
-                },
-                {
-                    "x": -100,
-                    "y": 50
-                }
-            ],
-            "type": "DiagramItem",
-            "variables": [
-                {
-                    "endValue": 869239936,
-                    "expression": "",
-                    "inputMessage": "Adınızı Giriniz ",
-                    "label": "ad",
-                    "operationType": -1071645968,
-                    "outputMessage": "",
-                    "startValue": 32732,
-                    "stepValue": 32767,
-                    "value": "",
-                    "valueType": "number"
-                }
-            ],
-            "x": 2619.9999999999995,
-            "y": 2369.3333333333335
-        },
-        {
-            "backgroundColor": "#ffff00",
-            "diagramType": 26,
-            "id": 1,
+            "labelAlgoritmaText": "",
             "labelText": "",
             "polygon": [
                 {
@@ -329,22 +273,23 @@
             "type": "DiagramItem",
             "variables": [
             ],
-            "x": 2635.9999999999995,
-            "y": 2762.6666666666665
+            "x": 2665.3333333333335,
+            "y": 2396
         },
         {
-            "backgroundColor": "#ffff00",
+            "backgroundColor": "#000000",
             "diagramType": 20,
-            "id": 2,
-            "labelText": "Merhaba ad",
+            "id": 1,
+            "labelAlgoritmaText": "",
+            "labelText": "Merhaba Dünya",
             "polygon": [
                 {
                     "x": -100,
-                    "y": -60
+                    "y": -50
                 },
                 {
                     "x": 100,
-                    "y": -60
+                    "y": -50
                 },
                 {
                     "x": 100,
@@ -356,99 +301,109 @@
                 },
                 {
                     "x": 38.77532958984375,
-                    "y": 52.7532958984375
+                    "y": 52.75299072265625
                 },
                 {
                     "x": 36.99951171875,
-                    "y": 55.3857421875
+                    "y": 55.38330078125
                 },
                 {
                     "x": 31.93359375,
-                    "y": 60.2734375
+                    "y": 60.25390625
                 },
                 {
                     "x": 25.08056640625,
-                    "y": 64.6337890625
+                    "y": 64.56787109375
                 },
                 {
                     "x": 16.71875,
-                    "y": 68.4375
+                    "y": 68.28125
                 },
                 {
                     "x": 7.12646484375,
-                    "y": 71.6552734375
+                    "y": 71.35009765625
                 },
                 {
                     "x": -3.41796875,
-                    "y": 74.2578125
+                    "y": 73.73046875
                 },
                 {
                     "x": -14.63623046875,
-                    "y": 76.2158203125
+                    "y": 75.37841796875
                 },
                 {
                     "x": -26.25,
-                    "y": 77.5
+                    "y": 76.25
                 },
                 {
                     "x": -37.98095703125,
-                    "y": 78.0810546875
+                    "y": 76.30126953125
                 },
                 {
                     "x": -49.55078125,
-                    "y": 77.9296875
+                    "y": 75.48828125
                 },
                 {
                     "x": -60.68115234375,
-                    "y": 77.0166015625
+                    "y": 73.76708984375
                 },
                 {
                     "x": -71.09375,
-                    "y": 75.3125
+                    "y": 71.09375
                 },
                 {
                     "x": -80.51025390625,
-                    "y": 72.7880859375
+                    "y": 67.42431640625
                 },
                 {
                     "x": -88.65234375,
-                    "y": 69.4140625
+                    "y": 62.71484375
                 },
                 {
                     "x": -95.24169921875,
-                    "y": 65.1611328125
+                    "y": 56.92138671875
+                },
+                {
+                    "x": -97.86712646484375,
+                    "y": 53.60443115234375
                 },
                 {
                     "x": -100,
-                    "y": 60
+                    "y": 50
                 },
                 {
                     "x": -100,
-                    "y": -60
+                    "y": -40
+                },
+                {
+                    "x": -100,
+                    "y": -50
                 }
             ],
             "type": "DiagramItem",
             "variables": [
                 {
                     "endValue": 11,
-                    "expression": "ad",
+                    "expression": "Merhaba Dünya",
                     "inputMessage": "",
-                    "label": "ad",
-                    "operationType": 0,
-                    "outputMessage": "Merhaba ",
+                    "isInput": false,
+                    "label": "",
+                    "operationType": 2,
+                    "outputMessage": "",
                     "startValue": -1,
                     "stepValue": 0,
                     "value": "",
                     "valueType": ""
                 }
             ],
-            "x": 2626.6666666666665,
-            "y": 2515.9999999999995
+            "x": 2665.3333333333335,
+            "y": 2550.666666666666
         },
         {
-            "backgroundColor": "#ffff00",
-            "diagramType": 24,
-            "id": 3,
+            "backgroundColor": "#000000",
+            "diagramType": 26,
+            "id": 2,
+            "labelAlgoritmaText": "",
             "labelText": "",
             "polygon": [
                 {
@@ -715,12 +670,12 @@
             "type": "DiagramItem",
             "variables": [
             ],
-            "x": 2622.6666666666665,
-            "y": 2225.3333333333335
+            "x": 2665.3333333333344,
+            "y": 2717.3333333333335
         },
         {
             "answer": "Y",
-            "endId": 2,
+            "endId": 1,
             "endPolar": "start",
             "startId": 0,
             "startPolar": "end",
@@ -728,17 +683,9 @@
         },
         {
             "answer": "Y",
-            "endId": 0,
+            "endId": 2,
             "endPolar": "start",
-            "startId": 3,
-            "startPolar": "end",
-            "type": "Arrow"
-        },
-        {
-            "answer": "Y",
-            "endId": 1,
-            "endPolar": "start",
-            "startId": 2,
+            "startId": 1,
             "startPolar": "end",
             "type": "Arrow"
         }

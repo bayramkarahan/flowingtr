@@ -468,8 +468,9 @@ void DiagramScene::keyPressEvent(QKeyEvent *event)
         QList<QGraphicsItem *> selectedItemsList = selectedItems();
         for (QGraphicsItem *item : selectedItemsList) {
             // Eğer özel bir DiagramItem ise, onun üzerinden özel temizleme gerekiyorsa burada yap
-            removeItem(item);
-            delete item;
+           // removeItem(item);
+           //delete item;
+            emit deleteItem();
         }
     } else {
         QGraphicsScene::keyPressEvent(event);  // Diğer tuşlar için varsayılan davranış
@@ -727,6 +728,7 @@ void DiagramScene::alignCenterHorizontal()
 {
     /*yatay hizala*/
     // Bütün sahnedeki itemleri seç
+  //  qDebug()<<"yatay";
     ///for (QGraphicsItem *item : items())
     ///    item->setSelected(true);
 
@@ -806,6 +808,7 @@ void DiagramScene::alignCenterHorizontal()
 
     update();
 }
+
 
 void DiagramScene::alignCenterVertical()
 {

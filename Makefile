@@ -786,9 +786,28 @@ uninstall_icon: FORCE
 	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/flowingtr/ 
 
 
-install: install_target install_desktop_file install_icon  FORCE
+install_doc: first FORCE
+	@test -d $(INSTALL_ROOT)/usr/share/flowingtr/doc/ || mkdir -p $(INSTALL_ROOT)/usr/share/flowingtr/doc/
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c1.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c1.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c2.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c2.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c3.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c3.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c4.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c4.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c5.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c5.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c6.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c6.ftr
 
-uninstall: uninstall_target uninstall_desktop_file uninstall_icon  FORCE
+uninstall_doc: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c6.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c5.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c4.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c3.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c2.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c1.ftr
+	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/flowingtr/doc/ 
+
+
+install: install_target install_desktop_file install_icon install_doc  FORCE
+
+uninstall: uninstall_target uninstall_desktop_file uninstall_icon uninstall_doc  FORCE
 
 FORCE:
 

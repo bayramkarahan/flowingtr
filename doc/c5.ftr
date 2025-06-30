@@ -1,11 +1,64 @@
 {
     "globalVariables": [
+        {
+            "endValue": -2084647104,
+            "expression": "",
+            "inputMessage": "",
+            "isInput": false,
+            "label": "kisakenar",
+            "operationType": -901051768,
+            "outputMessage": "",
+            "startValue": 32732,
+            "stepValue": 22082,
+            "value": "5",
+            "valueType": "number"
+        },
+        {
+            "endValue": -2084647104,
+            "expression": "",
+            "inputMessage": "",
+            "isInput": false,
+            "label": "uzunkenar",
+            "operationType": -901051768,
+            "outputMessage": "",
+            "startValue": 32732,
+            "stepValue": 22082,
+            "value": "10",
+            "valueType": "number"
+        },
+        {
+            "endValue": -2084647104,
+            "expression": "",
+            "inputMessage": "",
+            "isInput": false,
+            "label": "toplam",
+            "operationType": -901051768,
+            "outputMessage": "",
+            "startValue": 32732,
+            "stepValue": 22082,
+            "value": "15",
+            "valueType": "number"
+        },
+        {
+            "endValue": 481491664,
+            "expression": "",
+            "inputMessage": "",
+            "isInput": false,
+            "label": "cevresi",
+            "operationType": -1811696896,
+            "outputMessage": "",
+            "startValue": 1534961596,
+            "stepValue": 32765,
+            "value": "30",
+            "valueType": "number"
+        }
     ],
     "items": [
         {
             "backgroundColor": "#ffff00",
-            "diagramType": 26,
+            "diagramType": 24,
             "id": 0,
+            "labelAlgoritmaText": "",
             "labelText": "",
             "polygon": [
                 {
@@ -272,22 +325,23 @@
             "type": "DiagramItem",
             "variables": [
             ],
-            "x": 2611.9999999999995,
-            "y": 2636
+            "x": 2775.199999999999,
+            "y": 2289.3333333333344
         },
         {
             "backgroundColor": "#ffff00",
             "diagramType": 20,
             "id": 1,
-            "labelText": "Merhaba Dünya",
+            "labelAlgoritmaText": "<br>\"Çevresi\", cevresi (yaz)",
+            "labelText": "<br>\"Çevresi\", cevresi",
             "polygon": [
                 {
                     "x": -100,
-                    "y": -60
+                    "y": -50
                 },
                 {
                     "x": 100,
-                    "y": -60
+                    "y": -50
                 },
                 {
                     "x": 100,
@@ -299,99 +353,109 @@
                 },
                 {
                     "x": 38.77532958984375,
-                    "y": 52.7532958984375
+                    "y": 52.75299072265625
                 },
                 {
                     "x": 36.99951171875,
-                    "y": 55.3857421875
+                    "y": 55.38330078125
                 },
                 {
                     "x": 31.93359375,
-                    "y": 60.2734375
+                    "y": 60.25390625
                 },
                 {
                     "x": 25.08056640625,
-                    "y": 64.6337890625
+                    "y": 64.56787109375
                 },
                 {
                     "x": 16.71875,
-                    "y": 68.4375
+                    "y": 68.28125
                 },
                 {
                     "x": 7.12646484375,
-                    "y": 71.6552734375
+                    "y": 71.35009765625
                 },
                 {
                     "x": -3.41796875,
-                    "y": 74.2578125
+                    "y": 73.73046875
                 },
                 {
                     "x": -14.63623046875,
-                    "y": 76.2158203125
+                    "y": 75.37841796875
                 },
                 {
                     "x": -26.25,
-                    "y": 77.5
+                    "y": 76.25
                 },
                 {
                     "x": -37.98095703125,
-                    "y": 78.0810546875
+                    "y": 76.30126953125
                 },
                 {
                     "x": -49.55078125,
-                    "y": 77.9296875
+                    "y": 75.48828125
                 },
                 {
                     "x": -60.68115234375,
-                    "y": 77.0166015625
+                    "y": 73.76708984375
                 },
                 {
                     "x": -71.09375,
-                    "y": 75.3125
+                    "y": 71.09375
                 },
                 {
                     "x": -80.51025390625,
-                    "y": 72.7880859375
+                    "y": 67.42431640625
                 },
                 {
                     "x": -88.65234375,
-                    "y": 69.4140625
+                    "y": 62.71484375
                 },
                 {
                     "x": -95.24169921875,
-                    "y": 65.1611328125
+                    "y": 56.92138671875
+                },
+                {
+                    "x": -97.86712646484375,
+                    "y": 53.60443115234375
                 },
                 {
                     "x": -100,
-                    "y": 60
+                    "y": 50
                 },
                 {
                     "x": -100,
-                    "y": -60
+                    "y": -40
+                },
+                {
+                    "x": -100,
+                    "y": -50
                 }
             ],
             "type": "DiagramItem",
             "variables": [
                 {
-                    "endValue": 11,
-                    "expression": "Merhaba Dünya",
+                    "endValue": 481489568,
+                    "expression": "cevresi",
                     "inputMessage": "",
-                    "label": "",
-                    "operationType": 2,
-                    "outputMessage": "",
-                    "startValue": -1,
+                    "isInput": false,
+                    "label": "cevresi",
+                    "operationType": 0,
+                    "outputMessage": "Çevresi",
+                    "startValue": 1534961596,
                     "stepValue": 0,
                     "value": "",
                     "valueType": ""
                 }
             ],
-            "x": 2633.333333333333,
-            "y": 2429.333333333333
+            "x": 2775.199999999999,
+            "y": 2718.666666666668
         },
         {
             "backgroundColor": "#ffff00",
-            "diagramType": 24,
+            "diagramType": 26,
             "id": 2,
+            "labelAlgoritmaText": "",
             "labelText": "",
             "polygon": [
                 {
@@ -658,12 +722,158 @@
             "type": "DiagramItem",
             "variables": [
             ],
-            "x": 2622.6666666666665,
-            "y": 2248
+            "x": 2775.199999999999,
+            "y": 2883.9999999999995
+        },
+        {
+            "backgroundColor": "#ffff00",
+            "diagramType": 23,
+            "id": 3,
+            "labelAlgoritmaText": "<br>\"Kısa Ken.\", kisakenar (oku)<br>\"Uzun Ken.\", uzunkenar (oku)<br>toplam = 0<br>cevresi = 0",
+            "labelText": "<br>\"Kısa Ken.\", kisakenar = ?<br>\"Uzun Ken.\", uzunkenar = ?<br>toplam = 0<br>cevresi = 0",
+            "polygon": [
+                {
+                    "x": -100,
+                    "y": 50
+                },
+                {
+                    "x": -70,
+                    "y": -50
+                },
+                {
+                    "x": 100,
+                    "y": -50
+                },
+                {
+                    "x": 70,
+                    "y": 50
+                },
+                {
+                    "x": -100,
+                    "y": 50
+                }
+            ],
+            "type": "DiagramItem",
+            "variables": [
+                {
+                    "endValue": 481488928,
+                    "expression": "",
+                    "inputMessage": "Kısa Ken.",
+                    "isInput": true,
+                    "label": "kisakenar",
+                    "operationType": -1459279536,
+                    "outputMessage": "",
+                    "startValue": 22024,
+                    "stepValue": 32765,
+                    "value": "2",
+                    "valueType": "number"
+                },
+                {
+                    "endValue": 481488928,
+                    "expression": "",
+                    "inputMessage": "Uzun Ken.",
+                    "isInput": true,
+                    "label": "uzunkenar",
+                    "operationType": -1459279536,
+                    "outputMessage": "",
+                    "startValue": 22024,
+                    "stepValue": 32765,
+                    "value": "6",
+                    "valueType": "number"
+                },
+                {
+                    "endValue": 481488928,
+                    "expression": "",
+                    "inputMessage": "",
+                    "isInput": false,
+                    "label": "toplam",
+                    "operationType": -1459279536,
+                    "outputMessage": "",
+                    "startValue": 22024,
+                    "stepValue": 32765,
+                    "value": "0",
+                    "valueType": "number"
+                },
+                {
+                    "endValue": 481488928,
+                    "expression": "",
+                    "inputMessage": "",
+                    "isInput": false,
+                    "label": "cevresi",
+                    "operationType": -1459279536,
+                    "outputMessage": "",
+                    "startValue": 22024,
+                    "stepValue": 32765,
+                    "value": "0",
+                    "valueType": "number"
+                }
+            ],
+            "x": 2775.199999999999,
+            "y": 2433.3333333333344
+        },
+        {
+            "backgroundColor": "#ffff00",
+            "diagramType": 25,
+            "id": 4,
+            "labelAlgoritmaText": "toplam = kisakenar + uzunkenar<br>cevresi = toplam * 2",
+            "labelText": "toplam = kisakenar + uzunkenar<br>cevresi = toplam * 2",
+            "polygon": [
+                {
+                    "x": -100,
+                    "y": -50
+                },
+                {
+                    "x": 100,
+                    "y": -50
+                },
+                {
+                    "x": 100,
+                    "y": 50
+                },
+                {
+                    "x": -100,
+                    "y": 50
+                },
+                {
+                    "x": -100,
+                    "y": -50
+                }
+            ],
+            "type": "DiagramItem",
+            "variables": [
+                {
+                    "endValue": 481489568,
+                    "expression": "toplam = kisakenar + uzunkenar",
+                    "inputMessage": "",
+                    "isInput": false,
+                    "label": "toplam",
+                    "operationType": 2,
+                    "outputMessage": "",
+                    "startValue": 1534961596,
+                    "stepValue": 0,
+                    "value": "",
+                    "valueType": "number"
+                },
+                {
+                    "endValue": 481489568,
+                    "expression": "cevresi = toplam * 2",
+                    "inputMessage": "",
+                    "isInput": false,
+                    "label": "cevresi",
+                    "operationType": 3,
+                    "outputMessage": "",
+                    "startValue": 1534961596,
+                    "stepValue": 0,
+                    "value": "",
+                    "valueType": "number"
+                }
+            ],
+            "x": 2775.199999999999,
+            "y": 2570.666666666666
         },
         {
             "answer": "Y",
-            "endId": 0,
+            "endId": 2,
             "endPolar": "start",
             "startId": 1,
             "startPolar": "end",
@@ -671,9 +881,25 @@
         },
         {
             "answer": "Y",
+            "endId": 3,
+            "endPolar": "start",
+            "startId": 0,
+            "startPolar": "end",
+            "type": "Arrow"
+        },
+        {
+            "answer": "Y",
+            "endId": 4,
+            "endPolar": "start",
+            "startId": 3,
+            "startPolar": "end",
+            "type": "Arrow"
+        },
+        {
+            "answer": "Y",
             "endId": 1,
             "endPolar": "start",
-            "startId": 2,
+            "startId": 4,
             "startPolar": "end",
             "type": "Arrow"
         }

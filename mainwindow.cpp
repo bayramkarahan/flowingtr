@@ -75,10 +75,17 @@ MainWindow::MainWindow()
 
     connect(scene, SIGNAL(itemInserted(Diagram::DiagramType)),
             this, SLOT(itemInserted(Diagram::DiagramType)));
+
     connect(scene, SIGNAL(textInserted(QGraphicsTextItem*)),
             this, SLOT(textInserted(QGraphicsTextItem*)));
+
     connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),
             this, SLOT(itemSelected(QGraphicsItem*)));
+
+    connect(scene, SIGNAL(deleteItem()),
+            this, SLOT(deleteItem()));
+
+
     createToolbars();
 
     /*QHBoxLayout *layout = new QHBoxLayout;
@@ -1627,51 +1634,111 @@ void MainWindow::createMenus()
     programExample=menuBar()->addMenu(tr("&Kodlama"));
 
     action = programExample->addAction("1- Merhaba Dünya");
-    action->setData("c1.json");
+    action->setData("c1.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("2- Selamlama");
-    action->setData("c2.json");
+    action->setData("c2.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("3- İki Sayının Toplamı");
-    action->setData("c3.json");
+    action->setData("c3.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("4- İki Sayının Ortalaması");
-    action->setData("c4.json");
+    action->setData("c4.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("5- Karenini Alanı");
-    action->setData("c5.json");
+    action = programExample->addAction("5- Dikdörtgenin Çevresi");
+    action->setData("c5.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("6- Karenini Çevresi");
-    action->setData("c6.json");
+    action = programExample->addAction("6- Karenini Alanı");
+    action->setData("c6.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("7- Dairenin Alanı");
-    action->setData("c7.json");
+    action = programExample->addAction("7- ---------");
+    action->setData("c7.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
+    action = programExample->addAction("8- ---------");
+    action->setData("c8.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("9- ---------");
+    action->setData("c9.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("10- ---------");
+    action->setData("c10.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("11- ---------");
+    action->setData("c11.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("12- ---------");
+    action->setData("c12.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
 
     mathExample=menuBar()->addMenu(tr("&Matematik"));
     action = mathExample->addAction("1- Sayının İki Katı");
-    action->setData("m1.json");
+    action->setData("m1.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = mathExample->addAction("2- İki Sayının  Toplamı");
-    action->setData("m2.json");
+    action->setData("m2.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = mathExample->addAction("3- Sayının Karesi");
-    action->setData("m3.json");
+    action->setData("m3.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = mathExample->addAction("4- İki Sayının Ortalaması");
-    action->setData("m4.json");
-   connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+    action->setData("m4.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("5- -----------");
+    action->setData("m5.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("6- ---------");
+    action->setData("m6.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("7- -----------");
+    action->setData("m7.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("8- -----------");
+    action->setData("m8.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("9- -----------");
+    action->setData("m9.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("10- -----------");
+    action->setData("m10.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("11- -----------");
+    action->setData("m11.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("12- -----------");
+    action->setData("m12.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("13- -----------");
+    action->setData("m13.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = mathExample->addAction("14- -----------");
+    action->setData("m14.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
 
     itemMenu = menuBar()->addMenu(tr("&Düzen"));
 
@@ -1705,6 +1772,7 @@ void MainWindow::loadExampleFile()
         QString filePath ="/usr/share/flowingtr/doc/"+action->data().toString();
         qDebug()<<filePath;
         if (!filePath.isEmpty()) {
+            this->setWindowTitle(apptTitle+" "+filePath);
             scene->loadScene(filePath);
             variableWidget->loadVariables();
         }

@@ -100,6 +100,7 @@ signals:
     void itemInserted(Diagram::DiagramType diagramItemType);
     void textInserted(QGraphicsTextItem *item);
     void itemSelected(QGraphicsItem *item);
+    void deleteItem();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;

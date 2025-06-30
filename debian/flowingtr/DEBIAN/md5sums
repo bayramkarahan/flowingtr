@@ -1,5 +1,11 @@
-dbc4a86f66c23cb6a5b88c72cef1f336  usr/bin/flowingtr
+3b59737203d0e371ee138ab5537ebbeb  usr/bin/flowingtr
 00296c73185fb5ecde8ad764c40b9988  usr/share/applications/flowingtr.desktop
 1d3894f90f6b53d8621b3f137124b340  usr/share/doc/flowingtr/changelog.gz
 2084e766cba8049e5be3e87a63ea8823  usr/share/doc/flowingtr/copyright
+f2f8dc124fd1838b6f82fb437041ba24  usr/share/flowingtr/doc/c1.ftr
+b7595fb93056d1a21deebf05fea14379  usr/share/flowingtr/doc/c2.ftr
+54736a39e7f0de8cadb7e1318730760c  usr/share/flowingtr/doc/c3.ftr
+4c61cb59f275d7fc81ee7dfce830ae9c  usr/share/flowingtr/doc/c4.ftr
+1e1e826267c3cffae1010479baa3f865  usr/share/flowingtr/doc/c5.ftr
+13b2b1748fff0a53fc9be4f8134de765  usr/share/flowingtr/doc/c6.ftr
 bc304fa71b97017f9aa0bd291135356a  usr/share/flowingtr/flowingtr.svg
