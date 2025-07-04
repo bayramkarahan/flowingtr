@@ -480,7 +480,17 @@ void DiagramScene::keyPressEvent(QKeyEvent *event)
 void DiagramScene::scaleSelectedItems(qreal factor)
 {
     for (QGraphicsItem *item : selectedItems()) {
-        item->setScale(item->scale() * factor);
+
+        for (QGraphicsItem *item : selectedItems()) {
+            if (item->type() == DiagramItem::Type)
+            {
+                item->setScale(item->scale() * factor);
+              // qgraphicsitem_cast<DiagramItem *>(item)->updateLabelPosition();
+                //item->updateLabelPosition
+            }
+
+        }
+
     }
 }
 

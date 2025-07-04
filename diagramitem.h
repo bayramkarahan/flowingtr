@@ -99,7 +99,7 @@ public:
    /// enum DiagramType { Step, Conditional, StartEnd, Io };
     QPointF previousPosition() const;
     void setPreviousPosition(const QPointF previousPosition);
-
+    double scaleFactor;
  enum ActionStates {
     ResizeState = 0x01,
     RotationState = 0x02
@@ -157,13 +157,13 @@ public:
     QString rightArrowRota="";
     bool loopItemRun=false;
 
-
     bool renkdrm;
     // Seçilenler listesi
     QList<VariableRecord> selectedVariables;
     //VariableExpressionDialog dlg;
   public slots:
       void renk();
+          void updateLabelPosition();
 signals:
     void rectChanged(DiagramItem *rect);
     void previousPositionChanged();

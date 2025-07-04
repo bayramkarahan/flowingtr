@@ -179,7 +179,6 @@ private:
     QMenu *itemMenu;
     QMenu *runMenu;
     QMenu *programExample;
-    QMenu *mathExample;
     QMenu *aboutMenu;
 
     QToolBar *textToolBar;

@@ -32,7 +32,7 @@ public:
     QString outputMessage;
     bool evaluate(const QList<VariableRecord>& vars) {
 
-            qDebug() << "işlem" << operationType<<valueType;
+            qDebug() << "işlem" << operationType<<valueType<<expression;
         QStringList parts = expression.split('=');
         if (parts.size() != 2) return false;
 
@@ -132,15 +132,15 @@ public:
             qDebug() << "işlems" <<valueType<<operationType;
             switch (operationType) {
             case 0: { // Sabit atama
-                double val = rightExpr.toDouble(&ok);
-                if (!ok) return false;
+                int val = rightExpr.toInt(&ok);
+                //if (!ok) return false;
                 value = QString::number(val);
                 return true;
             }
             case 1: { // Değişken atama
                 for (const auto& v : vars) {
                     if (v.label == rightExpr) {
-                        double val = v.value.toDouble(&ok);
+                        int val = v.value.toInt(&ok);
                         if (ok) {
                             value = QString::number(val);
                             return true;
@@ -151,32 +151,30 @@ public:
                 return false;
             }
             case 2: { // İki değişkenli işlem
-                QRegExp rx(R"((\w+)\s*([\+\-\*/])\s*(\w+))");
-                if (!rx.exactMatch(rightExpr)) return false;
+                QStringList parca=rightExpr.split(" ");
+                QString var1 = parca[0];
+                QString op = parca[1];
+                QString var2 = parca[2];
 
-                QString var1 = rx.cap(1);
-                QString op = rx.cap(2);
-                QString var2 = rx.cap(3);
-
-                double val1 = 0, val2 = 0;
+                int val1 = 0, val2 = 0;
                 bool found1 = false, found2 = false;
                 for (const auto& v : vars) {
-                    if (v.label == var1) {
-                        val1 = v.value.toDouble(&ok);
+                    if (v.label == var1.trimmed()) {
+                        val1 = v.value.toInt(&ok);
                         found1 = ok;
                     }
-                    if (v.label == var2) {
-                        val2 = v.value.toDouble(&ok);
+                    if (v.label == var2.trimmed()) {
+                        val2 = v.value.toInt(&ok);
                         found2 = ok;
                     }
                 }
-                if (!found1 || !found2) return false;
+               /// if (!found1 || !found2) return false;
 
-                double result = 0;
-                if (op == "+") result = val1 + val2;
-                else if (op == "-") result = val1 - val2;
-                else if (op == "*") result = val1 * val2;
-                else if (op == "/") {
+                int result = 0;
+                if (op.trimmed() == "+") result = val1 + val2;
+                else if (op.trimmed() == "-") result = val1 - val2;
+                else if (op.trimmed() == "*") result = val1 * val2;
+                else if (op.trimmed() == "/") {
                     if (val2 == 0) return false;
                     result = val1 / val2;
                 } else return false;
@@ -185,30 +183,26 @@ public:
                 return true;
             }
             case 3: { // Değişken + sabit sayı
-                QRegExp rx(R"((\w+)\s*([\+\-\*/])\s*(\d+))");
-                if (!rx.exactMatch(rightExpr)) return false;
+                QStringList parca=rightExpr.split(" ");
+                QString var1 = parca[0];
+                QString op = parca[1];
+                QString numStr = parca[2];
 
-                QString var1 = rx.cap(1);
-                QString op = rx.cap(2);
-                QString numStr = rx.cap(3);
-
-                double val1 = 0;
+                int val1 = 0;
                 for (const auto& v : vars) {
-                    if (v.label == var1) {
-                        val1 = v.value.toDouble(&ok);
-                        if (!ok) return false;
+                    if (v.label == var1.trimmed()) {
+                        val1 = v.value.toInt(&ok);
+                       // if (!ok) return false;
                         break;
                     }
                 }
-
-                double val2 = numStr.toDouble(&ok);
-                if (!ok) return false;
-
-                double result = 0;
-                if (op == "+") result = val1 + val2;
-                else if (op == "-") result = val1 - val2;
-                else if (op == "*") result = val1 * val2;
-                else if (op == "/") {
+                int val2 = numStr.trimmed().toInt(&ok);
+               // if (!ok) return false;
+                int result = 0;
+                if (op.trimmed() == "+") result = val1 + val2;
+                else if (op.trimmed() == "-") result = val1 - val2;
+                else if (op.trimmed() == "*") result = val1 * val2;
+                else if (op.trimmed() == "/") {
                     if (val2 == 0) return false;
                     result = val1 / val2;
                 } else return false;
@@ -217,25 +211,22 @@ public:
                 return true;
             }
             case 4: { // sabit sayı + sabit sayı
-                QRegExp rx(R"((\w+)\s*([\+\-\*/])\s*(\d+))");
-                if (!rx.exactMatch(rightExpr)) return false;
+                QStringList parca=rightExpr.split(" ");
+                QString numStr1 = parca[0];
+                QString op = parca[1];
+                QString numStr2 = parca[2];
 
-                QString numStr1 = rx.cap(1);
-                QString op = rx.cap(2);
-                QString numStr2 = rx.cap(3);
+                int val1 = numStr1.trimmed().toInt(&ok);
+                //if (!ok) return false;
 
+                int val2 = numStr2.trimmed().toInt(&ok);
+                //if (!ok) return false;
 
-                double val1 = numStr1.toDouble(&ok);
-                if (!ok) return false;
-
-                double val2 = numStr2.toDouble(&ok);
-                if (!ok) return false;
-
-                double result = 0;
-                if (op == "+") result = val1 + val2;
-                else if (op == "-") result = val1 - val2;
-                else if (op == "*") result = val1 * val2;
-                else if (op == "/") {
+                int result = 0;
+                if (op.trimmed() == "+") result = val1 + val2;
+                else if (op.trimmed() == "-") result = val1 - val2;
+                else if (op.trimmed() == "*") result = val1 * val2;
+                else if (op.trimmed() == "/") {
                     if (val2 == 0) return false;
                     result = val1 / val2;
                 } else return false;

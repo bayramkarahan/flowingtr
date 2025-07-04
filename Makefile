@@ -107,7 +107,8 @@ OBJECTS       = mainwindow.o \
 		moc_variableloopdialog.o \
 		moc_variableoutputdialog.o \
 		moc_variableprocessdialog.o
-DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
+DIST          = aaa.md \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf \
@@ -788,20 +789,38 @@ uninstall_icon: FORCE
 
 install_doc: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/flowingtr/doc/ || mkdir -p $(INSTALL_ROOT)/usr/share/flowingtr/doc/
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c1.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c1.ftr
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c2.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c2.ftr
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c3.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c3.ftr
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c4.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c4.ftr
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c5.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c5.ftr
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/c6.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/c6.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/5-defa-merhaba.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/5-defa-merhaba.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/askerlik-durumu.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/askerlik-durumu.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/buyuk-kucuk.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/buyuk-kucuk.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/dikdortgen-cevre.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/dikdortgen-cevre.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/faktoriyel.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/faktoriyel.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/gecti-kaldi.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/gecti-kaldi.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/iki-sayi-toplama.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/iki-sayi-toplama.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/karenin-alani.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/karenin-alani.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/merhaba.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/merhaba.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/mutlak-deger.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/mutlak-deger.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/ortalama.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/ortalama.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/pozitif-negatif.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/pozitif-negatif.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/selamlama.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/selamlama.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/seri-toplam.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/seri-toplam.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/tek-cift.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/tek-cift.ftr
 
 uninstall_doc: FORCE
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c6.ftr
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c5.ftr
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c4.ftr
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c3.ftr
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c2.ftr
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/c1.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/tek-cift.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/seri-toplam.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/selamlama.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/pozitif-negatif.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/ortalama.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/mutlak-deger.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/merhaba.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/karenin-alani.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/iki-sayi-toplama.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/gecti-kaldi.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/faktoriyel.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/dikdortgen-cevre.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/buyuk-kucuk.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/askerlik-durumu.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/5-defa-merhaba.ftr
 	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/flowingtr/doc/ 
 
 

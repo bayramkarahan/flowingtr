@@ -73,6 +73,7 @@ public:
     DiagramTextItem(QMenu *contextMenu,QGraphicsItem *parent = 0);
 
     int type() const override { return Type; }
+    double caleFactor;
 
 signals:
     void lostFocus(DiagramTextItem *item);

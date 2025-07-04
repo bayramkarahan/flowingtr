@@ -465,7 +465,7 @@ void MainWindow::worker()
     {
         for (int j = 0; j <diagramItem->selectedVariables.size(); ++j) {
             VariableRecord varselect =diagramItem->selectedVariables[j];
-            qDebug()<<"kullanılan değişkenim:"<<varselect.label<<varselect.valueType<<varselect.value<<varselect.isInput;
+            //qDebug()<<"kullanılan değişkenim:"<<varselect.label<<varselect.valueType<<varselect.value<<varselect.isInput;
             if(varselect.isInput)
             {
                 bool ok = false;
@@ -541,7 +541,7 @@ void MainWindow::worker()
     {
         for (int j = 0; j <diagramItem->selectedVariables.size(); ++j) {
             VariableRecord varselect =diagramItem->selectedVariables[j];
-            qDebug()<<"kullanılan değişkenim: "<<varselect.label<<varselect.operationType<<varselect.value<<varselect.expression;
+           /// qDebug()<<"kullanılan değişkenim: "<<varselect.label<<varselect.operationType<<varselect.value<<varselect.expression;
             for (int j = 0; j < Variable::onlineVariableList.size(); ++j) {
                 VariableRecord var = Variable::onlineVariableList[j];
                 if(varselect.label==var.label)
@@ -1631,113 +1631,68 @@ void MainWindow::createMenus()
 
     fileMenu->addAction(exitAction);
  QAction* action;
-    programExample=menuBar()->addMenu(tr("&Kodlama"));
+    programExample=menuBar()->addMenu(tr("&Örnekler"));
 
     action = programExample->addAction("1- Merhaba Dünya");
-    action->setData("c1.ftr");
+    action->setData("merhaba.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("2- Selamlama");
-    action->setData("c2.ftr");
+    action->setData("selamlama.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("3- İki Sayının Toplamı");
-    action->setData("c3.ftr");
+    action->setData("iki-sayi-toplama.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("4- İki Sayının Ortalaması");
-    action->setData("c4.ftr");
+    action->setData("ortalama.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("5- Dikdörtgenin Çevresi");
-    action->setData("c5.ftr");
+    action->setData("dikdortgen-cevre.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
     action = programExample->addAction("6- Karenini Alanı");
-    action->setData("c6.ftr");
+    action->setData("karenin-alani.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("7- ---------");
-    action->setData("c7.ftr");
+    action = programExample->addAction("7- Beş Defa Merhaba");
+    action->setData("5-defa-merhaba.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("8- ---------");
-    action->setData("c8.ftr");
+    action = programExample->addAction("8- Seri Toplamı");
+    action->setData("seri-toplam.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("9- ---------");
-    action->setData("c9.ftr");
+    action = programExample->addAction("9- Dersten Geçme Durumu");
+    action->setData("gecti-kaldi.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("10- ---------");
-    action->setData("c10.ftr");
+    action = programExample->addAction("10- Sayının Pozitif-Negatif Testi");
+    action->setData("pozitif-negatif.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("11- ---------");
-    action->setData("c11.ftr");
+    action = programExample->addAction("11- Büyük Sayıyı Bulma");
+    action->setData("buyuk-kucuk.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = programExample->addAction("12- ---------");
-    action->setData("c12.ftr");
+    action = programExample->addAction("12- Tek-Çift Sayı Tespiti");
+    action->setData("tek-cift.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-
-    mathExample=menuBar()->addMenu(tr("&Matematik"));
-    action = mathExample->addAction("1- Sayının İki Katı");
-    action->setData("m1.ftr");
+    action = programExample->addAction("13- Askerlik Durumu");
+    action->setData("askerlik-durumu.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = mathExample->addAction("2- İki Sayının  Toplamı");
-    action->setData("m2.ftr");
+    action = programExample->addAction("14- Mutlak Değer");
+    action->setData("mutlak-deger.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = mathExample->addAction("3- Sayının Karesi");
-    action->setData("m3.ftr");
+    action = programExample->addAction("15- 5'in Faktoriyeli");
+    action->setData("faktoriyel.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
-    action = mathExample->addAction("4- İki Sayının Ortalaması");
-    action->setData("m4.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("5- -----------");
-    action->setData("m5.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("6- ---------");
-    action->setData("m6.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("7- -----------");
-    action->setData("m7.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("8- -----------");
-    action->setData("m8.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("9- -----------");
-    action->setData("m9.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("10- -----------");
-    action->setData("m10.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("11- -----------");
-    action->setData("m11.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("12- -----------");
-    action->setData("m12.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("13- -----------");
-    action->setData("m13.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
-
-    action = mathExample->addAction("14- -----------");
-    action->setData("m14.ftr");
-    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
 
     itemMenu = menuBar()->addMenu(tr("&Düzen"));

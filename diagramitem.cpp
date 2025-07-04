@@ -249,10 +249,13 @@ bool DiagramItem::addArrowState(Arrow *arrow,QString polar,QString rota)
     {
        if(polarCount>1)return false;
     }
-    if(this->myDiagramType==Diagram::DiagramType::Conditional
-            ||this->myDiagramType==Diagram::DiagramType::Link)
+    if(this->myDiagramType==Diagram::DiagramType::Conditional)
     {
        if(polarCount>2)return false;
+    }
+    if(this->myDiagramType==Diagram::DiagramType::Link)
+    {
+        if(polarCount>3)return false;
     }
     //arrows.append(arrow);
     if(polar=="start"&&startArrow==0) { startArrow=arrow;startArrowRota=rota;return true;}
@@ -315,8 +318,20 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
         foreach (Arrow *arrow, arrows) {
             arrow->updatePosition();
         }
+        //return value;
     }
 
+   /* if (change == QGraphicsItem::ItemTransformChange ||
+        change == QGraphicsItem::ItemPositionChange ||
+        change == QGraphicsItem::ItemScaleChange)
+    {
+        QRectF rect = this->boundingRect();
+        QSizeF textSize = labelItem->boundingRect().size()*0.5;
+        QPointF textPos(rect.center().x() - textSize.width() / 2,
+                        rect.center().y() - textSize.height() / 2);
+        labelItem->setPos(textPos);
+    }*/
+    //return QGraphicsItem::itemChange(change, value);
     return value;
 }
 //! [6]
@@ -1028,30 +1043,23 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         // "Out" yazısını alt sağ köşeye yaz
         painter->drawStaticText(rect.right(),rect.bottom()-rect.height()/2-15, QStaticText("Out"));
     }
-    // Çokgenin alanı
-    QRectF rect = this->boundingRect();    // label boyutunu al
+      // Çokgenin alanı
+   QRectF rect = this->boundingRect();    // label boyutunu al
     QSizeF textSize = label.size();  // QStaticText boyutu
     // Ortalanmış pozisyon (x, y)
-    QPointF textPos(rect.left() + (rect.width()  - textSize.width()) / 2,
-                    rect.top()  + (rect.height() - textSize.height()) / 2);
-    //labelDiagram.setTextWidth(200);
+   QPointF textPos(rect.left() + (rect.width()  - textSize.width()) / 2,
+                rect.top()  + (rect.height() - textSize.height()) / 2);
+    //label.setTextWidth(this->boundingRect().width()*0.8);
+   //label->setFlag(QGraphicsItem::ItemIgnoresTransformations); // SABİT BOYUT
     painter->drawStaticText(textPos, label);// Metni çiz
-        //qDebug()<<labelDiagram.text();
-    // qDebug()<<myDiagramType;
-   /* if(rotateState)
-    {
-        QStaticText text;
-        text.setTextWidth(this->boundingRect().width()*0.9);
-        text.setText("<font size=1>sa<br/></font>");
-       // qDebug()<<arrows;
-        painter->drawStaticText(QPoint(this->boundingRect().center().x(),this->boundingRect().center().y()), text);
-    }else
-    {
-        QStaticText text;
-        text.setTextWidth(this->boundingRect().width()*0.9);
-        text.setText("<font size=1>as</font>");
-        painter->drawStaticText(QPoint(this->boundingRect().center().x(),this->boundingRect().center().y()), text);
-    }*/
+
+   /* QRectF rect = boundingRect();
+    labelItem->setHtml(label.text());
+    QRectF textRect = labelItem->boundingRect();
+    QPointF textPos(rect.left() + (rect.width()/2 - textRect.width()) / 2,
+                    rect.top()  + (rect.height()/2 - textRect.height()) / 2);
+    labelItem->setPos(textPos);
+*/
     if (isSelected())
         painter->setPen(QPen(QColor(255,0,0,75), 3, Qt::DashLine));
     else
@@ -1097,8 +1105,25 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     }
 
+
+
     update();
 
     // setVisibilityGrabbers();
 }
 
+
+
+void DiagramItem::updateLabelPosition()
+{
+    /*labelItem->setHtml(label.text());
+    QRectF rect = this->boundingRect();             // DiagramItem alanı
+    QRectF textRect = labelItem->boundingRect();    // labelItem alanı
+    QPointF centerPos(
+        rect.center().x() - textRect.width() / 2,
+        rect.center().y() - textRect.height() / 2
+        );
+    qreal inverseScale = 1.0 / this->scale(); // veya transform().m11()
+    labelItem->setScale(inverseScale);
+    labelItem->setPos(centerPos);*/
+}
