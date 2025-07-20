@@ -1,52 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
 
 #include "diagramitem.h"
 #include "arrow.h"
@@ -67,19 +18,22 @@ DiagramItem::DiagramItem(Diagram::DiagramType diagramType, QMenu *contextMenu,
              QGraphicsItem *parent)
     : QGraphicsPolygonItem(parent)
 {
-startArrow=0;
-endArrow=0;
-leftArrow=0;
-rightArrow=0;
+    startArrow=0;
+    endArrow=0;
+    leftArrow=0;
+    rightArrow=0;
     drm=0;
     myDiagramType = diagramType;
     myContextMenu = contextMenu;
     //label=new QStaticText();
     label.setText("");
+
     labelAlgoritma.setText("");
     //label->setStyleSheet("background: red");
     //label->show();
-    myBackground=QColor(0,0,0,0);
+    myBackgroundColor=QColor(0,0,0,0);
+   // qDebug()<<"ayaralnana renk"<<myBackgroundColor.name(QColor::HexArgb);
+    myTextColor=QColor(0,0,0,255);
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
@@ -95,6 +49,34 @@ rightArrow=0;
 
 setVisibilityGrabbers();
 //drm=false;
+
+if(myDiagramType==Diagram::DiagramType::Input)
+{this->myDiagramWidth=200;this->myDiagramHeight=90;}
+
+if(myDiagramType==Diagram::DiagramType::Start)
+{this->myDiagramWidth=100;this->myDiagramHeight=60;}
+
+if(myDiagramType==Diagram::DiagramType::End)
+{this->myDiagramWidth=100;this->myDiagramHeight=60;}
+
+if(myDiagramType==Diagram::DiagramType::Process)
+{this->myDiagramWidth=200;this->myDiagramHeight=75;}
+
+if(myDiagramType==Diagram::DiagramType::Conditional)
+{this->myDiagramWidth=200;this->myDiagramHeight=90;}
+
+if(myDiagramType==Diagram::DiagramType::Loop)
+{this->myDiagramWidth=200;this->myDiagramHeight=75;}
+
+if(myDiagramType==Diagram::DiagramType::Output)
+{this->myDiagramWidth=200;this->myDiagramHeight=90;}
+
+if(myDiagramType==Diagram::DiagramType::Link)
+{this->myDiagramWidth=50;this->myDiagramHeight=50;}
+
+
+f.setBold(true);
+f = QFont("Arial", 12);
 }
 void DiagramItem::setVisibilityGrabbers()
 {
@@ -275,34 +257,24 @@ void DiagramItem::setText(QString text,QColor color)
 {
     if(text!="step")
     {
-    labelText = text; // sakla
-   label = QStaticText(text);
-    labelText = text; // sakla
-    label = QStaticText(text);
+        labelText = text; // sakla
+        label = QStaticText(text);
+        labelText = text; // sakla
+        label = QStaticText(text);
 
     }
-  ///  myBackground = color;
-    setBrush(myBackground);         // ⬅️ Görsel rengi uygula!
+    ///  myBackground = color;
+    setBrush(myBackgroundColor);         // ⬅️ Görsel rengi uygula!
     /// labelDiagram.setText(text);
     //  labelDiagram.setText(QString::number(myDiagramType));
-    myBackground=color;
+    myBackgroundColor=color;
     //painter->setBrush(myBackground);
     update();
 }
-//! [3]
-//! [4]
-QPixmap DiagramItem::image() const
-{
-    QPixmap pixmap(250, 250);
-    pixmap.fill(Qt::transparent);
-    QPainter painter(&pixmap);
-    painter.setPen(QPen(Qt::black, 8));
-    painter.translate(125, 125);
-    painter.drawPolyline(myPolygon);
 
-    return pixmap;
-}
-//! [4]
+
+//! [3]
+
 //! [5]
 void DiagramItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
@@ -332,6 +304,7 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
         labelItem->setPos(textPos);
     }*/
     //return QGraphicsItem::itemChange(change, value);
+
     return value;
 }
 //! [6]
@@ -365,30 +338,46 @@ void DiagramItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                 if(selected.inputMessage!="")
                     inputMesaj="\""+selected.inputMessage+"\", ";
 
-                if (selected.isInput&&selected.valueType == "number") {
-                    label.setText(label.text() + "<br>" +inputMesaj+  selected.label + " = ?");
-                    labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +inputMesaj+  selected.label + " (oku)");
+                if(label.text()=="")
+                {
+                    if (selected.isInput&&selected.valueType == "number") {
+                        label.setText(inputMesaj+  selected.label + " = ?");
+                        labelAlgoritma.setText(inputMesaj+  selected.label + " (oku)");
+                    }
+                    if (selected.isInput&&selected.valueType == "text") {
+                        label.setText(inputMesaj+  selected.label + " = ?");
+                        labelAlgoritma.setText(inputMesaj+  selected.label + " (oku)");
+                    }
+                    if (!selected.isInput&&selected.valueType == "number") {
+                        label.setText( selected.label + " = " + selected.value);
+                        labelAlgoritma.setText(selected.label + " = " + selected.value);
+                    }
+                    if (!selected.isInput&&selected.valueType == "text") {
+                        label.setText(selected.label + " = \"" + selected.value + "\"");
+                        labelAlgoritma.setText(selected.label + " = \"" + selected.value + "\"");
+                    }
+
                 }
-                if (selected.isInput&&selected.valueType == "text") {
-                    label.setText(label.text() + "<br>" +inputMesaj+  selected.label + " = ?");
-                    labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +inputMesaj+  selected.label + " (oku)");
+                else
+                {
+                    if (selected.isInput&&selected.valueType == "number") {
+                        label.setText(label.text() + "<br>" +inputMesaj+  selected.label + " = ?");
+                        labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +inputMesaj+  selected.label + " (oku)");
+                    }
+                    if (selected.isInput&&selected.valueType == "text") {
+                        label.setText(label.text() + "<br>" +inputMesaj+  selected.label + " = ?");
+                        labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +inputMesaj+  selected.label + " (oku)");
+                    }
+                    if (!selected.isInput&&selected.valueType == "number") {
+                        label.setText(label.text() + "<br>" + selected.label + " = " + selected.value);
+                        labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +selected.label + " = " + selected.value);
+                    }
+                    if (!selected.isInput&&selected.valueType == "text") {
+                        label.setText(label.text() + "<br>" + selected.label + " = \"" + selected.value + "\"");
+                        labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +selected.label + " = \"" + selected.value + "\"");
+                    }
+
                 }
-                if (!selected.isInput&&selected.valueType == "number") {
-                    label.setText(label.text() + "<br>" + selected.label + " = " + selected.value);
-                    labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +selected.label + " = " + selected.value);
-                 }
-                if (!selected.isInput&&selected.valueType == "text") {
-                     label.setText(label.text() + "<br>" + selected.label + " = \"" + selected.value + "\"");
-                     labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +selected.label + " = \"" + selected.value + "\"");
-                  }
-                /*
-                else if (selected.valueType == "number") {
-                    label.setText(label.text() + "<br>" +selected.inputMessage+" "+ selected.label + " = " + selected.value);
-                    labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +selected.inputMessage+" "+ selected.label + " = " + selected.value);
-                 } else {
-                    label.setText(label.text() + "<br>" +selected.inputMessage+" "+ selected.label + " = \"" + selected.value + "\"");
-                    labelAlgoritma.setText(labelAlgoritma.text() + "<br>" +selected.inputMessage+" "+ selected.label + " = \"" + selected.value + "\"");
-                 }*/
                 labelText=label.text();
                 labelAlgoritmaText=labelAlgoritma.text();
             }
@@ -428,31 +417,29 @@ void DiagramItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                          outputMesaj="\""+selected.outputMessage+"\", ";
 
                      /**********************************************/
-                     /*if(label.text()=="")
+                     if(label.text()=="")
                      {
                          if(rec.outputType!=1)
                          {
                              label.setText(outputMesaj+selected.expression);
                              labelAlgoritma.setText(outputMesaj+selected.expression+" (yaz)");
-                         }
-                         else
-                         {
+                         }else{
                              label.setText(outputMesaj+selected.expression+"="+selected.expression);
-                             labelAlgoritma.setText(outputMesaj+selected.expression+"="+selected.expression +" (yaz)");
+                             labelAlgoritma.setText(outputMesaj+selected.expression+"="+selected.expression+" (yaz)");
                          }
                      }
                      else
-                     {*/
+                     {
                          if(rec.outputType!=1)
                          {
-                            label.setText(label.text()+"<br>"+outputMesaj+selected.expression);
-                            labelAlgoritma.setText(labelAlgoritma.text()+"<br>"+outputMesaj+selected.expression+" (yaz)");
+                             label.setText(label.text()+"<br>"+outputMesaj+selected.expression);
+                             labelAlgoritma.setText(labelAlgoritma.text()+"<br>"+outputMesaj+selected.expression+" (yaz)");
                          }else{
-                            label.setText(label.text()+"<br>"+outputMesaj+selected.expression+"="+selected.expression);
-                            labelAlgoritma.setText(labelAlgoritma.text()+"<br>"+outputMesaj+selected.expression+"="+selected.expression+" (yaz)");
+                             label.setText(label.text()+"<br>"+outputMesaj+selected.expression+"="+selected.expression);
+                             labelAlgoritma.setText(labelAlgoritma.text()+"<br>"+outputMesaj+selected.expression+"="+selected.expression+" (yaz)");
                          }
-                     ///}
-                     /*********************************************/
+                     }
+                      /*********************************************/
                      labelText=label.text();
                      labelAlgoritmaText=labelAlgoritma.text();
                  }
@@ -507,6 +494,7 @@ void DiagramItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                     labelAlgoritma.setText(label.text());
                 }
             }
+            //setTempText(label.text(),QColor(255,0,0,255));
         }
     }
     if(this->myDiagramType==Diagram::DiagramType::Loop)
@@ -989,6 +977,20 @@ void DiagramItem::rotateItem(const QPointF &pt)
 void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
           QWidget *)
 {
+
+    QFont f1=f;
+    f1.setUnderline(false);
+    painter->setFont(f1);
+    painter->setBrush(myBackgroundColor);
+    painter->setPen(QPen(myBorderColor, 3, Qt::SolidLine));
+    if (isSelected())
+        painter->setPen(QPen(QColor(255,0,0,75), 3, Qt::DashLine));
+    else
+        painter->setPen(QPen(myBorderColor, 3, Qt::SolidLine));
+
+    painter->drawPolygon(myPolygon);
+    setPolygon(myPolygon);
+    painter->setPen(QPen(myTextColor, 3, Qt::SolidLine));
     int polarCount=0;
     if(startArrow!=0) polarCount++;
     if(endArrow!=0) polarCount++;
@@ -1022,7 +1024,7 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         if(polarCount>3)renkdrm= false;
         else  renkdrm= true;
     }
-    myPolygon=item->sekilStore(myDiagramType,this->boundingRect());
+    myPolygon=item->sekilStore(myDiagramType,QRectF(0,0,myDiagramWidth,myDiagramHeight));
     if(myDiagramType==Diagram::DiagramType::Start){
         label.setText("Başla");labelAlgoritma.setText("Başla");
     }
@@ -1043,27 +1045,29 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         // "Out" yazısını alt sağ köşeye yaz
         painter->drawStaticText(rect.right(),rect.bottom()-rect.height()/2-15, QStaticText("Out"));
     }
-      // Çokgenin alanı
-   QRectF rect = this->boundingRect();    // label boyutunu al
+
+    // Çokgenin alanı
+    QTextOption opt;
+    opt.setAlignment(Qt::AlignCenter);
+    label.setTextOption(opt);
+    QRectF rect = this->boundingRect();    // label boyutunu al
     QSizeF textSize = label.size();  // QStaticText boyutu
     // Ortalanmış pozisyon (x, y)
-   QPointF textPos(rect.left() + (rect.width()  - textSize.width()) / 2,
-                rect.top()  + (rect.height() - textSize.height()) / 2);
-    //label.setTextWidth(this->boundingRect().width()*0.8);
-   //label->setFlag(QGraphicsItem::ItemIgnoresTransformations); // SABİT BOYUT
+    QPointF textPos;
+    if(myDiagramType==Diagram::DiagramType::Output){
+        qreal y = rect.top() + (rect.height()*0.1);
+        textPos = QPointF(rect.left() + (rect.width() - textSize.width()) / 2, y);
+    }
+    else
+    {
+        qreal y = (rect.height() - textSize.height()) / 2;
+        textPos = QPointF(rect.left() + (rect.width() - textSize.width()) / 2, y);
+    }
+
+    label.setTextWidth(this->boundingRect().width());
     painter->drawStaticText(textPos, label);// Metni çiz
 
-   /* QRectF rect = boundingRect();
-    labelItem->setHtml(label.text());
-    QRectF textRect = labelItem->boundingRect();
-    QPointF textPos(rect.left() + (rect.width()/2 - textRect.width()) / 2,
-                    rect.top()  + (rect.height()/2 - textRect.height()) / 2);
-    labelItem->setPos(textPos);
-*/
-    if (isSelected())
-        painter->setPen(QPen(QColor(255,0,0,75), 3, Qt::DashLine));
-    else
-       painter->setPen(QPen(QColor(0,0,0,255), 3, Qt::SolidLine));
+
 
     if(drm)
     {
@@ -1083,27 +1087,12 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         cornerGrabber[GrabberTop]->renkdrm=renkdrm;
 
     }
-    painter->setBrush(myBackground);
-    painter->drawPolygon(myPolygon);
-    setPolygon(myPolygon);
+
+
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
  setPositionGrabbers();
-//qDebug()<<m_leftMouseButtonPressed;
-    if (rotateState) {
-       // drm=true;
-        rotateState=false;
-       // painter->setBackground(QColor(200,0,0,200));
-        painter->setPen(QPen(QColor(0,0,0,255), 3, Qt::DashLine));
-        QPolygonF myPol =myPolygon;
-        myPol.translate(0, 4.0);
-
-       painter->drawPolygon(myPolygon);
-        //myPol.translate(0,-8.0);
-       // painter->drawPolygon(myPol);
-
-    }
 
 
 
@@ -1114,16 +1103,3 @@ void DiagramItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
 
 
-void DiagramItem::updateLabelPosition()
-{
-    /*labelItem->setHtml(label.text());
-    QRectF rect = this->boundingRect();             // DiagramItem alanı
-    QRectF textRect = labelItem->boundingRect();    // labelItem alanı
-    QPointF centerPos(
-        rect.center().x() - textRect.width() / 2,
-        rect.center().y() - textRect.height() / 2
-        );
-    qreal inverseScale = 1.0 / this->scale(); // veya transform().m11()
-    labelItem->setScale(inverseScale);
-    labelItem->setPos(centerPos);*/
-}

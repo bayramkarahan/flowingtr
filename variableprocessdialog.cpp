@@ -76,10 +76,11 @@ void VariableProcessDialog::addExpressionRow()
     row->operationTypeCombo = new QComboBox(row->widget);
     row->operationTypeCombo->addItems({
         "📥 Sabit Atama (var = 5)",
-        "🧮 Değişken Atama (var = var1)",
-        "➕ İki Değişkenli İşlem (var = var1 + var2)",
-        "➕ Değişken + Sabit İşlem (var = var1 + 5)",
-        "➕ Sabit İşlem + Sabit İşlem (var=3 + 5)",
+        "📥 Değişken Atama (var = var1)",
+        "📥 İki Değişkenli İşlem (var = var1 + var2)",
+        "📥 Değişken + Sabit İşlem (var = var1 + 5)",
+        "📥 Sabit İşlem + Sabit İşlem (var=3 + 5)",
+        "📥 Fonksiyon Atama (var = Rasgele_Sayı_Üret())",
     });
     layout->addWidget(row->operationTypeCombo);
 
@@ -166,6 +167,7 @@ void VariableProcessDialog::addExpressionRowparametre(int operationType, const Q
         "İki Değişkenli İşlem (var=var1 + var2)",
         "Değişken + Sabit İşlem (var=var1 + 5)",
         "Sabit İşlem + Sabit İşlem (var=3 + 5)",
+        "📥 Fonksiyon Atama (var = Rasgele_Sayı_Üret())",
     });
     layout->addWidget(row->operationTypeCombo);
 
@@ -296,6 +298,10 @@ void VariableProcessDialog::addExpressionRowparametre(int operationType, const Q
             }
         }
         break;
+        case 5: // Fonksiyon Atama (var = Random())
+            qDebug()<<"atama0";
+            row->constEdit1->setText(rightExpr);
+            break;
         }
     }
 
@@ -353,6 +359,12 @@ void VariableProcessDialog::updateExpressionRowWidgets(int index)
         row->operatorCombo->setVisible(true);
         row->constEdit2->setVisible(true);
         break;
+    case 5: // Sabit Atama: var = 5
+        row->constEdit1->setVisible(true);
+        row->constEdit1->setPlaceholderText("Random Araralık (0-100) Gir");
+        row->constEdit1->setText("50");
+        row->constEdit1->setFixedWidth(200);
+        break;
     }
 }
 
@@ -402,6 +414,11 @@ QList<ProcessRecord> VariableProcessDialog::getExpressionsWithType() const
                        .arg(row->operatorCombo->currentText())
                        .arg(row->constEdit2->text());
             rec.targetLabel = row->variableTargetCombo->currentText();
+            break;
+        case 5:
+            rec.expression = QString("%1 = Rnd( 0 - %2 )").arg(target).arg(row->constEdit1->text());
+            rec.targetLabel = row->variableTargetCombo->currentText();
+
             break;
         }
         list.append(rec);

@@ -42,16 +42,20 @@ public:
     int type() const override { return Type;}
 */
      //! [4]
-     QPixmap image(Diagram::DiagramType type)
+     QPixmap image(Diagram::DiagramType type, int w, int h)
      {
-         QPixmap pixmap(250, 250);
+         QPixmap pixmap(w, h);
          pixmap.fill(Qt::transparent);
+
          QPainter painter(&pixmap);
-         painter.setPen(QPen(Qt::black, 8));
-         painter.translate(125, 90);
-         painter.drawPolyline(sekilStore(type,QRectF(0,0,200,200)));
+         painter.setRenderHint(QPainter::Antialiasing); // Daha düzgün kenarlar
+         painter.setPen(QPen(Qt::black, 3));
+         if(type==DiagramType::Link) painter.setPen(QPen(Qt::black, 1.5));
+         QRectF rect(w*0.1, h * 0.05, w*0.8, h * 0.6); // Y 0.2h’den başlıyor
+         painter.drawPolyline(sekilStore(type, rect));
          return pixmap;
      }
+
      //! [4]
 
      QPolygonF  sekilStore(Diagram::DiagramType sek, QRectF rect)
@@ -69,48 +73,84 @@ public:
          QPolygonF result;
          if(sek==Diagram::DiagramType::Start)
          {
-             path.addRoundedRect(QRectF(-75, -50, 150, 100), 75, 75);
+             //path.addRoundedRect(QRectF(-75, -50, 150, 100), 75, 75);
+             path.addRoundedRect(rect, rect.width()/2, rect.height()/2);
+
             result = path.toFillPolygon();
          }
          if(sek==Diagram::DiagramType::End)
          {
-             path.addRoundedRect(QRectF(-75, -50, 150, 100), 75, 75);
+           //  path.addRoundedRect(QRectF(-75, -50, 150, 100), 75, 75);
+             path.addRoundedRect(rect, rect.width()/2, rect.height()/2);
+
             result = path.toFillPolygon();
          }
          if(sek==Diagram::DiagramType::Link)
          {
-             path.addRoundedRect(QRectF(-30, -30, 60 ,60), 75, 75);
+             //path.addRoundedRect(QRectF(-30, -30, 60 ,60), 75, 75);
+             path.addRoundedRect(rect, rect.width(), rect.height());
             result = path.toFillPolygon();
+
+
          }
          if(sek==Diagram::DiagramType::Conditional)
          {
-             result << QPointF(-100, 0) << QPointF(0, 50)
+            /* result << QPointF(-100, 0) << QPointF(0, 50)
                        << QPointF(100, 0) << QPointF(0, -50)
-                       << QPointF(-100, 0);
-
+                       << QPointF(-100, 0);*/
+             result
+                 << QPointF(rect.left(), rect.center().y())                  // (-100, 0)
+                 << QPointF(rect.center().x(), rect.bottom())                // (0, 50)
+                 << QPointF(rect.right(), rect.center().y())                 // (100, 0)
+                 << QPointF(rect.center().x(), rect.top())                   // (0, -50)
+                 << QPointF(rect.left(), rect.center().y());                 // (-100, 0)
          }
          if(sek==Diagram::DiagramType::Process)
          {
-             result << QPointF(-100, -50) << QPointF(100, -50)
+             /*result << QPointF(-100, -50) << QPointF(100, -50)
                        << QPointF(100, 50) << QPointF(-100, 50)
-                       << QPointF(-100, -50);
+                       << QPointF(-100, -50);*/
+
+              result << QPointF(rect.left(), rect.top())
+                 << QPointF(rect.right(), rect.top())
+                 << QPointF(rect.right(), rect.bottom())
+                 << QPointF(rect.left(), rect.bottom())
+                 << QPointF(rect.left(), rect.top());
+
        }
      if(sek==Diagram::DiagramType::Input)
      {
-           result << QPointF(-100, 50) << QPointF(-70, -50)
+          /* result << QPointF(-100, 50) << QPointF(-70, -50)
                    << QPointF(100, -50) << QPointF(70, 50)
-                   << QPointF(-100,50);
+                   << QPointF(-100,50);*/
+
+          result  << QPointF(rect.left(), rect.bottom())                        // (-100, 50)
+              << QPointF(rect.left() + rect.width() * 0.2, rect.top())      // (-70, -50)
+              << QPointF(rect.right(), rect.top())                          // (100, -50)
+              << QPointF(rect.right() - rect.width() * 0.2, rect.bottom())  // (70, 50)
+              << QPointF(rect.left(), rect.bottom());                       // (-100, 50)
+
+
      }
      if(sek==Diagram::DiagramType::Loop)
      {
-           result << QPointF(-80, 50) << QPointF(-120, 0)
+       /*    result << QPointF(-80, 50) << QPointF(-120, 0)
                    << QPointF(-80, -50) << QPointF(80, -50)
                    << QPointF(120,0) << QPointF(80, 50)
-                       << QPointF(-80, 50);
+                       << QPointF(-80, 50);*/
+         result
+             << QPointF(rect.left() + rect.width() * 0.2, rect.bottom())         // (-80, 50)
+             << QPointF(rect.left(), rect.center().y())                         // (-120, 0)
+             << QPointF(rect.left() + rect.width() * 0.2, rect.top())           // (-80, -50)
+             << QPointF(rect.right() - rect.width() * 0.2, rect.top())          // (80, -50)
+             << QPointF(rect.right(), rect.center().y())                        // (120, 0)
+             << QPointF(rect.right() - rect.width() * 0.2, rect.bottom())       // (80, 50)
+             << QPointF(rect.left() + rect.width() * 0.2, rect.bottom());       // (-80, 50)
+
      }
      if(sek==Diagram::DiagramType::Output)
      {
-         path.moveTo(-100, -50);
+      /*   path.moveTo(-100, -50);
          path.lineTo(100, -50);
          path.lineTo(100, 0);
          path.cubicTo(100, 0, 40, 50, 40, 50);
@@ -119,7 +159,28 @@ public:
          QTransform transform;
          transform.scale(1.0, 1.0);  // Sadece Y yönünde küçültme
          QPainterPath scaledPath = transform.map(path);
-         result = scaledPath.toFillPolygon();
+         result = scaledPath.toFillPolygon();*/
+         QRectF r = rect; // Kolaylık için
+         path.moveTo(r.left(), r.top());                              // Sol üst
+         path.lineTo(r.right(), r.top());                             // Sağ üst
+         path.lineTo(r.right(), r.center().y());                      // Sağ ortadan aşağıya
+
+         // İlk kıvrım (sağdan sola)
+         path.cubicTo(r.right(), r.center().y(),
+                      r.left() + r.width() * 0.6, r.bottom(),
+                      r.left() + r.width() * 0.6, r.bottom());
+
+         // İkinci kıvrım (alt ortadan sola)
+         path.cubicTo(r.left() + r.width() * 0.5, r.bottom() + r.height() * 0.3,
+                      r.left() + r.width() * 0.2, r.bottom() + r.height() * 0.4,
+                      r.left(), r.bottom());
+
+         // Sol ortadan yukarıya
+         path.lineTo(r.left(), r.top() + r.height() * 0.1);
+
+         result = path.toFillPolygon();
+
+
      }
      if(sek==Diagram::DiagramType::Play)
      {

@@ -1,52 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
 
 #include "DiagramScene.h"
 #include "arrow.h"
@@ -66,21 +17,46 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     myItemType = Diagram::Start;
     line = 0;
     textItem = 0;
-    myItemColor = Qt::white;
+    myBackgroundColor = Qt::white;
     myTextColor = Qt::black;
-    myLineColor = Qt::black;
+    myBorderColor = Qt::black;
 }
 //! [0]
 
 //! [1]
 void DiagramScene::setLineColor(const QColor &color)
 {
-    myLineColor = color;
-    if (isItemChange(Arrow::Type)) {
-        Arrow *item = qgraphicsitem_cast<Arrow *>(selectedItems().first());
-        item->setColor(myLineColor);
-        update();
+    myBorderColor = color;
+    if (isItemChange(DiagramTextItem::Type)) {
+        DiagramTextItem *item = qgraphicsitem_cast<DiagramTextItem *>(selectedItems().first());
+        //item->setDefaultTextColor(myTextColor);
+        item->myBorderColor=color;
     }
+    if (isItemChange(Arrow::Type)) {
+
+        for (QGraphicsItem *item : selectedItems()) {
+            Arrow *itemArrrow = qgraphicsitem_cast<Arrow*>(item);
+            if (!itemArrrow) continue;
+            if (itemArrrow)
+            {
+                 itemArrrow->myBorderColor=color;
+            }
+        }
+    }
+
+    if (isItemChange(DiagramItem::Type)) {
+
+        for (QGraphicsItem *item : selectedItems()) {
+            DiagramItem *itemDiagram = qgraphicsitem_cast<DiagramItem*>(item);
+            if (!itemDiagram) continue;
+            if (itemDiagram)
+            {
+                itemDiagram->myBorderColor=color;
+            }
+        }
+    }
+
+    update();
 }
 //! [1]
 
@@ -92,23 +68,63 @@ void DiagramScene::setTextColor(const QColor &color)
         DiagramTextItem *item = qgraphicsitem_cast<DiagramTextItem *>(selectedItems().first());
         item->setDefaultTextColor(myTextColor);
     }
+
+    if (isItemChange(Arrow::Type)) {
+
+        for (QGraphicsItem *item : selectedItems()) {
+            Arrow *itemArrrow = qgraphicsitem_cast<Arrow*>(item);
+            if (!itemArrrow) continue;
+            if (itemArrrow)
+            {
+
+                itemArrrow->myTextColor=color;
+            }
+        }
+    }
+    if (isItemChange(DiagramItem::Type)) {
+
+        for (QGraphicsItem *item : selectedItems()) {
+            DiagramItem *itemDiagram = qgraphicsitem_cast<DiagramItem*>(item);
+            if (!itemDiagram) continue;
+            if (itemDiagram)
+            {
+                itemDiagram->myTextColor=color;
+                qDebug()<<"renk"<<color;
+            }
+        }
+    }
+    update();
 }
 //! [2]
 
 //! [3]
 void DiagramScene::setItemColor(const QColor &color)
 {
-    myItemColor = color;
-    if (isItemChange(DiagramItem::Type)) {
-        DiagramItem *item = qgraphicsitem_cast<DiagramItem *>(selectedItems().first());
-        item->setBrush(myItemColor);
+    if (isItemChange(DiagramTextItem::Type)) {
+        DiagramTextItem *item = qgraphicsitem_cast<DiagramTextItem *>(selectedItems().first());
+        item->myBackgroundColor=(color);
     }
+
+
+     if (isItemChange(DiagramItem::Type)) {
+
+        for (QGraphicsItem *item : selectedItems()) {
+            DiagramItem *itemDiagram = qgraphicsitem_cast<DiagramItem*>(item);
+            if (!itemDiagram) continue;
+            if (itemDiagram)
+            {
+                itemDiagram->myBackgroundColor=color;
+            }
+        }
+    }
+    update();
 }
 //! [3]
 
 //! [4]
 void DiagramScene::setFont(const QFont &font)
 {
+
     myFont = font;
 
     if (isItemChange(DiagramTextItem::Type)) {
@@ -116,7 +132,32 @@ void DiagramScene::setFont(const QFont &font)
         //At this point the selection can change so the first selected item might not be a DiagramTextItem
         if (item)
             item->setFont(myFont);
+
     }
+
+    if (isItemChange(Arrow::Type)) {
+
+        for (QGraphicsItem *item : selectedItems()) {
+            Arrow *itemArrrow = qgraphicsitem_cast<Arrow*>(item);
+            if (!itemArrrow) continue;
+             if (itemArrrow)
+            {
+                itemArrrow->f=myFont;
+            }
+        }
+    }
+    if (isItemChange(DiagramItem::Type)) {
+
+        for (QGraphicsItem *item : selectedItems()) {
+            DiagramItem *itemDiagram = qgraphicsitem_cast<DiagramItem*>(item);
+            if (!itemDiagram) continue;
+            if (itemDiagram)
+            {
+                itemDiagram->f=myFont;
+            }
+        }
+    }
+    update();
 }
 //! [4]
 
@@ -167,13 +208,17 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
     switch (myMode) {
         case InsertItem:
+       // qDebug()<<"ölçüler:"<<myDiagramWidth<<myDiagramHeight<<item->myDiagramWidth<<item->myDiagramHeight;
          if(haveStateItem(myItemType)&&myItemType==Diagram::DiagramType::Start) insertState=true;
         if(haveStateItem(myItemType)&&myItemType==Diagram::DiagramType::End) insertState=true;
 
         if(!insertState)
         {
             item = new DiagramItem(myItemType, myItemMenu);
-            item->setBrush(myItemColor);
+            item->myDiagramWidth=myDiagramWidth;
+            item->myDiagramHeight=myDiagramHeight;
+
+            item->setBrush(myBackgroundColor);
             addItem(item);
             item->setPos(mouseEvent->scenePos());
             if(myItemType==Diagram::DiagramType::Loop)
@@ -181,22 +226,24 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 ///qDebug()<<"Döngü Ekledin";
                 //alt link
                 DiagramItem *endLinkItem = new DiagramItem(Diagram::DiagramType::Link, myItemMenu);
-                endLinkItem->setBrush(myItemColor);
+                endLinkItem->setBrush(myBackgroundColor);
                 addItem(endLinkItem);
-                endLinkItem->setPos(mouseEvent->scenePos().x(),mouseEvent->scenePos().y()+150);
-                //sol alt link
+                endLinkItem->setPos(mouseEvent->scenePos().x()+75,mouseEvent->scenePos().y()+162);
+                //Process
                 DiagramItem *leftEndProcessItem = new DiagramItem(Diagram::DiagramType::Process, myItemMenu);
-                leftEndProcessItem->setBrush(myItemColor);
+                leftEndProcessItem->setBrush(myBackgroundColor);
                 addItem(leftEndProcessItem);
                 leftEndProcessItem->setPos(mouseEvent->scenePos().x()-250,mouseEvent->scenePos().y()+150);
                 //sol link
                 DiagramItem *leftLinkItem = new DiagramItem(Diagram::DiagramType::Link, myItemMenu);
-                leftLinkItem->setBrush(myItemColor);
+                leftLinkItem->setBrush(myBackgroundColor);
                 addItem(leftLinkItem);
-                leftLinkItem->setPos(mouseEvent->scenePos().x()-250,mouseEvent->scenePos().y());
+                leftLinkItem->setPos(mouseEvent->scenePos().x()-175,mouseEvent->scenePos().y()+12);
 
                 Arrow *arrow1 = new Arrow(item,endLinkItem,"end","start",myItemMenu);
-                arrow1->setColor(myLineColor);
+                arrow1->myBorderColor=myBorderColor;
+                arrow1->myTextColor=myTextColor;
+
                 item->addArrowState(arrow1,"end","O");
                 endLinkItem->addArrowState(arrow1,"start","I");
                 arrow1->setZValue(-1000.0);
@@ -204,7 +251,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 arrow1->updatePosition();
 
                 Arrow *arrow2 = new Arrow(endLinkItem,leftEndProcessItem,"left","right",myItemMenu);
-                arrow2->setColor(myLineColor);
+                arrow2->myBorderColor=myBorderColor;
+                arrow2->myTextColor=myTextColor;
                 endLinkItem->addArrowState(arrow2,"left","O");
                 leftEndProcessItem->addArrowState(arrow2,"right","I");
                 arrow2->setZValue(-1000.0);
@@ -212,7 +260,9 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 arrow2->updatePosition();
 
                 Arrow *arrow3 = new Arrow(leftEndProcessItem,leftLinkItem,"start","end",myItemMenu);
-                arrow3->setColor(myLineColor);
+
+                arrow3->myBorderColor=myBorderColor;
+                arrow3->myTextColor=myTextColor;
                 leftEndProcessItem->addArrowState(arrow3,"start","O");
                 leftLinkItem->addArrowState(arrow3,"end","I");
                 arrow3->setZValue(-1000.0);
@@ -220,7 +270,8 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
                 arrow3->updatePosition();
 
                 Arrow *arrow4 = new Arrow(leftLinkItem,item,"right","left",myItemMenu);
-                arrow4->setColor(myLineColor);
+                arrow4->myBorderColor=myBorderColor;
+                arrow4->myTextColor=myTextColor;
                 leftLinkItem->addArrowState(arrow4,"right","O");
                 item->addArrowState(arrow4,"left","I");
                 arrow4->setZValue(-1000.0);
@@ -237,7 +288,7 @@ void DiagramScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
             line = new QGraphicsLineItem(QLineF(mouseEvent->scenePos(),
                                         mouseEvent->scenePos()));
-            line->setPen(QPen(myLineColor, 2));
+            line->setPen(QPen(myBorderColor, 2));
             addItem(line);
             break;
 //! [7] //! [8]
@@ -358,8 +409,8 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
             if (!startPolar.isEmpty() && !endPolar.isEmpty()) {
                 Arrow *arrow = new Arrow(startItem, endItem, startPolar, endPolar, myItemMenu);
-                arrow->setColor(myLineColor);
-
+                arrow->myBorderColor=myBorderColor;
+                arrow->myTextColor=myTextColor;
                 bool startAddStatus = startItem->addArrowState(arrow, startPolar, "O");
                 bool endAddStatus   = endItem->addArrowState(arrow, endPolar, "I");
 
@@ -465,13 +516,14 @@ bool DiagramScene::isItemChange(int type)
 void DiagramScene::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Delete) {
-        QList<QGraphicsItem *> selectedItemsList = selectedItems();
-        for (QGraphicsItem *item : selectedItemsList) {
+
+       // QList<QGraphicsItem *> selectedItemsList = selectedItems();
+       // for (QGraphicsItem *item : selectedItemsList) {
             // Eğer özel bir DiagramItem ise, onun üzerinden özel temizleme gerekiyorsa burada yap
            // removeItem(item);
            //delete item;
             emit deleteItem();
-        }
+       // }
     } else {
         QGraphicsScene::keyPressEvent(event);  // Diğer tuşlar için varsayılan davranış
     }
@@ -484,9 +536,10 @@ void DiagramScene::scaleSelectedItems(qreal factor)
         for (QGraphicsItem *item : selectedItems()) {
             if (item->type() == DiagramItem::Type)
             {
-                item->setScale(item->scale() * factor);
-              // qgraphicsitem_cast<DiagramItem *>(item)->updateLabelPosition();
-                //item->updateLabelPosition
+               ///qDebug()<<"ölçek"<<factor<<item->boundingRect().width()<<item->boundingRect().height();
+               int newW=item->boundingRect().width()*factor;
+               qgraphicsitem_cast<DiagramItem *>(item)->myDiagramWidth=newW;
+              // qDebug()<<"nesne rengi:"<<qgraphicsitem_cast<DiagramItem *>(item)->myBackgroundColor.name();
             }
 
         }
@@ -523,8 +576,19 @@ void DiagramScene::saveScene(const QString &filePath)
             obj["polygon"] = pointsArray;
             obj["labelText"] = dItem->labelText;
             obj["labelAlgoritmaText"] = dItem->labelAlgoritmaText;
-            obj["backgroundColor"] = dItem->myBackground.name();
+            obj["backgroundColor"] = dItem->myBackgroundColor.name(QColor::HexArgb);
+            obj["textColor"] = dItem->myTextColor.name(QColor::HexArgb);
+            obj["borderColor"] = dItem->myBorderColor.name(QColor::HexArgb);
+            obj["diagramWidth"] = dItem->myDiagramWidth;
 
+            obj["fontFamily"] =  dItem->f.family();
+            obj["fontPointSize"] =  dItem->f.pointSize();
+            obj["fontWeight"] =  dItem->f.weight();
+            obj["fontItalic"] =  dItem->f.italic();
+            obj["fontUnderline"] =  dItem->f.underline();
+            obj["fontStrikeOut"] =  dItem->f.strikeOut();
+
+            //qDebug()<<"nesne rengi:"<<dItem->myBackgroundColor.name(QColor::HexArgb);
             // selectedVariables
             QJsonArray variableArray;
             for (const VariableRecord &v : dItem->selectedVariables) {
@@ -540,6 +604,7 @@ void DiagramScene::saveScene(const QString &filePath)
                 vObj["endValue"] = v.endValue;
                 vObj["stepValue"] = v.stepValue;
                 vObj["isInput"] = v.isInput;
+
                 variableArray.append(vObj);
             }
             obj["variables"] = variableArray;
@@ -551,7 +616,19 @@ void DiagramScene::saveScene(const QString &filePath)
             obj["text"] = tItem->toPlainText();
             obj["x"] = tItem->pos().x();
             obj["y"] = tItem->pos().y();
+            obj["backgroundColor"] = tItem->myBackgroundColor.name(QColor::HexArgb);
+            obj["textColor"] = tItem->defaultTextColor().name(QColor::HexArgb);
+            obj["borderColor"] = tItem->myBorderColor.name(QColor::HexArgb);
+
+            obj["fontFamily"] =  tItem->font().family();
+            obj["fontPointSize"] =  tItem->font().pointSize();
+            obj["fontWeight"] =  tItem->font().weight();
+            obj["fontItalic"] =  tItem->font().italic();
+            obj["fontUnderline"] =  tItem->font().underline();
+            obj["fontStrikeOut"] =  tItem->font().strikeOut();
+
             itemsArray.append(obj);
+
         }
     }
 
@@ -565,6 +642,14 @@ void DiagramScene::saveScene(const QString &filePath)
             obj["startPolar"] = arrow->myStartPolar;
             obj["endPolar"] = arrow->myEndPolar;
             obj["answer"] = arrow->answer;
+            obj["borderColor"] = arrow->myBorderColor.name(QColor::HexArgb);
+            obj["textColor"] = arrow->myTextColor.name(QColor::HexArgb);
+            obj["fontFamily"] =  arrow->f.family();
+            obj["fontPointSize"] =  arrow->f.pointSize();
+            obj["fontWeight"] =  arrow->f.weight();
+            obj["fontItalic"] =  arrow->f.italic();
+            obj["fontUnderline"] =  arrow->f.underline();
+            obj["fontStrikeOut"] =  arrow->f.strikeOut();
             itemsArray.append(obj);
         }
     }
@@ -630,12 +715,27 @@ void DiagramScene::loadScene(const QString &filePath)
             QString labelText = obj["labelText"].toString();
             QString labelAlgoritmaText = obj["labelAlgoritmaText"].toString();
 
-            QColor bgColor = QColor(obj["backgroundColor"].toString());
+            QColor backgroundColor = QColor(obj["backgroundColor"].toString());
+            QColor textColor = QColor(obj["textColor"].toString());
+            QColor borderColor = QColor(obj["borderColor"].toString());
+            QFont f;
+            f.setFamily(obj["fontFamily"].toString());
+            f.setPointSize(obj["fontPointSize"].toInt());
+            f.setWeight(obj["fontWeight"].toInt());
+            f.setItalic(obj["fontItalic"].toBool());
+            f.setUnderline(obj["fontUnderline"].toBool());
+            f.setStrikeOut(obj["fontStrikeOut"].toBool());
+
+            item->myBackgroundColor=backgroundColor;
+            item->myTextColor=textColor;
+            item->myBorderColor=borderColor;
+            item->myDiagramWidth=obj["diagramWidth"].toInt();
             item->labelText=labelText;
             item->label.setText(labelText);
 
             item->labelAlgoritma.setText(labelAlgoritmaText);
             item->labelAlgoritmaText=labelAlgoritmaText;
+            item->f=f;
             // selectedVariables
             QJsonArray variableArray = obj["variables"].toArray();
             for (const QJsonValue &vVal : variableArray) {
@@ -661,7 +761,22 @@ void DiagramScene::loadScene(const QString &filePath)
         else if (type == "DiagramTextItem") {
             auto textItem = new DiagramTextItem(myItemMenu);
             textItem->setFont(myFont);
-            textItem->setDefaultTextColor(myTextColor);
+
+            QColor backgroundColor = QColor(obj["backgroundColor"].toString());
+            QColor textColor = QColor(obj["textColor"].toString());
+            QColor borderColor = QColor(obj["borderColor"].toString());
+            QFont f;
+            f.setFamily(obj["fontFamily"].toString());
+            f.setPointSize(obj["fontPointSize"].toInt());
+            f.setWeight(obj["fontWeight"].toInt());
+            f.setItalic(obj["fontItalic"].toBool());
+            f.setUnderline(obj["fontUnderline"].toBool());
+            f.setStrikeOut(obj["fontStrikeOut"].toBool());
+
+            textItem->myBackgroundColor=backgroundColor;
+            textItem->setDefaultTextColor(textColor);
+            textItem->myBorderColor=borderColor;
+            textItem->setFont(f);
             textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
             textItem->setPlainText(obj["text"].toString());
             textItem->setPos(obj["x"].toDouble(), obj["y"].toDouble());
@@ -684,8 +799,22 @@ void DiagramScene::loadScene(const QString &filePath)
 
         if (startItem && endItem && startItem != endItem) {
             Arrow *arrow = new Arrow(startItem, endItem, startPolar, endPolar, myItemMenu);
-            arrow->setColor(myLineColor);
+
+            ///QColor backgroundColor = QColor(obj["backgroundColor"].toString());
+            QColor textColor = QColor(obj["textColor"].toString());
+            QColor borderColor = QColor(obj["borderColor"].toString());
+
+            arrow->myBorderColor=borderColor;
+            arrow->myTextColor=textColor;
             arrow->answer = obj["answer"].toString();
+            QFont f;
+            f.setFamily(obj["fontFamily"].toString());
+            f.setPointSize(obj["fontPointSize"].toInt());
+            f.setWeight(obj["fontWeight"].toInt());
+            f.setItalic(obj["fontItalic"].toBool());
+            f.setUnderline(obj["fontUnderline"].toBool());
+            f.setStrikeOut(obj["fontStrikeOut"].toBool());
+            arrow->f=f;
 
             if (startItem->addArrowState(arrow, startPolar, "O") &&
                 endItem->addArrowState(arrow, endPolar, "I")) {
@@ -734,96 +863,10 @@ void DiagramScene::saveAsPng(const QString &filePath)
     image.save(filePath, "PNG");
 }
 
-void DiagramScene::alignCenterHorizontal()
-{
-    /*yatay hizala*/
-    // Bütün sahnedeki itemleri seç
-  //  qDebug()<<"yatay";
-    ///for (QGraphicsItem *item : items())
-    ///    item->setSelected(true);
-
-    if (selectedItems().isEmpty()) return;
-
-    QList<QList<QGraphicsItem*>> groups;
-
-    // 1- Önce grupları belirle
-    for (QGraphicsItem *item : selectedItems()) {
-        DiagramItem *dItem = qgraphicsitem_cast<DiagramItem*>(item);
-        if (!dItem) continue;
-
-        // Eğer item daha önce bir gruba eklenmiş mi, kontrol et
-        bool inGroup = false;
-        for (const QList<QGraphicsItem*> &g : groups) {
-            if (g.contains(dItem)) {
-                inGroup = true;
-                break;
-            }
-        }
-        if (inGroup) continue;
-
-        // Eğer Loop ise, loop + bağlı elemanlar bir grup
-        if (dItem->myDiagramType == Diagram::Loop) {
-            QList<QGraphicsItem*> group;
-            group << dItem;
-
-            // Bottom -> Left bağlantılı olanları da ekle
-            for (Arrow *arrow : dItem->arrows) {
-                if (arrow->myStartItem == dItem && arrow->myStartPolar == "bottom") {
-                    DiagramItem *target = arrow->myEndItem;
-                    if (target) group << target;
-                }
-                if (arrow->myStartItem == dItem && arrow->myStartPolar == "left") {
-                    DiagramItem *target = arrow->myEndItem;
-                    if (target) group << target;
-                }
-            }
-            groups << group;
-        } else {
-            // Diğer bağımsız itemler
-            groups << (QList<QGraphicsItem*>() << dItem);
-        }
-    }
-
-    // 2- Şimdi her grubun merkez x'ini al
-    qreal totalX = 0;
-    for (const QList<QGraphicsItem*> &group : groups) {
-        qreal groupSumX = 0;
-        for (QGraphicsItem *item : group)
-            groupSumX += item->pos().x();
-        qreal groupCenterX = groupSumX / group.size();
-        totalX += groupCenterX;
-    }
-    qreal averageX = totalX / groups.size();
-
-    // 3- Şimdi her grubu ortalama x'e göre kaydır
-    for (const QList<QGraphicsItem*> &group : groups) {
-        qreal groupSumX = 0;
-        for (QGraphicsItem *item : group)
-            groupSumX += item->pos().x();
-        qreal groupCenterX = groupSumX / group.size();
-        qreal offsetX = averageX - groupCenterX;
-
-        for (QGraphicsItem *item : group) {
-            QPointF oldPos = item->pos();
-            item->setPos(oldPos.x() + offsetX, oldPos.y());
-        }
-    }
-
-    // 4- Son olarak tüm Arrow'ları güncelle
-    for (QGraphicsItem *item : items()) {
-        Arrow* arrow = qgraphicsitem_cast<Arrow*>(item);
-        if (arrow)
-            arrow->updatePosition();
-    }
-
-    update();
-}
-
-
 void DiagramScene::alignCenterVertical()
 {
     /*dikey hizalama*/
-    if (selectedItems().isEmpty()) return;
+   if (selectedItems().isEmpty()) return;
 
     QList<QList<QGraphicsItem*>> groups;
 
@@ -882,6 +925,95 @@ void DiagramScene::alignCenterVertical()
         for (QGraphicsItem *item : group) {
             QPointF oldPos = item->pos();
             item->setPos(oldPos.x(), oldPos.y() + offsetY);
+        }
+    }
+
+    // 4- Tüm Arrow'ları güncelle
+    for (QGraphicsItem *item : items()) {
+        Arrow* arrow = qgraphicsitem_cast<Arrow*>(item);
+        if (arrow)
+            arrow->updatePosition();
+    }
+
+    update();
+}
+
+void DiagramScene::alignCenterHorizontal()
+{
+    /* Yatay hizala */
+    if (selectedItems().isEmpty()) return;
+
+    QList<QList<QGraphicsItem*>> groups;
+
+    // 1- Önce grupları belirle
+    for (QGraphicsItem *item : selectedItems()) {
+        DiagramItem *dItem = qgraphicsitem_cast<DiagramItem*>(item);
+        if (!dItem) continue;
+
+        // Eğer item daha önce bir gruba eklenmiş mi, kontrol et
+        bool inGroup = false;
+        for (const QList<QGraphicsItem*> &g : groups) {
+            if (g.contains(dItem)) {
+                inGroup = true;
+                break;
+            }
+        }
+        if (inGroup) continue;
+
+        // Eğer Loop ise, loop + bağlı elemanlar bir grup
+        if (dItem->myDiagramType == Diagram::Loop) {
+            QList<QGraphicsItem*> group;
+            group << dItem;
+
+            // Bottom -> Left bağlantılı olanları da ekle
+            for (Arrow *arrow : dItem->arrows) {
+                if (arrow->myStartItem == dItem && arrow->myStartPolar == "bottom") {
+                    DiagramItem *target = arrow->myEndItem;
+                    if (target) group << target;
+                }
+                if (arrow->myStartItem == dItem && arrow->myStartPolar == "left") {
+                    DiagramItem *target = arrow->myEndItem;
+                    if (target) group << target;
+                }
+            }
+            groups << group;
+        } else {
+            // Diğer bağımsız itemler
+            groups << (QList<QGraphicsItem*>() << dItem);
+        }
+    }
+
+    // 2- Her grubun merkez x'ini hesapla (genişliği dahil ederek)
+    qreal totalX = 0;
+    for (const QList<QGraphicsItem*> &group : groups) {
+        qreal groupSumX = 0;
+        for (QGraphicsItem *item : group) {
+            DiagramItem *dItem = qgraphicsitem_cast<DiagramItem*>(item);
+            if (dItem) {
+                // Sol üst köşe + yarım genişlik => merkez x
+                groupSumX += dItem->pos().x() + dItem->boundingRect().width() / 2.0;
+            }
+        }
+        qreal groupCenterX = groupSumX / group.size();
+        totalX += groupCenterX;
+    }
+    qreal averageX = totalX / groups.size();
+
+    // 3- Her grubu ortalama x'e göre kaydır
+    for (const QList<QGraphicsItem*> &group : groups) {
+        qreal groupSumX = 0;
+        for (QGraphicsItem *item : group) {
+            DiagramItem *dItem = qgraphicsitem_cast<DiagramItem*>(item);
+            if (dItem) {
+                groupSumX += dItem->pos().x() + dItem->boundingRect().width() / 2.0;
+            }
+        }
+        qreal groupCenterX = groupSumX / group.size();
+        qreal offsetX = averageX - groupCenterX;
+
+        for (QGraphicsItem *item : group) {
+            QPointF oldPos = item->pos();
+            item->setPos(oldPos.x() + offsetX, oldPos.y());
         }
     }
 

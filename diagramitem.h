@@ -71,7 +71,7 @@
 #include<variableoutputdialog.h>
 #include<variableconditiondialog.h>
 #include<variableloopdialog.h>
-
+#include <QTextDocument>
 QT_BEGIN_NAMESPACE
 class QPixmap;
 class QGraphicsItem;
@@ -84,6 +84,7 @@ class QPainter;
 class QStyleOptionGraphicsItem;
 class QWidget;
 class QPolygonF;
+
 QT_END_NAMESPACE
 
 class Arrow;
@@ -137,12 +138,15 @@ public:
 
     void setText(QString text, QColor color);
 
-    QPixmap image() const;
+    ///QPixmap image() const;
     Diagram::DiagramType diagramType() const { return myDiagramType; }
     int type() const override { return Type;}
     Diagram::DiagramType myDiagramType;
     QList<Arrow *> arrows;
-    QColor myBackground;
+    QColor myBackgroundColor;
+    QColor myTextColor;
+    QColor myBorderColor;
+
     QStaticText label;
     QStaticText labelAlgoritma;
     QString labelText;
@@ -156,14 +160,17 @@ public:
     QString leftArrowRota="";
     QString rightArrowRota="";
     bool loopItemRun=false;
-
+    int myDiagramWidth;
+    int myDiagramHeight;
     bool renkdrm;
     // Seçilenler listesi
     QList<VariableRecord> selectedVariables;
     //VariableExpressionDialog dlg;
+    QPointF labelPosition;
+    QGraphicsTextItem *tempLabel; // geçici label
+    QFont f;
   public slots:
       void renk();
-          void updateLabelPosition();
 signals:
     void rectChanged(DiagramItem *rect);
     void previousPositionChanged();

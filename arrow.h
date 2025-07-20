@@ -81,7 +81,6 @@ public:
     int type() const override { return Type; }
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
-    void setColor(const QColor &color) { myColor = color; }
     DiagramItem *startItem() const { return myStartItem; }
     DiagramItem *endItem() const { return myEndItem; }
 
@@ -92,6 +91,9 @@ public:
     QString myEndPolar;
     QString answer="Y";
     QStaticText answerLabel;
+    QFont f;
+    QColor myTextColor;
+    QColor myBorderColor;
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
@@ -101,9 +103,8 @@ protected:
    // void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-   QColor myColor;
     QPolygonF arrowHead;
-   bool m_leftMouseButtonPressed;
+    bool m_leftMouseButtonPressed;
     QMenu *myContextMenu;
 };
 //! [0]

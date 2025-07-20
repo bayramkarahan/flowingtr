@@ -779,12 +779,12 @@ uninstall_desktop_file: FORCE
 
 
 install_icon: first FORCE
-	@test -d $(INSTALL_ROOT)/usr/share/flowingtr || mkdir -p $(INSTALL_ROOT)/usr/share/flowingtr
-	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/images/flowingtr.svg $(INSTALL_ROOT)/usr/share/flowingtr/flowingtr.svg
+	@test -d $(INSTALL_ROOT)/usr/share/icons/hicolor/scalable/apps || mkdir -p $(INSTALL_ROOT)/usr/share/icons/hicolor/scalable/apps
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/images/flowingtr.svg $(INSTALL_ROOT)/usr/share/icons/hicolor/scalable/apps/flowingtr.svg
 
 uninstall_icon: FORCE
-	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/flowingtr.svg
-	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/flowingtr/ 
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/icons/hicolor/scalable/apps/flowingtr.svg
+	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/icons/hicolor/scalable/apps/ 
 
 
 install_doc: first FORCE
@@ -824,9 +824,18 @@ uninstall_doc: FORCE
 	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/flowingtr/doc/ 
 
 
-install: install_target install_desktop_file install_icon install_doc  FORCE
+install_mimetype: first FORCE
+	@test -d $(INSTALL_ROOT)/usr/share/mime/packages/ || mkdir -p $(INSTALL_ROOT)/usr/share/mime/packages/
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/ftr.xml $(INSTALL_ROOT)/usr/share/mime/packages/ftr.xml
 
-uninstall: uninstall_target uninstall_desktop_file uninstall_icon uninstall_doc  FORCE
+uninstall_mimetype: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/mime/packages/ftr.xml
+	-$(DEL_DIR) $(INSTALL_ROOT)/usr/share/mime/packages/ 
+
+
+install: install_target install_desktop_file install_icon install_doc install_mimetype  FORCE
+
+uninstall: uninstall_target uninstall_desktop_file uninstall_icon uninstall_doc uninstall_mimetype  FORCE
 
 FORCE:
 

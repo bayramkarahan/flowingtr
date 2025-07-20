@@ -13,6 +13,7 @@
 #include <QInputDialog>
 #include<QMessageBox>
 #include<QDebug>
+#include<QRandomGenerator>
 
 class VariableRecord {
 public:
@@ -232,6 +233,13 @@ public:
                 } else return false;
 
                 value = QString::number(result);
+                return true;
+            }
+            case 5: { // Sabit atama
+                int val = rightExpr.split(" ")[3].toInt(&ok);
+                //if (!ok) return false;
+                 int randomNumber = QRandomGenerator::global()->bounded(val);
+                value = QString::number(randomNumber);
                 return true;
             }
             default:

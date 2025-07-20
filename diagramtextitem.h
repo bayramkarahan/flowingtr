@@ -74,7 +74,8 @@ public:
 
     int type() const override { return Type; }
     double caleFactor;
-
+    QColor myBackgroundColor;
+    QColor myBorderColor;
 signals:
     void lostFocus(DiagramTextItem *item);
     void selectedChange(QGraphicsItem *item);
@@ -84,6 +85,8 @@ protected:
     void focusOutEvent(QFocusEvent *event) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+    void paint (QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
+
 
 private:
         QMenu *myContextMenu;

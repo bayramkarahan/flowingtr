@@ -91,8 +91,9 @@ public:
 
     int index=0;
     DiagramItem* detectRouteItem(DiagramItem *item);
-
+    void removeItemSafe(QGraphicsItem *item);
     DiagramItem *diagramItem;
+        void loadFile(QString filePath);
 protected:
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
@@ -135,6 +136,7 @@ private slots:
     void saveFile();
     void saveImageFile();
     void openFile();
+
     void worker();
 
 
@@ -147,7 +149,7 @@ private:
     QWidget *createBackgroundCellWidget(const QString &text,
                                         const QString &image);
     QWidget *createCellWidget(const QString &text,
-                              Diagram::DiagramType type);
+                              Diagram::DiagramType type, int w, int h);
     QMenu *createColorMenu(const char *slot, QColor defaultColor);
     QIcon createColorToolButtonIcon(const QString &image, QColor color);
     QIcon createColorIcon(QColor color);
@@ -214,6 +216,7 @@ private:
     QString loopStep="";
     bool loopRunState=false;
     QString apptTitle;
+    QString loadFileName;
 };
 //! [0]
 

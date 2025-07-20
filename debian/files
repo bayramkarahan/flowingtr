@@ -1,3 +1,3 @@
-flowingtr-dbgsym_2.7_amd64.deb debug optional automatic=yes
-flowingtr_2.7_amd64.buildinfo utils optional
-flowingtr_2.7_amd64.deb utils optional
+flowingtr-dbgsym_2.9_amd64.deb debug optional automatic=yes
+flowingtr_2.9_amd64.buildinfo utils optional
+flowingtr_2.9_amd64.deb utils optional

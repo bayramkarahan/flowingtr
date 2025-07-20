@@ -1,52 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2016 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
 
 #include "arrow.h"
 #include "diagramitem.h"
@@ -188,57 +139,131 @@ void MainWindow::buttonGroupClicked(int id)
         if (buttonGroup->button(id) != button)
             button->setChecked(false);
     }
+
     if (id == InsertTextButton) {
         scene->setMode(DiagramScene::InsertText);
     } else {
+
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::Input)
+        {scene->myDiagramWidth=200;scene->myDiagramHeight=90;
+        }
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::Start)
+        {scene->myDiagramWidth=100;scene->myDiagramHeight=60;}
+
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::End)
+        {scene->myDiagramWidth=100;scene->myDiagramHeight=60;}
+
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::Process)
+        {scene->myDiagramWidth=200;scene->myDiagramHeight=90;}
+
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::Conditional)
+        {scene->myDiagramWidth=200;scene->myDiagramHeight=90;}
+
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::Loop)
+        {scene->myDiagramWidth=200;scene->myDiagramHeight=75;}
+
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::Output)
+        {scene->myDiagramWidth=200;scene->myDiagramHeight=90;}
+
+        if(Diagram::DiagramType(id)==Diagram::DiagramType::Link)
+        {scene->myDiagramWidth=50;scene->myDiagramHeight=50;}
+
         scene->setItemType(Diagram::DiagramType(id));
         scene->setMode(DiagramScene::InsertItem);
     }
 }
-//! [2]
+
 void MainWindow::deleteArrow(Arrow *item)
 {
-    scene->removeItem(item);
+    if (!item) return;
+
     Arrow *arrow = qgraphicsitem_cast<Arrow *>(item);
-    arrow->startItem()->removeArrowPolar(arrow,arrow->myStartPolar);
-    arrow->endItem()->removeArrowPolar(arrow,arrow->myEndPolar);
+
+    if (arrow->startItem())
+        arrow->startItem()->removeArrowPolar(arrow, arrow->myStartPolar);
+
+    if (arrow->endItem())
+        arrow->endItem()->removeArrowPolar(arrow, arrow->myEndPolar);
+
+    delete arrow;
+}
+
+void MainWindow::removeItemSafe(QGraphicsItem *item)
+{
+    if (!item) return;
+
+    // Arrow için
+    if (item->type() == Arrow::Type) {
+        Arrow *arrow = qgraphicsitem_cast<Arrow *>(item);
+        if (!arrow) return;
+
+        // Start ve End ilişkilerini kaldır
+        if (arrow->startItem())
+            arrow->startItem()->removeArrowPolar(arrow, arrow->myStartPolar);
+        if (arrow->endItem())
+            arrow->endItem()->removeArrowPolar(arrow, arrow->myEndPolar);
+
+        // Sahneden çıkar ve güvenle sil
+        if (arrow->scene())
+            arrow->scene()->removeItem(arrow);
+        delete arrow;
+        return;
+    }
+
+    // DiagramItem için
+    if (item->type() == DiagramItem::Type) {
+        DiagramItem *ditem = qgraphicsitem_cast<DiagramItem *>(item);
+        if (!ditem) return;
+
+        // Bağlı okları sil
+        if (ditem->leftArrow) {
+            removeItemSafe(ditem->leftArrow);
+            ditem->leftArrow = nullptr;
+        }
+        if (ditem->rightArrow) {
+            removeItemSafe(ditem->rightArrow);
+            ditem->rightArrow = nullptr;
+        }
+        if (ditem->startArrow) {
+            removeItemSafe(ditem->startArrow);
+            ditem->startArrow = nullptr;
+        }
+        if (ditem->endArrow) {
+            removeItemSafe(ditem->endArrow);
+            ditem->endArrow = nullptr;
+        }
+
+        if (ditem->scene())
+            ditem->scene()->removeItem(ditem);
+        delete ditem;
+        return;
+    }
+
+    // DiagramTextItem veya diğerleri için
+    if (item->scene())
+        item->scene()->removeItem(item);
     delete item;
 }
 
-//! [3]
 void MainWindow::deleteItem()
 {
-
-    bool delStatus=false;
-    foreach (QGraphicsItem *item, scene->selectedItems()) {
-        delStatus=false;
+    QList<QGraphicsItem*> selected = scene->selectedItems();
+    for (QGraphicsItem *item : selected) {
         if (item->type() == Arrow::Type)
         {
             deleteArrow(qgraphicsitem_cast<Arrow *>(item));
-            delStatus=true;
         }
-        if(delStatus==false)
-        {
-            if (item->type() == DiagramItem::Type){
-                // qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
-                DiagramItem *ditem=qgraphicsitem_cast<DiagramItem *>(item);
-                if(ditem->leftArrow!=0)deleteArrow(ditem->leftArrow);
-                if(ditem->rightArrow!=0)deleteArrow(ditem->rightArrow);
-                if(ditem->startArrow!=0)deleteArrow(ditem->startArrow);
-                if(ditem->endArrow!=0)deleteArrow(ditem->endArrow);
-                scene->removeItem(item);
-                delete item;
-            }
-            if (item->type() == DiagramTextItem::Type){
-                // qgraphicsitem_cast<DiagramItem *>(item)->removeArrows();
+    }
+    QList<QGraphicsItem*> selectedItem = scene->selectedItems();
 
-                scene->removeItem(item);
-                delete item;
-            }
+    for (QGraphicsItem *item : selectedItem) {
+        if (item->type() == DiagramItem::Type){
+            removeItemSafe(item);
         }
     }
     scene->update();
 }
+
 //! [3]
 
 //! [4]
@@ -683,28 +708,31 @@ void MainWindow::horizontalAlignmentSlot()
 }
 void MainWindow::minimizeSlot()
 {
-    scene->scaleSelectedItems(0.75);
+    scene->scaleSelectedItems(0.9);
 }
 void MainWindow::maximizeSlot()
 {
-    scene->scaleSelectedItems(1.25);
+    scene->scaleSelectedItems(1.1);
 }
 void MainWindow::newFile()
 {
     scene->clear();
+            loadFileName="";
 }
 
 void MainWindow::saveFile()
 {
-    QString defaultFileName = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
+    QString defaultFileName;
+    if(loadFileName=="")
+    {
+    defaultFileName= QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
     + "/flowingtr.ftr";
-
-   /* QString filePath = QFileDialog::getSaveFileName(
-        this,
-        tr("Diyagramı Kaydet"),
-        defaultFileName,
-        tr("ftr(json) Dosyaları (*.ftr)")
-        );*/
+    }
+    else
+    {
+        defaultFileName= QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
+        + "/"+loadFileName;
+    }
 
     QString filePath = QFileDialog::getSaveFileName(
         this,
@@ -716,8 +744,14 @@ void MainWindow::saveFile()
         );
 
     if (!filePath.isEmpty()) {
+        QFileInfo fi(filePath);
+        if (fi.suffix().isEmpty()) {
+            filePath += ".ftr"; // Uzantı yoksa .ftr ekle
+        }
         scene->saveScene(filePath);
+        loadFileName=filePath;
     }
+
 }
 
 void MainWindow::saveImageFile()
@@ -751,10 +785,23 @@ void MainWindow::openFile()
         scene->loadScene(filePath);
         variableWidget->loadVariables();
         this->setWindowTitle(apptTitle+" "+filePath);
-        qDebug()<<this->windowTitle();
+        loadFileName=filePath;
+        qDebug()<<this->windowTitle()<<loadFileName;
     }
 }
 
+void MainWindow::loadFile(QString filePath)
+{
+
+
+    if (!filePath.isEmpty()) {
+        scene->loadScene(filePath);
+        variableWidget->loadVariables();
+        this->setWindowTitle(apptTitle+" "+filePath);
+        loadFileName=filePath;
+        qDebug()<<this->windowTitle()<<loadFileName;
+    }
+}
 
 
 bool MainWindow::runTest()
@@ -1351,14 +1398,14 @@ void MainWindow::createToolBox()
     connect(buttonGroup, SIGNAL(buttonClicked(int)),
             this, SLOT(buttonGroupClicked(int)));
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(createCellWidget(tr("Başla"), Diagram::Start), 0, 0);
-    layout->addWidget(createCellWidget(tr("Son"), Diagram::End), 0, 1);
-    layout->addWidget(createCellWidget(tr("İşlem"), Diagram::Process),1, 0);
-    layout->addWidget(createCellWidget(tr("Giriş"), Diagram::Input), 1, 1);
-    layout->addWidget(createCellWidget(tr("Karar"), Diagram::Conditional), 2, 0);
-     layout->addWidget(createCellWidget(tr("Bağlantı"), Diagram::Link), 2,1);
-    layout->addWidget(createCellWidget(tr("Çıktı"), Diagram::Output), 3,0);
-    layout->addWidget(createCellWidget(tr("Döngü"), Diagram::Loop), 3,1);
+    layout->addWidget(createCellWidget(tr("Başla"), Diagram::Start,100,75), 0, 0);
+    layout->addWidget(createCellWidget(tr("Son"), Diagram::End,100,75), 0, 1);
+    layout->addWidget(createCellWidget(tr("İşlem"), Diagram::Process,200,100),1, 0);
+    layout->addWidget(createCellWidget(tr("Giriş"), Diagram::Input,200,100), 1, 1);
+    layout->addWidget(createCellWidget(tr("Karar"), Diagram::Conditional,200,100), 2, 0);
+     layout->addWidget(createCellWidget(tr("Bağlantı"), Diagram::Link,20,20), 2,1);
+    layout->addWidget(createCellWidget(tr("Çıktı"), Diagram::Output,200,90), 3,0);
+    layout->addWidget(createCellWidget(tr("Döngü"), Diagram::Loop,200,75), 3,1);
 
 //!
 //! [21]
@@ -1729,6 +1776,7 @@ void MainWindow::loadExampleFile()
         if (!filePath.isEmpty()) {
             this->setWindowTitle(apptTitle+" "+filePath);
             scene->loadScene(filePath);
+            loadFileName=filePath;
             variableWidget->loadVariables();
         }
 
@@ -1789,10 +1837,11 @@ void MainWindow::createToolbars()
 
     fontSizeCombo = new QComboBox;
     fontSizeCombo->setEditable(true);
-    for (int i = 8; i < 30; i = i + 2)
+    for (int i = 8; i < 30; i = i + 1)
         fontSizeCombo->addItem(QString().setNum(i));
     QIntValidator *validator = new QIntValidator(2, 64, this);
     fontSizeCombo->setValidator(validator);
+    fontSizeCombo->setCurrentText("12");
     connect(fontSizeCombo, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(fontSizeChanged(QString)));
 
@@ -1875,14 +1924,14 @@ QWidget *MainWindow::createBackgroundCellWidget(const QString &text, const QStri
 //! [28]
 
 //! [29]
-QWidget *MainWindow::createCellWidget(const QString &text, Diagram::DiagramType type)
+QWidget *MainWindow::createCellWidget(const QString &text, Diagram::DiagramType type,int w, int h)
 {
 
     // DiagramItem item(type, itemMenu);
      Diagram *item=new Diagram();
     QWidget *widget = new QWidget;
     widget->setFixedSize(80,50);
-     QIcon icon(item->image(type));
+     QIcon icon(item->image(type,w,h));
 
     QToolButton *button = new QToolButton(widget);
      button->setToolButtonStyle(Qt::ToolButtonIconOnly);
@@ -1908,11 +1957,33 @@ QWidget *MainWindow::createCellWidget(const QString &text, Diagram::DiagramType 
 //! [30]
 QMenu *MainWindow::createColorMenu(const char *slot, QColor defaultColor)
 {
-    QList<QColor> colors;
-    colors << Qt::black << Qt::white << Qt::red << Qt::blue << Qt::yellow;
-    QStringList names;
-    names << tr("black") << tr("white") << tr("red") << tr("blue")
-          << tr("yellow");
+
+    QList<QColor> colors = {
+        Qt::black, Qt::white, Qt::red, Qt::green, Qt::blue,
+        Qt::yellow, Qt::cyan, Qt::magenta, Qt::gray, Qt::darkRed,
+        Qt::darkGreen, Qt::darkBlue, Qt::darkCyan, Qt::darkMagenta,
+        Qt::darkYellow, Qt::lightGray, Qt::transparent
+    };
+
+   QStringList names = {
+       tr("Siyah"),       // Black
+       tr("Beyaz"),       // White
+       tr("Kırmızı"),     // Red
+       tr("Yeşil"),       // Green
+       tr("Mavi"),        // Blue
+       tr("Sarı"),        // Yellow
+       tr("Cam Göbeği"),  // Cyan
+       tr("Eflatun"),     // Magenta
+       tr("Gri"),         // Gray
+       tr("Koyu Kırmızı"),// Dark Red
+       tr("Koyu Yeşil"),  // Dark Green
+       tr("Koyu Mavi"),   // Dark Blue
+       tr("Koyu Cam Göbeği"), // Dark Cyan
+       tr("Koyu Eflatun"),    // Dark Magenta
+       tr("Koyu Sarı"),       // Dark Yellow
+       tr("Açık Gri"),        // Light Gray
+       tr("Saydam")           // Transparent
+   };
 
     QMenu *colorMenu = new QMenu(this);
     for (int i = 0; i < colors.count(); ++i) {

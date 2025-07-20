@@ -78,8 +78,8 @@ public:
     explicit DiagramScene(QMenu *itemMenu, QObject *parent = 0);
     QFont font() const { return myFont; }
     QColor textColor() const { return myTextColor; }
-    QColor itemColor() const { return myItemColor; }
-    QColor lineColor() const { return myLineColor; }
+    QColor itemColor() const { return myBackgroundColor; }
+    QColor lineColor() const { return myBorderColor; }
     void setLineColor(const QColor &color);
     void setTextColor(const QColor &color);
     void setItemColor(const QColor &color);
@@ -87,6 +87,8 @@ public:
     void alignCenterHorizontal();
     void alignCenterVertical();
     QList<QList<QGraphicsItem*>> getAlignmentGroups();
+    int myDiagramWidth=200;
+    int myDiagramHeight=100;
 public slots:
     void setMode(Mode mode);
     void setItemType(Diagram::DiagramType type);
@@ -122,8 +124,8 @@ private:
     QFont myFont;
     DiagramTextItem *textItem;
     QColor myTextColor;
-    QColor myItemColor;
-    QColor myLineColor;
+    QColor myBackgroundColor;
+    QColor myBorderColor;
 };
 //! [0]
 
