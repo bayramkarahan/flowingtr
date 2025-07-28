@@ -24,25 +24,32 @@ VariableEditorDialog::VariableEditorDialog(QWidget *parent)
     tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked);
     // Sütun başlıklarını sabit tutmak istiyorsanız:
     tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-    tableWidget->setColumnWidth(0, 80); // Label
-    tableWidget->setColumnWidth(1, 50); // Value
-    tableWidget->setColumnWidth(2, 50); // Type
+    tableWidget->setColumnWidth(0, 70); // Label
+    tableWidget->setColumnWidth(1, 40); // Value
+    tableWidget->setColumnWidth(2, 40); // Type
+    //tableWidget->setColumnWidth(3, 40); // Type
     connect(tableWidget, &QTableWidget::cellDoubleClicked, this, [=](int row, int) {
         if (row < 0 || row >= tableWidget->rowCount()) return;
 
         VariableRecord rec;
         rec.label = tableWidget->item(row, 0)->text();
-        rec.value = tableWidget->item(row, 1)->text();
-        //QComboBox *combo = qobject_cast<QComboBox *>(tableWidget->cellWidget(row, 2));
-        //if (combo) rec.valueType = combo->currentText();
+        //rec.value = tableWidget->item(row, 1)->text();
         rec.valueType = tableWidget->item(row, 2)->text();
+    for (int i=0;i<Variable::onlineVariableList.size();i++) {
+        if(Variable::onlineVariableList[i].label==rec.label)
+        {
+            rec.value=Variable::onlineVariableList[i].value;
+            rec.isSecret=Variable::onlineVariableList[i].isSecret;
+        }
+    }
+         // rec.isSecret = tableWidget->item(row, 3)->;
         VariableEditForm dialog(rec, this);
         if (dialog.exec() == QDialog::Accepted) {
             VariableRecord updated = dialog.getRecord();
             tableWidget->item(row, 0)->setText(updated.label);
             tableWidget->item(row, 1)->setText(updated.value);
             tableWidget->item(row, 2)->setText(updated.valueType);
-            qDebug()<<updated.label<<updated.value<<updated.valueType;
+            qDebug()<<updated.label<<updated.value<<updated.valueType<<updated.isSecret;
             //güncelliyor
             emit variableUpdateRecord(rec,updated);
 
@@ -76,6 +83,7 @@ VariableEditorDialog::VariableEditorDialog(QWidget *parent)
                 }
             }
          ///}
+        loadVariables();
     });
 
     addButton = new QPushButton("Ekle", this);
@@ -107,8 +115,13 @@ void VariableEditorDialog::loadVariables()
         int row = tableWidget->rowCount();
         tableWidget->insertRow(row);
         tableWidget->setItem(row, 0, new QTableWidgetItem(var.label));
-        tableWidget->setItem(row, 1, new QTableWidgetItem(var.value));
+        if(var.isSecret)
+            tableWidget->setItem(row, 1, new QTableWidgetItem("***"));
+        else
+            tableWidget->setItem(row, 1, new QTableWidgetItem(var.value));
+
         tableWidget->setItem(row, 2, new QTableWidgetItem(var.valueType));
+
      }
     for (int row = 0; row < tableWidget->rowCount(); ++row) {
         for (int col = 0; col < tableWidget->columnCount(); ++col) {

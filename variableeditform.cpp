@@ -17,7 +17,8 @@ VariableEditForm::VariableEditForm(const VariableRecord &record, QWidget *parent
 
     labelEdit = new QLineEdit(record.label, this);
     valueEdit = new QLineEdit(record.value, this);
-
+    isSecretCB = new QCheckBox(this);
+    isSecretCB->setChecked(record.isSecret);
     typeCombo = new QComboBox(this);
     typeCombo->addItems({"number", "text"});
     typeCombo->setCurrentText(record.valueType);
@@ -29,6 +30,7 @@ VariableEditForm::VariableEditForm(const VariableRecord &record, QWidget *parent
     formLayout->addRow("Değiken Adı:", labelEdit);
     formLayout->addRow("Değeri:", valueEdit);
     formLayout->addRow("Veri Türü:", typeCombo);
+    formLayout->addRow("Veriyi Gizle:", isSecretCB);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch();
@@ -82,6 +84,7 @@ VariableEditForm::VariableEditForm(const VariableRecord &record, QWidget *parent
         currentRecord.label = labelEdit->text();
         currentRecord.value = valueEdit->text();
         currentRecord.valueType = typeCombo->currentText();
+        currentRecord.isSecret=isSecretCB->isChecked();
         accept();
     });
 

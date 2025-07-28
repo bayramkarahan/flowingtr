@@ -23,6 +23,8 @@ public:
     QString value;
     QString valueType;
     bool isInput = false;
+    bool isSecret = false;
+
     QString expression="";
     int operationType;
     int startValue;

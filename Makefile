@@ -792,6 +792,7 @@ install_doc: first FORCE
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/5-defa-merhaba.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/5-defa-merhaba.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/askerlik-durumu.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/askerlik-durumu.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/buyuk-kucuk.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/buyuk-kucuk.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/cift-sayi-toplam.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/cift-sayi-toplam.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/dikdortgen-cevre.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/dikdortgen-cevre.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/faktoriyel.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/faktoriyel.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/gecti-kaldi.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/gecti-kaldi.ftr
@@ -801,14 +802,22 @@ install_doc: first FORCE
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/mutlak-deger.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/mutlak-deger.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/ortalama.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/ortalama.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/pozitif-negatif.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/pozitif-negatif.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/rast-gele-sayi.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/rast-gele-sayi.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/sayi-yazi.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/sayi-yazi.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/selamlama.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/selamlama.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/seri-toplam.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/seri-toplam.ftr
 	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/tek-cift.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/tek-cift.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/tek-sayi-toplam.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/tek-sayi-toplam.ftr
+	$(QINSTALL) /home/etapadmin/Masaüstü/flowingtr/doc/ucgen-turu.ftr $(INSTALL_ROOT)/usr/share/flowingtr/doc/ucgen-turu.ftr
 
 uninstall_doc: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/ucgen-turu.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/tek-sayi-toplam.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/tek-cift.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/seri-toplam.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/selamlama.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/sayi-yazi.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/rast-gele-sayi.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/pozitif-negatif.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/ortalama.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/mutlak-deger.ftr
@@ -818,6 +827,7 @@ uninstall_doc: FORCE
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/gecti-kaldi.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/faktoriyel.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/dikdortgen-cevre.ftr
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/cift-sayi-toplam.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/buyuk-kucuk.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/askerlik-durumu.ftr
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/flowingtr/doc/5-defa-merhaba.ftr

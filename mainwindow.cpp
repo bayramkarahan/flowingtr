@@ -750,6 +750,7 @@ void MainWindow::saveFile()
         }
         scene->saveScene(filePath);
         loadFileName=filePath;
+        this->setWindowTitle(apptTitle+" "+filePath);
     }
 
 }
@@ -1740,6 +1741,25 @@ void MainWindow::createMenus()
     action->setData("faktoriyel.ftr");
     connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
+    action = programExample->addAction("16- Üçgen Türü");
+    action->setData("ucgen-turu.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("17- Rast Gele Sayı");
+    action->setData("rast-gele-sayi.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("18- 10'a Kadar Olan Çift Sayılar Toplamı");
+    action->setData("cift-sayi-toplam.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("19- 10'a Kadar Olan Tek Sayılar Toplamı");
+    action->setData("teksayitoplam.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
+
+    action = programExample->addAction("20- 1-5 Arasındaki Sayıyı Yazıya Çevirme");
+    action->setData("sayi-yazi.ftr");
+    connect(action, &QAction::triggered, this, &MainWindow::loadExampleFile);
 
 
     itemMenu = menuBar()->addMenu(tr("&Düzen"));
@@ -2030,7 +2050,7 @@ QIcon MainWindow::createColorIcon(QColor color)
 
 void MainWindow::variableUpdateRecordSlot(VariableRecord oldRec, VariableRecord newRec)
 {
-    qDebug()<<"güncellenecek: "<<oldRec.label<<newRec.label<<newRec.value<<newRec.valueType;
+    qDebug()<<"güncellenecek: "<<oldRec.label<<newRec.label<<newRec.value<<newRec.valueType<<newRec.isSecret;
 
     for (int i=0;i<Variable::onlineVariableList.size();i++) {
         if(Variable::onlineVariableList[i].label==oldRec.label)
@@ -2038,6 +2058,7 @@ void MainWindow::variableUpdateRecordSlot(VariableRecord oldRec, VariableRecord 
             Variable::onlineVariableList[i].label=newRec.label;
             Variable::onlineVariableList[i].value=newRec.value;
             Variable::onlineVariableList[i].valueType=newRec.valueType;
+            Variable::onlineVariableList[i].isSecret=newRec.isSecret;
         }
     }
 
@@ -2062,6 +2083,7 @@ void MainWindow::variableUpdateRecordSlot(VariableRecord oldRec, VariableRecord 
                     dItem->selectedVariables[i].label=newRec.label;
                     dItem->selectedVariables[i].value=newRec.value;
                     dItem->selectedVariables[i].valueType=newRec.valueType;
+                    dItem->selectedVariables[i].isSecret=newRec.isSecret;
                 }
             }
         }

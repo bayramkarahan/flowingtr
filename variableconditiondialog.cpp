@@ -298,18 +298,18 @@ void VariableConditionDialog::addExpressionRowparametre(int operationType, const
             if(opt1Index >= 0) row->operator1Combo->setCurrentIndex(opt1Index);
             row->constEdit1->setText(num1);
 
-            int logicIndex = row->var2Combo->findText(logicopt);
-            if(logicIndex >= 0) row->var2Combo->setCurrentIndex(logicIndex);
+            int logicIndex = row->logicOperatorCombo->findText(logicopt);
+            if(logicIndex >= 0) row->logicOperatorCombo->setCurrentIndex(logicIndex);
 
 
-            int var3Index = row->var1Combo->findText(var3);
-            if(var3Index >= 0) row->var1Combo->setCurrentIndex(var3Index);
+            int var3Index = row->var3Combo->findText(var3);
+            if(var3Index >= 0) row->var3Combo->setCurrentIndex(var3Index);
 
-            int opt2Index = row->operator1Combo->findText(opt2);
-            if(opt2Index >= 0) row->operator1Combo->setCurrentIndex(opt2Index);
+            int opt2Index = row->operator2Combo->findText(opt2);
+            if(opt2Index >= 0) row->operator2Combo->setCurrentIndex(opt2Index);
 
-            int var4Index = row->var2Combo->findText(var4);
-            if(var4Index >= 0) row->var2Combo->setCurrentIndex(var4Index);
+            int var4Index = row->var4Combo->findText(var4);
+            if(var4Index >= 0) row->var4Combo->setCurrentIndex(var4Index);
 
         }
         break;
@@ -330,15 +330,15 @@ void VariableConditionDialog::addExpressionRowparametre(int operationType, const
             if(opt1Index >= 0) row->operator1Combo->setCurrentIndex(opt1Index);
             row->constEdit1->setText(num1);
 
-            int logicIndex = row->var2Combo->findText(logicopt);
-            if(logicIndex >= 0) row->var2Combo->setCurrentIndex(logicIndex);
+            int logicIndex = row->logicOperatorCombo->findText(logicopt);
+            if(logicIndex >= 0) row->logicOperatorCombo->setCurrentIndex(logicIndex);
 
 
-            int var3Index = row->var1Combo->findText(var3);
-            if(var3Index >= 0) row->var1Combo->setCurrentIndex(var3Index);
+            int var3Index = row->var3Combo->findText(var3);
+            if(var3Index >= 0) row->var3Combo->setCurrentIndex(var3Index);
 
-            int opt2Index = row->operator1Combo->findText(opt2);
-            if(opt2Index >= 0) row->operator1Combo->setCurrentIndex(opt2Index);
+            int opt2Index = row->operator2Combo->findText(opt2);
+            if(opt2Index >= 0) row->operator2Combo->setCurrentIndex(opt2Index);
 
             row->constEdit2->setText(num2);
 
@@ -348,7 +348,7 @@ void VariableConditionDialog::addExpressionRowparametre(int operationType, const
         {
             QString var1 = parts[0].trimmed();
             QString opt1 = parts[1].trimmed();
-            QString num1 = parts[2].trimmed();
+            QString var2 = parts[2].trimmed();
             QString logicopt = parts[3].trimmed();
             QString var3 = parts[4].trimmed();
             QString opt2 = parts[5].trimmed();
@@ -359,20 +359,22 @@ void VariableConditionDialog::addExpressionRowparametre(int operationType, const
 
             int opt1Index = row->operator1Combo->findText(opt1);
             if(opt1Index >= 0) row->operator1Combo->setCurrentIndex(opt1Index);
-            row->constEdit1->setText(num1);
 
-            int logicIndex = row->var2Combo->findText(logicopt);
-            if(logicIndex >= 0) row->var2Combo->setCurrentIndex(logicIndex);
+            int var2Index = row->var2Combo->findText(var2);
+            if(var2Index >= 0) row->var2Combo->setCurrentIndex(var2Index);
+
+            int logicIndex = row->logicOperatorCombo->findText(logicopt);
+            if(logicIndex >= 0) row->logicOperatorCombo->setCurrentIndex(logicIndex);
 
 
-            int var3Index = row->var1Combo->findText(var3);
-            if(var3Index >= 0) row->var1Combo->setCurrentIndex(var3Index);
+            int var3Index = row->var3Combo->findText(var3);
+            if(var3Index >= 0) row->var3Combo->setCurrentIndex(var3Index);
 
-            int opt2Index = row->operator1Combo->findText(opt2);
-            if(opt2Index >= 0) row->operator1Combo->setCurrentIndex(opt2Index);
+            int opt2Index = row->operator2Combo->findText(opt2);
+            if(opt2Index >= 0) row->operator2Combo->setCurrentIndex(opt2Index);
 
-            int var4Index = row->var2Combo->findText(var4);
-            if(var4Index >= 0) row->var2Combo->setCurrentIndex(var4Index);
+            int var4Index = row->var4Combo->findText(var4);
+            if(var4Index >= 0) row->var4Combo->setCurrentIndex(var4Index);
         }
         break;
         }
@@ -492,7 +494,7 @@ QList<QPair<int, QString>> VariableConditionDialog::getExpressionsWithType() con
                        .arg(row->logicOperatorCombo->currentText())
                        .arg(row->var3Combo->currentText())
                        .arg(row->operator2Combo->currentText())
-                       .arg(row->constEdit1->text());
+                       .arg(row->constEdit2->text());
             break;
         case 4:
             expr = QString("%1 %2 %3 %4 %5 %6 %7")
