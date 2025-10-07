@@ -49,8 +49,12 @@ mimetype.path = /usr/share/mime/packages/
 doc.files = doc/*.ftr
 doc.path = /usr/share/flowingtr/doc/
 
+
+lisanss.files = lisans/*
+lisanss.path = /usr/share/doc/e-ag/LICENSES/
+
 #target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/diagramscene
-INSTALLS += target desktop_file icon doc mimetype
+INSTALLS += target desktop_file icon doc mimetype lisanss
 
 DISTFILES += \
     aaa.md
