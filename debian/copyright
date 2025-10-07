@@ -2,10 +2,8 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: flowingtr
 Source: https://github.com/bayramkarahan/flowingtr
 
-
-
 Files: *
-Copyright: 2020 Bayram KARAHAN <bayramk@gmail.com>
+Copyright: 2022-2025 Bayram KARAHAN <bayramk@gmail.com>
 License: GPL-3.0+
 
 License: GPL-3.0+
@@ -24,5 +22,4 @@ License: GPL-3.0+
  .
  On Debian systems, the complete text of the GNU General
  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
-
 

@@ -438,45 +438,37 @@ void MainWindow::itemSelected(QGraphicsItem *item)
 //! [20]
 void MainWindow::about()
 {
-    QString yil=QString::number( QDateTime::currentDateTime().date().year());
-    QMessageBox::about(this, tr("flowingtr"),
-                       tr("Bu uygulama Linux tabanlı sistemlerde(<b>Pardus</b>); "
-                          "<br/>Programlama mantığını anlama, <b>Akış Diyagramı</b> oluştumak ve"
-                          "<br/><b>Gerçek Zamanlı Akış Diyagramı Çalıştırmak</b> için yazılmıştır"
-                          "<br/>"
-                          "<br/>*****************************************************************************"
-                          "<br/>   Copyright (C) ")+yil+tr(" by Bayram KARAHAN                                    "
-                          "<br/>\tkod.pardus.org.tr/karahan/flowingtr"
-                          "<br/>\tgithub.com/bayramkarahan/flowingtr"
-                          "<br/>\tbayramkarahan.blogspot.com"
-                          "<br/>\tbayramk@gmail.com  "
-                          "<br/>*****************************************************************************"
+    QString yil = QString::number(QDate::currentDate().year());
 
-                          "<br/>flowingtr 1.0: Temel özellikler."
-                          "<br/>flowingtr 1.1: Bağlantı renklendirmeleri eklendi."
-                          "<br/>flowingtr 1.2: Ok ve text nesnesine sağtuş menüsü eklendi."
-                          "<br/>flowingtr 1.3: Sağtuş menü özellikleri bütün nesnelere eklendi."
-                          "<br/>flowingtr 1.4: Nesneler arası birleştirme iyileştirildi."
-                          "<br/>flowingtr 1.5: Dinamik Değişken yapısı eklendi."
-                          "<br/>flowingtr 1.6: Giriş, İşlem, Karar ve Çıktı işlemleri eklendi."
-                          "<br/>flowingtr 1.7: Değişkenler ve Algoritma sağ bölüme eklendi."
-                          "<br/>flowingtr 1.8: Yeni, Aç ve Kaydet seçenekleri eklendi."
+    QString aboutText = QStringLiteral(R"(
+<b>FlowingTR</b> - Akış Diyagram Uygulaması<br>
+Sürüm: 3.2.0<br><br>
 
-                          "<br/>*****************************************************************************"
-                           "<br/>   This program is free software; you can redistribute it and/or modify    "
-                           "<br/>   it under the terms of the GNU General Public License as published by    "
-                           "<br/>   the Free Software Foundation; either version 3 of the License, or       "
-                           "<br/>   (at your option) any later version.                                     "
-                           "<br/>                                                                           "
-                           "<br/>   This program is distributed in the hope that it will be useful,         "
-                           "<br/>   but WITHOUT ANY WARRANTY; without even the implied warranty of          "
-                           "<br/>   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           "
-                           "<br/>   GNU General Public License for more details.                            "
-                           "<br/>                                                                           "
-                           "<br/>  You should have received a copy of the GNU General Public License       "
-                           "<br/>   along with this program; if not, write to the                          "
-                           "<br/>  Free Software Foundation, Inc.,                                         "
-                           "<br/>  51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .          "));
+Bu uygulama Linux tabanlı sistemlerde (<b>Pardus</b>) çalışır;<br>
+Programlama mantığını anlama, <b>Akış Diyagramı</b> oluşturmak ve<br>
+<b>Gerçek Zamanlı Akış Diyagramı Çalıştırmak</b> için geliştirilmiştir.<br><br>
+
+*****************************************************************************<br>
+Built with Qt (LGPLv3)<br>
+© The Qt Company Ltd<br>
+*****************************************************************************<br>
+
+Copyright (C) %1 Bayram KARAHAN<br>
+github.com/bayramkarahan/flowingtr<br>
+bayramkarahan.blogspot.com<br>
+bayramk@gmail.com<br>
+*****************************************************************************<br>
+This program is free software: you can redistribute it and/or modify it under the terms of the<br>
+GNU General Public License as published by the Free Software Foundation, either version 3 of the License,<br>
+or (at your option) any later version.<br><br>
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;<br>
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.<br>
+See the GNU General Public License for more details.<br><br>
+You should have received a copy of the GNU General Public License along with this program;<br>
+if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
+)").arg(yil);
+
+    QMessageBox::about(this, tr("FlowingTR Hakkında"), aboutText);
 }
 //! [20]
 

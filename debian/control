@@ -2,16 +2,25 @@ Source: flowingtr
 Section: utils
 Priority: optional
 Maintainer: Bayram KARAHAN <bayramk@gmail.com>
-Build-Depends: debhelper (>= 9), 
-   qtdeclarative5-dev
-Standards-Version: 3.9.8
-Homepage: http://pardus.org.tr
+Build-Depends: debhelper (>= 13),
+               qtbase5-dev,
+               qtdeclarative5-dev,
+               pkg-config
+Standards-Version: 4.6.2
+Homepage: https://github.com/bayramkarahan/flowingtr
+Rules-Requires-Root: no
 
 Package: flowingtr
 Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends},
-     libqt5widgets5,
-     libqt5gui5,
-     libqt5core5a,
-     libqt5printsupport5
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libqt5widgets5,
+         libqt5gui5,
+         libqt5core5a,
+         libqt5printsupport5
 Description: Akış Diyagram Uygulaması
+ FlowingTR, kullanıcıların görsel olarak işlem adımlarını, 
+ değişkenleri ve koşulları düzenleyebileceği bir 
+ akış diyagramı tasarlama aracıdır. 
+ Qt tabanlı modern bir grafik arayüzü vardır.
+
