@@ -51,7 +51,7 @@ doc.path = /usr/share/flowingtr/doc/
 
 
 lisanss.files = lisans/*
-lisanss.path = /usr/share/doc/e-ag/LICENSES/
+lisanss.path = /usr/share/doc/flowingtr/LICENSES/
 
 #target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/diagramscene
 INSTALLS += target desktop_file icon doc mimetype lisanss
