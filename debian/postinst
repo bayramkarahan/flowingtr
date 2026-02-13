@@ -1,45 +1,20 @@
 #!/bin/sh
 set -e
 
-# Sistem genelinde MIME tipini yükle
-#update-mime-database /usr/share/mime || true
-
-# Simge önbelleğini güncelle (svg/png varsa)
+# icon cache
 if [ -d /usr/share/icons/hicolor ]; then
-    gtk-update-icon-cache -f /usr/share/icons/hicolor || true
+    gtk-update-icon-cache -q /usr/share/icons/hicolor || true
 fi
 
-# Varsayılan uygulamayı modern sistemler için ayarla (xdg-mime)
-if command -v xdg-mime >/dev/null 2>&1; then
-    if [ -f /usr/share/applications/flowingtr.desktop ]; then
-        echo "xdg-mime ile varsayılan uygulama atanıyor..."
-        xdg-mime default flowingtr.desktop application/x-flowingtr-ftr || true
-    else
-        echo "Uyarı: flowingtr.desktop bulunamadı, xdg-mime ataması yapılamadı."
-    fi
-else
-    echo "Uyarı: xdg-mime bulunamadı, mimeapps.list kullanılacak."
+# desktop database
+if command -v update-desktop-database >/dev/null 2>&1; then
+    update-desktop-database -q || true
 fi
 
-# Debian politika uyumlu mimeapps.list kaydı (fallback)
-MIMEAPPS_LIST="/usr/share/applications/mimeapps.list"
-if [ -f "$MIMEAPPS_LIST" ]; then
-    sed -i '/application\/x-flowingtr-ftr/d' "$MIMEAPPS_LIST"
-else
-    echo "[Default Applications]" > "$MIMEAPPS_LIST"
+# mime database
+if command -v update-mime-database >/dev/null 2>&1; then
+    update-mime-database /usr/share/mime || true
 fi
-echo "application/x-flowingtr-ftr=flowingtr.desktop" >> "$MIMEAPPS_LIST"
-
-# Mevcut kullanıcıların mime cache’ini güncelle
-for userdir in /home/*; do
-    username=$(basename "$userdir")
-    if [ -d "$userdir" ] && [ -d "$userdir/.local/share" ]; then
-        mkdir -p "$userdir/.local/share/mime/packages"
-        cp /usr/share/mime/packages/ftr.xml "$userdir/.local/share/mime/packages/ftr.xml"
-        chown -R "$username:$username" "$userdir/.local/share/mime"
-        su - "$username" -c "update-mime-database ~/.local/share/mime" || true
-    fi
-done
 
 exit 0
 
