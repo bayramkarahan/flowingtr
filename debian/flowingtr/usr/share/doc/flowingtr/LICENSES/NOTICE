@@ -1,0 +1,10 @@
+NOTICE
+======
+
+This software uses:
+- Qt Framework (LGPLv3): https://www.qt.io/licensing/
+
+Both components are dynamically linked at runtime.
+Users are allowed to replace these libraries with compatible versions
+to exercise their LGPL rights.
+

@@ -1,0 +1,14 @@
+===============================================================================
+flowingtr License Notice
+===============================================================================
+
+This software is distributed under a proprietary or open-source license 
+(as defined by the author). However, it makes use of third-party libraries 
+licensed under the GNU Lesser General Public License (LGPL).
+
+Third-party components:
+- The Qt Framework, licensed under the LGPLv3.
+  These retain their own licenses, available from their respective projects.
+
+For details, see the LICENSES/ directory and the README.LICENSE file.
+

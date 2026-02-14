@@ -1,0 +1,14 @@
+Package: flowingtr
+Version: 3.2
+Architecture: amd64
+Maintainer: Bayram KARAHAN <bayramk@gmail.com>
+Installed-Size: 1362
+Depends: libc6 (>= 2.34), libgcc-s1 (>= 3.0), libqt5core5a (>= 5.15.1), libqt5gui5 (>= 5.2.0) | libqt5gui5-gles (>= 5.2.0), libqt5widgets5 (>= 5.2.0), libstdc++6 (>= 5), libqt5gui5, libqt5printsupport5
+Section: utils
+Priority: optional
+Homepage: https://github.com/bayramkarahan/flowingtr
+Description: Akış Diyagram Uygulaması
+ FlowingTR, kullanıcıların görsel olarak işlem adımlarını,
+ değişkenleri ve koşulları düzenleyebileceği bir
+ akış diyagramı tasarlama aracıdır.
+ Qt tabanlı modern bir grafik arayüzü vardır.

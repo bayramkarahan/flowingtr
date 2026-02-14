@@ -43,17 +43,20 @@ desktop_file.path = /usr/share/applications/
 icon.files = images/flowingtr.svg
 icon.path = /usr/share/icons/hicolor/scalable/apps
 
+mimeicon.files = images/application-x-flowingtr-ftr.svg
+mimeicon.path = /usr/share/icons/hicolor/scalable/mimetypes
+
 mimetype.files = ftr.xml
 mimetype.path = /usr/share/mime/packages/
 
 doc.files = doc/*.ftr
 doc.path = /usr/share/flowingtr/doc/
 
-
 lisanss.files = lisans/*
-lisanss.path = /usr/share/doc/flowingtr/LICENSES/
+lisanss.path = /usr/share/doc/flowingtr/
+
 
 #target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/diagramscene
-INSTALLS += target desktop_file icon doc mimetype lisanss
+INSTALLS += target desktop_file icon doc mimetype lisanss mimeicon
 
 
