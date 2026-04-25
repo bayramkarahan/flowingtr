@@ -1,0 +1,674 @@
+{
+    "globalVariables": [
+        {
+            "endValue": 481491664,
+            "expression": "",
+            "inputMessage": "",
+            "isInput": false,
+            "label": "kenar",
+            "operationType": -1811696896,
+            "outputMessage": "",
+            "startValue": 1534961596,
+            "stepValue": 32765,
+            "value": "0",
+            "valueType": "int"
+        },
+        {
+            "endValue": 481491664,
+            "expression": "",
+            "inputMessage": "",
+            "isInput": false,
+            "label": "alan",
+            "operationType": -1811696896,
+            "outputMessage": "",
+            "startValue": 1534961596,
+            "stepValue": 32765,
+            "value": "0",
+            "valueType": "int"
+        }
+    ],
+    "items": [
+        {
+            "backgroundColor": "#00000000",
+            "borderColor": "#ff000000",
+            "diagramType": 25,
+            "diagramWidth": 200,
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "id": 0,
+            "labelAlgoritmaText": "alan = kenar * kenar",
+            "labelText": "alan = kenar * kenar",
+            "polygon": [
+                {
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "x": 200,
+                    "y": 0
+                },
+                {
+                    "x": 200,
+                    "y": 75
+                },
+                {
+                    "x": 0,
+                    "y": 75
+                },
+                {
+                    "x": 0,
+                    "y": 0
+                }
+            ],
+            "textColor": "#ff000000",
+            "type": "DiagramItem",
+            "variables": [
+                {
+                    "endValue": 481489568,
+                    "expression": "alan = kenar * kenar",
+                    "inputMessage": "",
+                    "isInput": false,
+                    "label": "alan",
+                    "operationType": 2,
+                    "outputMessage": "",
+                    "startValue": 1534961596,
+                    "stepValue": 0,
+                    "value": "",
+                    "valueType": "int"
+                }
+            ],
+            "x": 2662.351795454407,
+            "y": 2523.9999999999995
+        },
+        {
+            "backgroundColor": "#00000000",
+            "borderColor": "#ff000000",
+            "diagramType": 23,
+            "diagramWidth": 269,
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "id": 1,
+            "labelAlgoritmaText": "\"Kenar Giriniz\", kenar (oku)",
+            "labelText": "\"Kenar Giriniz\", kenar = ?",
+            "polygon": [
+                {
+                    "x": 0,
+                    "y": 90
+                },
+                {
+                    "x": 53.800000000000004,
+                    "y": 0
+                },
+                {
+                    "x": 269,
+                    "y": 0
+                },
+                {
+                    "x": 215.2,
+                    "y": 90
+                },
+                {
+                    "x": 0,
+                    "y": 90
+                }
+            ],
+            "textColor": "#ff000000",
+            "type": "DiagramItem",
+            "variables": [
+                {
+                    "endValue": 1933421984,
+                    "expression": "",
+                    "inputMessage": "Kenar Giriniz",
+                    "isInput": true,
+                    "label": "kenar",
+                    "operationType": -400165760,
+                    "outputMessage": "",
+                    "startValue": 22042,
+                    "stepValue": 32765,
+                    "value": "0",
+                    "valueType": "int"
+                }
+            ],
+            "x": 2627.9226288134223,
+            "y": 2384.0000000000014
+        },
+        {
+            "backgroundColor": "#00000000",
+            "borderColor": "#ff000000",
+            "diagramType": 26,
+            "diagramWidth": 100,
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "id": 2,
+            "labelAlgoritmaText": "",
+            "labelText": "",
+            "polygon": [
+                {
+                    "x": 0,
+                    "y": 30
+                },
+                {
+                    "x": 0.25814436351318365,
+                    "y": 26.93267427161865
+                },
+                {
+                    "x": 1.015822290449219,
+                    "y": 23.95395361988672
+                },
+                {
+                    "x": 3.929247852968751,
+                    "y": 18.32264613534375
+                },
+                {
+                    "x": 8.539214724316409,
+                    "y": 13.226714724316405
+                },
+                {
+                    "x": 14.644660941250002,
+                    "y": 8.78679656475
+                },
+                {
+                    "x": 22.044524540527348,
+                    "y": 5.123528834589845
+                },
+                {
+                    "x": 30.537743558906254,
+                    "y": 2.3575487117812504
+                },
+                {
+                    "x": 39.92325603314453,
+                    "y": 0.6094933742695313
+                },
+                {
+                    "x": 50,
+                    "y": 0
+                },
+                {
+                    "x": 60.07674396685547,
+                    "y": 0.6094933742695313
+                },
+                {
+                    "x": 69.46225644109374,
+                    "y": 2.3575487117812504
+                },
+                {
+                    "x": 77.95547545947265,
+                    "y": 5.123528834589845
+                },
+                {
+                    "x": 85.35533905874999,
+                    "y": 8.78679656475
+                },
+                {
+                    "x": 91.46078527568359,
+                    "y": 13.226714724316405
+                },
+                {
+                    "x": 96.07075214703124,
+                    "y": 18.32264613534375
+                },
+                {
+                    "x": 98.98417770955078,
+                    "y": 23.95395361988672
+                },
+                {
+                    "x": 99.74185563648682,
+                    "y": 26.93267427161865
+                },
+                {
+                    "x": 100,
+                    "y": 30
+                },
+                {
+                    "x": 99.74185563648682,
+                    "y": 33.06732572838135
+                },
+                {
+                    "x": 98.98417770955078,
+                    "y": 36.04604638011328
+                },
+                {
+                    "x": 96.07075214703124,
+                    "y": 41.67735386465625
+                },
+                {
+                    "x": 91.46078527568359,
+                    "y": 46.77328527568359
+                },
+                {
+                    "x": 85.35533905874999,
+                    "y": 51.213203435249994
+                },
+                {
+                    "x": 77.95547545947265,
+                    "y": 54.87647116541015
+                },
+                {
+                    "x": 69.46225644109374,
+                    "y": 57.64245128821875
+                },
+                {
+                    "x": 60.07674396685547,
+                    "y": 59.39050662573047
+                },
+                {
+                    "x": 50,
+                    "y": 60
+                },
+                {
+                    "x": 39.92325603314453,
+                    "y": 59.39050662573047
+                },
+                {
+                    "x": 30.537743558906254,
+                    "y": 57.64245128821875
+                },
+                {
+                    "x": 22.044524540527348,
+                    "y": 54.87647116541015
+                },
+                {
+                    "x": 14.644660941250002,
+                    "y": 51.213203435249994
+                },
+                {
+                    "x": 8.539214724316409,
+                    "y": 46.77328527568359
+                },
+                {
+                    "x": 3.929247852968751,
+                    "y": 41.67735386465625
+                },
+                {
+                    "x": 1.015822290449219,
+                    "y": 36.04604638011328
+                },
+                {
+                    "x": 0.25814436351318365,
+                    "y": 33.06732572838135
+                },
+                {
+                    "x": 0,
+                    "y": 30
+                }
+            ],
+            "textColor": "#ff000000",
+            "type": "DiagramItem",
+            "variables": [
+            ],
+            "x": 2712.353556805546,
+            "y": 2837.3333333333335
+        },
+        {
+            "backgroundColor": "#00000000",
+            "borderColor": "#ff000000",
+            "diagramType": 20,
+            "diagramWidth": 200,
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "id": 3,
+            "labelAlgoritmaText": "\"Karenin Alanı\", alan (yaz)",
+            "labelText": "\"Karenin Alanı\", alan",
+            "polygon": [
+                {
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "x": 200,
+                    "y": 0
+                },
+                {
+                    "x": 200,
+                    "y": 45
+                },
+                {
+                    "x": 120,
+                    "y": 90
+                },
+                {
+                    "x": 115.7958984375,
+                    "y": 94.844970703125
+                },
+                {
+                    "x": 110.7421875,
+                    "y": 99.228515625
+                },
+                {
+                    "x": 104.9267578125,
+                    "y": 103.111083984375
+                },
+                {
+                    "x": 98.4375,
+                    "y": 106.453125
+                },
+                {
+                    "x": 91.3623046875,
+                    "y": 109.215087890625
+                },
+                {
+                    "x": 83.7890625,
+                    "y": 111.357421875
+                },
+                {
+                    "x": 75.8056640625,
+                    "y": 112.840576171875
+                },
+                {
+                    "x": 67.5,
+                    "y": 113.625
+                },
+                {
+                    "x": 58.9599609375,
+                    "y": 113.671142578125
+                },
+                {
+                    "x": 50.2734375,
+                    "y": 112.939453125
+                },
+                {
+                    "x": 41.5283203125,
+                    "y": 111.390380859375
+                },
+                {
+                    "x": 32.8125,
+                    "y": 108.984375
+                },
+                {
+                    "x": 24.2138671875,
+                    "y": 105.681884765625
+                },
+                {
+                    "x": 15.8203125,
+                    "y": 101.443359375
+                },
+                {
+                    "x": 7.7197265625,
+                    "y": 96.229248046875
+                },
+                {
+                    "x": 0,
+                    "y": 90
+                },
+                {
+                    "x": 0,
+                    "y": 9
+                },
+                {
+                    "x": 0,
+                    "y": 0
+                }
+            ],
+            "textColor": "#ff000000",
+            "type": "DiagramItem",
+            "variables": [
+                {
+                    "endValue": 0,
+                    "expression": "alan",
+                    "inputMessage": "",
+                    "isInput": false,
+                    "label": "alan",
+                    "operationType": 0,
+                    "outputMessage": "Karenin Alanı",
+                    "startValue": -1,
+                    "stepValue": -1075838976,
+                    "value": "",
+                    "valueType": ""
+                }
+            ],
+            "x": 2662.351795454407,
+            "y": 2672.0000000000014
+        },
+        {
+            "backgroundColor": "#00000000",
+            "borderColor": "#ff000000",
+            "diagramType": 24,
+            "diagramWidth": 100,
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "id": 4,
+            "labelAlgoritmaText": "",
+            "labelText": "",
+            "polygon": [
+                {
+                    "x": 0,
+                    "y": 30
+                },
+                {
+                    "x": 0.25814436351318365,
+                    "y": 26.93267427161865
+                },
+                {
+                    "x": 1.015822290449219,
+                    "y": 23.95395361988672
+                },
+                {
+                    "x": 3.929247852968751,
+                    "y": 18.32264613534375
+                },
+                {
+                    "x": 8.539214724316409,
+                    "y": 13.226714724316405
+                },
+                {
+                    "x": 14.644660941250002,
+                    "y": 8.78679656475
+                },
+                {
+                    "x": 22.044524540527348,
+                    "y": 5.123528834589845
+                },
+                {
+                    "x": 30.537743558906254,
+                    "y": 2.3575487117812504
+                },
+                {
+                    "x": 39.92325603314453,
+                    "y": 0.6094933742695313
+                },
+                {
+                    "x": 50,
+                    "y": 0
+                },
+                {
+                    "x": 60.07674396685547,
+                    "y": 0.6094933742695313
+                },
+                {
+                    "x": 69.46225644109374,
+                    "y": 2.3575487117812504
+                },
+                {
+                    "x": 77.95547545947265,
+                    "y": 5.123528834589845
+                },
+                {
+                    "x": 85.35533905874999,
+                    "y": 8.78679656475
+                },
+                {
+                    "x": 91.46078527568359,
+                    "y": 13.226714724316405
+                },
+                {
+                    "x": 96.07075214703124,
+                    "y": 18.32264613534375
+                },
+                {
+                    "x": 98.98417770955078,
+                    "y": 23.95395361988672
+                },
+                {
+                    "x": 99.74185563648682,
+                    "y": 26.93267427161865
+                },
+                {
+                    "x": 100,
+                    "y": 30
+                },
+                {
+                    "x": 99.74185563648682,
+                    "y": 33.06732572838135
+                },
+                {
+                    "x": 98.98417770955078,
+                    "y": 36.04604638011328
+                },
+                {
+                    "x": 96.07075214703124,
+                    "y": 41.67735386465625
+                },
+                {
+                    "x": 91.46078527568359,
+                    "y": 46.77328527568359
+                },
+                {
+                    "x": 85.35533905874999,
+                    "y": 51.213203435249994
+                },
+                {
+                    "x": 77.95547545947265,
+                    "y": 54.87647116541015
+                },
+                {
+                    "x": 69.46225644109374,
+                    "y": 57.64245128821875
+                },
+                {
+                    "x": 60.07674396685547,
+                    "y": 59.39050662573047
+                },
+                {
+                    "x": 50,
+                    "y": 60
+                },
+                {
+                    "x": 39.92325603314453,
+                    "y": 59.39050662573047
+                },
+                {
+                    "x": 30.537743558906254,
+                    "y": 57.64245128821875
+                },
+                {
+                    "x": 22.044524540527348,
+                    "y": 54.87647116541015
+                },
+                {
+                    "x": 14.644660941250002,
+                    "y": 51.213203435249994
+                },
+                {
+                    "x": 8.539214724316409,
+                    "y": 46.77328527568359
+                },
+                {
+                    "x": 3.929247852968751,
+                    "y": 41.67735386465625
+                },
+                {
+                    "x": 1.015822290449219,
+                    "y": 36.04604638011328
+                },
+                {
+                    "x": 0.25814436351318365,
+                    "y": 33.06732572838135
+                },
+                {
+                    "x": 0,
+                    "y": 30
+                }
+            ],
+            "textColor": "#ff000000",
+            "type": "DiagramItem",
+            "variables": [
+            ],
+            "x": 2709.6868901388793,
+            "y": 2242.666666666668
+        },
+        {
+            "answer": "Y",
+            "borderColor": "#ff000000",
+            "endId": 3,
+            "endPolar": "start",
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "startId": 0,
+            "startPolar": "end",
+            "textColor": "#ff000000",
+            "type": "Arrow"
+        },
+        {
+            "answer": "Y",
+            "borderColor": "#ff000000",
+            "endId": 0,
+            "endPolar": "start",
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "startId": 1,
+            "startPolar": "end",
+            "textColor": "#ff000000",
+            "type": "Arrow"
+        },
+        {
+            "answer": "Y",
+            "borderColor": "#ff000000",
+            "endId": 1,
+            "endPolar": "start",
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "startId": 4,
+            "startPolar": "end",
+            "textColor": "#ff000000",
+            "type": "Arrow"
+        },
+        {
+            "answer": "Y",
+            "borderColor": "#ff000000",
+            "endId": 2,
+            "endPolar": "start",
+            "fontFamily": "Sans Serif",
+            "fontItalic": false,
+            "fontPointSize": 12,
+            "fontStrikeOut": false,
+            "fontUnderline": false,
+            "fontWeight": 50,
+            "startId": 3,
+            "startPolar": "end",
+            "textColor": "#ff000000",
+            "type": "Arrow"
+        }
+    ]
+}

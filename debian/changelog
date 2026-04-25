@@ -1,3 +1,9 @@
+flowingtr (3.3) unstable; urgency=medium
+
+  * undo/redo added
+  * float int string added
+  * qt6 migration
+  
 flowingtr (3.2) unstable; urgency=medium
 
   * Initial Release

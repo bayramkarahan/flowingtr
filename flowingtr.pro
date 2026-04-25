@@ -1,62 +1,124 @@
 QT += widgets
 requires(qtConfig(fontcombobox))
 
-HEADERS	    =   mainwindow.h \
-    DiagramScene.h \
-		diagramitem.h \
-		arrow.h \
-		diagramtextitem.h \
-    diagram.h \
-    dotsignal.h \
-    variable.h \
-    variableconditiondialog.h \
-    variableeditform.h \
-    variableeditordialog.h \
-    variableinputdialog.h \
-    variableloopdialog.h \
-    variableoutputdialog.h \
-    variableprocessdialog.h
-SOURCES	    =   mainwindow.cpp \
-    DiagramScene.cpp \
-		diagramitem.cpp \
-		main.cpp \
-		arrow.cpp \
-		diagramtextitem.cpp \
-    dotsignal.cpp \
-    variable.cpp \
-    variableconditiondialog.cpp \
-    variableeditform.cpp \
-    variableeditordialog.cpp \
-    variableinputdialog.cpp \
-    variableloopdialog.cpp \
-    variableoutputdialog.cpp \
-    variableprocessdialog.cpp
-RESOURCES   = \
-    icons.qrc
+PREFIX = /usr
 
+HEADERS = \
+    include/DiagramScene.h \
+    include/additemcommand.h \
+    include/arrow.h \
+    include/deletecommand.h \
+    include/diagram.h \
+    include/diagramitem.h \
+    include/diagramtextitem.h \
+    include/dotsignal.h \
+    include/mainwindow.h \
+    include/variable.h \
+    include/variableconditiondialog.h \
+    include/variableeditform.h \
+    include/variableeditordialog.h \
+    include/variableinputdialog.h \
+    include/variableloopdialog.h \
+    include/variableoutputdialog.h \
+    include/variableprocessdialog.h \
 
-# install
-target.path = /usr/bin
-desktop_file.files = flowingtr.desktop
-desktop_file.path = /usr/share/applications/
+SOURCES = \
+    src/DiagramScene.cpp \
+    src/arrow.cpp \
+    src/diagramitem.cpp \
+    src/diagramtextitem.cpp \
+    src/dotsignal.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/variable.cpp \
+    src/variableconditiondialog.cpp \
+    src/variableeditform.cpp \
+    src/variableeditordialog.cpp \
+    src/variableinputdialog.cpp \
+    src/variableloopdialog.cpp \
+    src/variableoutputdialog.cpp \
+    src/variableprocessdialog.cpp
 
-icon.files = images/flowingtr.svg
-icon.path = /usr/share/icons/hicolor/scalable/apps
+RESOURCES = \
+    resources/icons.qrc
 
-mimeicon.files = images/application-x-flowingtr-ftr.svg
-mimeicon.path = /usr/share/icons/hicolor/scalable/mimetypes
+# -----------------------
+# INSTALL (DEBIAN SAFE)
+# -----------------------
 
-mimetype.files = ftr.xml
-mimetype.path = /usr/share/mime/packages/
+target.path = $$DESTDIR/usr/bin
 
-doc.files = doc/*.ftr
-doc.path = /usr/share/flowingtr/doc/
+desktop_file.files = assets/flowingtr.desktop
+desktop_file.path = $$DESTDIR/usr/share/applications/
 
-lisanss.files = lisans/*
-lisanss.path = /usr/share/doc/flowingtr/
+icon.files = resources/icons/flowingtr.svg
+icon.path = $$DESTDIR/usr/share/icons/hicolor/scalable/apps
 
+mimeicon.files = resources/icons/application-x-flowingtr-ftr.svg
+mimeicon.path = $$DESTDIR/usr/share/icons/hicolor/scalable/mimetypes
 
-#target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/diagramscene
+mimetype.files = assets/mime/ftr.xml
+mimetype.path = $$DESTDIR/usr/share/mime/packages/
+
+doc.files = assets/doc/*.ftr
+doc.path = $$DESTDIR/usr/share/flowingtr/doc/
+
+lisanss.files = assets/lisans/*
+lisanss.path = $$DESTDIR/usr/share/doc/flowingtr/
+
 INSTALLS += target desktop_file icon doc mimetype lisanss mimeicon
 
-
+DISTFILES += \
+    assets/doc/5-defa-merhaba.ftr \
+    assets/doc/askerlik-durumu.ftr \
+    assets/doc/buyuk-kucuk.ftr \
+    assets/doc/cift-sayi-toplam.ftr \
+    assets/doc/dikdortgen-cevre.ftr \
+    assets/doc/faktoriyel.ftr \
+    assets/doc/gecti-kaldi.ftr \
+    assets/doc/iki-sayi-toplama.ftr \
+    assets/doc/karenin-alani.ftr \
+    assets/doc/merhaba.ftr \
+    assets/doc/mutlak-deger.ftr \
+    assets/doc/ortalama.ftr \
+    assets/doc/pozitif-negatif.ftr \
+    assets/doc/rast-gele-sayi.ftr \
+    assets/doc/sayi-yazi.ftr \
+    assets/doc/selamlama.ftr \
+    assets/doc/seri-toplam.ftr \
+    assets/doc/tek-cift.ftr \
+    assets/doc/tek-sayi-toplam.ftr \
+    assets/doc/ucgen-turu.ftr \
+    assets/flowingtr.desktop \
+    assets/icons/about.png \
+    assets/icons/application-x-flowingtr-ftr.svg \
+    assets/icons/background1.png \
+    assets/icons/background2.png \
+    assets/icons/background3.png \
+    assets/icons/background4.png \
+    assets/icons/bold.png \
+    assets/icons/bringtofront.png \
+    assets/icons/close.png \
+    assets/icons/delete.png \
+    assets/icons/dikey.svg \
+    assets/icons/floodfill.png \
+    assets/icons/flowingtr.svg \
+    assets/icons/italic.png \
+    assets/icons/linecolor.png \
+    assets/icons/linepointer.png \
+    assets/icons/maximize.svg \
+    assets/icons/minimize.svg \
+    assets/icons/new.png \
+    assets/icons/open.png \
+    assets/icons/pointer.png \
+    assets/icons/redo.svg \
+    assets/icons/run.png \
+    assets/icons/save.png \
+    assets/icons/savepicture.png \
+    assets/icons/sendtoback.png \
+    assets/icons/stop.png \
+    assets/icons/textpointer.png \
+    assets/icons/underline.png \
+    assets/icons/undo.svg \
+    assets/icons/yatay.svg \
+    assets/mime/ftr.xml

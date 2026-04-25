@@ -1,0 +1,35 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/about.png</file>
+        <file>icons/application-x-flowingtr-ftr.svg</file>
+        <file>icons/background1.png</file>
+        <file>icons/background2.png</file>
+        <file>icons/background3.png</file>
+        <file>icons/background4.png</file>
+        <file>icons/bold.png</file>
+        <file>icons/bringtofront.png</file>
+        <file>icons/close.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/dikey.svg</file>
+        <file>icons/floodfill.png</file>
+        <file>icons/flowingtr.svg</file>
+        <file>icons/italic.png</file>
+        <file>icons/linecolor.png</file>
+        <file>icons/linepointer.png</file>
+        <file>icons/maximize.svg</file>
+        <file>icons/minimize.svg</file>
+        <file>icons/new.png</file>
+        <file>icons/open.png</file>
+        <file>icons/pointer.png</file>
+        <file>icons/redo.svg</file>
+        <file>icons/run.png</file>
+        <file>icons/save.png</file>
+        <file>icons/savepicture.png</file>
+        <file>icons/sendtoback.png</file>
+        <file>icons/stop.png</file>
+        <file>icons/textpointer.png</file>
+        <file>icons/underline.png</file>
+        <file>icons/undo.svg</file>
+        <file>icons/yatay.svg</file>
+    </qresource>
+</RCC>
