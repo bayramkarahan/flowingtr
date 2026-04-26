@@ -11,7 +11,7 @@ const int InsertTextButton = 10;
 //! [0]
 MainWindow::MainWindow()
 {
-    //qDebug() << QIcon(":/icons/undo.svg").isNull();
+
     undoStack = new QUndoStack(this);
 
     variableWidget=new VariableEditorDialog();
@@ -708,6 +708,83 @@ void MainWindow::stop()
 {
     runState=false;
 }
+
+void MainWindow::unionItemSlot(const QString &direction)
+{
+    //birleştirme
+    qDebug()<<"Nesne Bağlama Yönü: "<<direction;
+    QList<QGraphicsItem*> selected = scene->selectedItems();
+    if (selected.isEmpty()) return;
+
+    QString route = direction; // "endtostart", "lefttoright", "righttoleft"
+    std::sort(selected.begin(), selected.end(),
+              [route](QGraphicsItem *a, QGraphicsItem *b) {
+
+        QPointF ca = a->sceneBoundingRect().center();
+        QPointF cb = b->sceneBoundingRect().center();
+
+        if (route == "endtostart") {
+            return ca.y() < cb.y(); // yukarıdan aşağı
+        }
+        else if (route == "lefttoright") {
+            return ca.x() < cb.x(); // soldan sağa
+        }
+        else if (route == "righttoleft") {
+            return ca.x() > cb.x(); // sağdan sola
+        }
+
+        return false;
+    });
+
+    for (int i = 0; i < selected.size() - 1; ++i) {
+
+        QGraphicsItem *item1 = selected[i];
+        QGraphicsItem *item2 = selected[i + 1];
+
+        if (item1->type() == DiagramItem::Type &&
+            item2->type() == DiagramItem::Type) {
+
+            DiagramItem *d1 = qgraphicsitem_cast<DiagramItem *>(item1);
+            DiagramItem *d2 = qgraphicsitem_cast<DiagramItem *>(item2);
+
+            if (!d1 || !d2) continue;
+
+            //qDebug() << "Bağlanacak:";
+            //qDebug() << "  1:" << d1->myDiagramType;
+            //qDebug() << "  2:" << d2->myDiagramType;
+            Arrow *arrow1;
+            bool d1ConnectStateFalse;
+            bool d2ConnectStateFalse;
+            if (route == "endtostart") {
+                arrow1 = new Arrow(d1,d2,"end","start",scene->myItemMenu);
+                d1ConnectStateFalse=d1->addArrowState(arrow1,"end","O");
+                d2ConnectStateFalse=d2->addArrowState(arrow1,"start","I");
+            }
+            else if (route == "lefttoright") {
+                arrow1 = new Arrow(d1,d2,"right","left",scene->myItemMenu);
+                d1ConnectStateFalse=d1->addArrowState(arrow1,"right","O");
+                d2ConnectStateFalse=d2->addArrowState(arrow1,"left","I");
+            }
+            else if (route == "righttoleft") {
+                arrow1 = new Arrow(d1,d2,"left","right",scene->myItemMenu);
+                d1ConnectStateFalse=d1->addArrowState(arrow1,"left","O");
+                d2ConnectStateFalse=d2->addArrowState(arrow1,"right","I");
+            }
+            //qDebug()<<"Bağlantı Durumları"<<d1ConnectStateFalse<<d2ConnectStateFalse;
+            if(d1ConnectStateFalse&&d2ConnectStateFalse){
+                qDebug()<<"Nesneler Bağlandı.";
+            arrow1->myBorderColor=scene->myBorderColor;
+            arrow1->myTextColor=scene->myTextColor;
+            arrow1->setZValue(-1000.0);
+            arrow1->updatePosition();
+            scene->addItem(arrow1);
+            }else
+             qDebug()<<"Nesneler Önceden Bağlanmış!";
+         }
+    }
+    scene->update();
+}
+
 void MainWindow::verticalAlignSlot()
 {//dikey
     scene->alignCenterVertical();
@@ -1360,6 +1437,151 @@ DiagramItem* MainWindow::detectRouteItem(DiagramItem *item)
 
 
         }
+        if(rec.operationType==3)
+        {
+            int counterVariable = rec.value.toInt(&ok,10);
+
+            int stepValue = rec.stepValue;
+            // endvalue
+            int endValue = 0;
+            for (int j = 0; j < Variable::onlineVariableList.size(); ++j) {
+                VariableRecord var = Variable::onlineVariableList[j];
+                if(var.label==rec.endValueLabel)
+                {
+                    rec.endValue=Variable::onlineVariableList[j].value.toInt(&ok,10);
+                    endValue=rec.endValue;
+                    variableWidget->loadVariables();
+                }
+            }
+            qDebug()<<"for"<<"label:"<<rec.label
+                <<"counter:"<<rec.counter
+                <<"value:"<<rec.value
+                <<"endValue:"<<endValue
+                <<"stepValue:"<<stepValue;
+
+            if(rec.counter==0)
+            {
+                for (int j = 0; j < Variable::onlineVariableList.size(); ++j) {
+                    VariableRecord var = Variable::onlineVariableList[j];
+                    if(var.label==rec.label)
+                    {
+                       // Variable::onlineVariableList[j].value=rec.startValue;
+                        Variable::onlineVariableList[j].value = QString::number(rec.startValue);
+                        Variable::onlineVariableList[j].counter=0;
+                        variableWidget->loadVariables();
+                    }
+                  }
+                qDebug()<<"atama yapıldı"<<rec.counter<<counterVariable;
+                item->selectedVariables.first().counter++;
+                item->selectedVariables.first().value=QString::number(rec.startValue);
+                counterVariable = rec.startValue;
+
+                /*********************algoritma ilk *****************************/
+                QString text = algoritmaText->toPlainText();
+                //QStringList lines = text.contains.split('Adım');
+                int lineCount = text.count("Adım");
+                QString escText;
+                escText=diagramItem->labelAlgoritma.text();
+                //if(escText.left(4)=="<br>")
+                //   escText=escText.mid(4);
+                escText=escText.replace("<br>","\n");
+                algoritmaText->insertPlainText("Adım"+QString::number(lineCount)+": loop:\n");
+                ///algoritmaText->insertPlainText("Adım"+QString::number(lineCount+1)+": "+escText+"\n");
+                /*******************************************************/
+                loopStep="Adım"+QString::number(lineCount);
+                loopRunState=true;
+            }else
+            {
+                qDebug()<<"adım sayısı:"<<rec.counter;
+                counterVariable=counterVariable+stepValue;
+                item->selectedVariables.first().counter++;
+                item->selectedVariables.first().value=QString::number(counterVariable);
+            }
+            result=counterVariable<endValue;
+            /*********************onlineVariableList güncelleniyor**********************/
+            if(result)
+            {
+                for (int j = 0; j < Variable::onlineVariableList.size(); ++j) {
+                    VariableRecord var = Variable::onlineVariableList[j];
+                    if(var.label==rec.label)
+                    {
+                        Variable::onlineVariableList[j].value=item->selectedVariables.first().value;
+                        Variable::onlineVariableList[j].counter=item->selectedVariables.first().counter;
+                        variableWidget->loadVariables();
+                    }
+                }
+            }else
+            {
+                /*********************algoritma döngü sonu*****************************/
+                QString text = algoritmaText->toPlainText();
+                //QStringList lines = text.contains.split('Adım');
+                int lineCount = text.count("Adım");
+                QString escText;
+                escText=diagramItem->labelAlgoritma.text();
+                escText=escText.replace("<br>","\n");
+                /*******************************************************/
+                loopRunState=false;
+                QString sart="";//= item->selectedVariables.first().expression;
+                sart = rec.label + "<" + QString::number(rec.endValue);
+                algoritmaText->insertPlainText("Adım"+QString::number(lineCount)+": Eğer "+sart+" ise, "+loopStep+" Git \n");
+            }
+        }
+        if(rec.operationType==4)
+        {
+            qDebug()<<"while"<<rec.label<<rec.expression<<parts[0]<<parts[1]<<parts[2];
+            QString var1 = parts[0].trimmed();
+            QString opt1 = parts[1].trimmed();
+            int var1val;
+            /************************************************/
+            for (int j = 0; j < Variable::onlineVariableList.size(); ++j) {
+                VariableRecord var = Variable::onlineVariableList[j];
+                if(rec.label==var.label)
+                {
+                    var1val=Variable::onlineVariableList[j].value.toInt(&ok,10);
+                }
+                if(rec.endValueLabel==var.label)
+                {
+                    rec.endValue=Variable::onlineVariableList[j].value.toInt(&ok,10);
+                }
+            }
+            /**************************************************/
+            if (opt1 == "<") result = var1val < rec.endValue;
+            else if (opt1 == "<=") result = var1val <= rec.endValue;
+            else if (opt1 == ">") result = var1val > rec.endValue;
+            else if (opt1 == ">=") result = var1val >= rec.endValue;
+            else if (opt1 == "==") result = var1val == rec.endValue;
+            else if (opt1 == "!=") result = var1val != rec.endValue;
+            qDebug()<<"şart sonucu: "<<var1val<<rec.endValue<<result;
+            if(!loopRunState) //döngü başı
+            {
+                /*********************algoritma ilk *****************************/
+                QString text = algoritmaText->toPlainText();
+                //QStringList lines = text.contains.split('Adım');
+                int lineCount = text.count("Adım");
+                QString escText;
+                escText=diagramItem->labelAlgoritma.text();
+                escText=escText.replace("<br>","\n");
+                algoritmaText->insertPlainText("Adım"+QString::number(lineCount)+": loop:\n");
+                 /*******************************************************/
+                loopStep="Adım"+QString::number(lineCount);
+                loopRunState=true;
+            }
+           if(!result)// döngü sonu
+           {
+                /*********************algoritma döngü sonu*****************************/
+                QString text = algoritmaText->toPlainText();
+                int lineCount = text.count("Adım");
+                QString escText;
+                escText=diagramItem->labelAlgoritma.text();
+                escText=escText.replace("<br>","\n");
+                /*******************************************************/
+                loopRunState=false;
+                algoritmaText->insertPlainText("Adım"+QString::number(lineCount)+": Eğer "+rec.expression+" ise, "+loopStep+" Git \n");
+            }
+
+
+        }
+
         //qDebug()<<"loop:"<<rec.name<<rec.label<<rec.value<<rec.endValue<<result;
     }
 
@@ -1572,9 +1794,31 @@ toolBoxRight->addItem(compositeWidget, tr("Değişkenler ve Açıklama"));
 //! [23]
 void MainWindow::createActions()
 {
+    unionItemEndToStartAction = new QAction(QIcon(":/icons/unionitemes.svg"),
+                                tr("Birleştir Yukarıdan Aşağı"), this);
+    unionItemEndToStartAction->setShortcut(tr("Ctrl+D"));
+    unionItemEndToStartAction->setStatusTip(tr("Birleştir Yukarıdan Aşağı"));
+    connect(unionItemEndToStartAction, &QAction::triggered, this, [this]() {
+        unionItemSlot("endtostart");
+    });
+
+    unionItemLeftToRightAction = new QAction(QIcon(":/icons/unionitemlr.svg"),
+                                tr("Birleştir Soldan Sağa"), this);
+    unionItemLeftToRightAction->setShortcut(tr("Ctrl+L"));
+    unionItemLeftToRightAction->setStatusTip(tr("Birleştir Soldan Sağa"));
+    connect(unionItemLeftToRightAction, &QAction::triggered, this, [this]() {
+        unionItemSlot("lefttoright");
+    });
+    unionItemRightToLeftAction = new QAction(QIcon(":/icons/unionitemrl.svg"),
+                                tr("Birleştir Sağdan Sola"), this);
+    unionItemRightToLeftAction->setShortcut(tr("Ctrl+R"));
+    unionItemRightToLeftAction->setStatusTip(tr("Birleştir Sağdan Sola"));
+    connect(unionItemRightToLeftAction, &QAction::triggered, this, [this]() {
+        unionItemSlot("righttoleft");
+    });
+
     undoAction = new QAction(QIcon(":/icons/undo.svg"),
                                 tr("Geri Al"), this);
-
     undoAction->setShortcut(tr("Ctrl+Z"));
     undoAction->setStatusTip(tr("Geri Al"));
     connect(undoAction, &QAction::triggered,undoStack, &QUndoStack::undo);
@@ -1795,6 +2039,10 @@ void MainWindow::createMenus()
 
 
     itemMenu = menuBar()->addMenu(tr("&Düzen"));
+    itemMenu->addAction(unionItemEndToStartAction);
+    itemMenu->addAction(unionItemLeftToRightAction);
+    itemMenu->addAction(unionItemRightToLeftAction);
+
     itemMenu->addAction(undoAction);
     itemMenu->addAction(redoAction);
     itemMenu->addAction(horizontalAlignmentAction);
@@ -1875,6 +2123,9 @@ void MainWindow::createToolbars()
     pointerToolbar = addToolBar(tr("Pointer type"));
     pointerToolbar->addWidget(pointerButton);
     pointerToolbar->addWidget(linePointerButton);
+    pointerToolbar->addAction(unionItemEndToStartAction);
+    pointerToolbar->addAction(unionItemLeftToRightAction);
+    pointerToolbar->addAction(unionItemRightToLeftAction);
     /*************************************************************/
     editToolBar = addToolBar(tr("Edit"));
     editToolBar->addAction(horizontalAlignmentAction);

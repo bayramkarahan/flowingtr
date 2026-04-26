@@ -13,7 +13,8 @@ Rules-Requires-Root: no
 Package: flowingtr
 Architecture: amd64
 Depends: ${shlibs:Depends},
-         ${misc:Depends}
+         ${misc:Depends},
+         fonts-noto-color-emoji
 Description: Akış Diyagram Uygulaması
  FlowingTR, kullanıcıların görsel olarak işlem adımlarını,
  değişkenleri ve koşulları düzenleyebileceği bir

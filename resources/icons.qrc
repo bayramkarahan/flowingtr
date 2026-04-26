@@ -31,5 +31,8 @@
         <file>icons/underline.png</file>
         <file>icons/undo.svg</file>
         <file>icons/yatay.svg</file>
+        <file>icons/unionitemes.svg</file>
+        <file>icons/unionitemlr.svg</file>
+        <file>icons/unionitemrl.svg</file>
     </qresource>
 </RCC>

@@ -127,6 +127,7 @@ private slots:
     void sendToBack();
     void verticalAlignSlot();
     void horizontalAlignmentSlot();
+    void unionItemSlot(const QString &direction);
     void maximizeSlot();
     void minimizeSlot();
 
@@ -185,6 +186,12 @@ private:
     QAction *maximizeAction;
     QAction *minimizeAction;
     QAction *undoAction;
+    QAction *unionItemEndToStartAction;
+    QAction *unionItemLeftToRightAction;
+    QAction *unionItemRightToLeftAction;
+
+
+
     QAction *redoAction;
 
     QAction *horizontalAlignmentAction;

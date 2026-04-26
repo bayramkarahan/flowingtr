@@ -18,7 +18,8 @@ VariableInputDialog::VariableInputDialog(QWidget *parent)
     rowsLayout = new QVBoxLayout();
     mainLayout->addLayout(rowsLayout);
 
-    addButton = new QPushButton("✏️ Satır Ekle", this);
+
+    addButton = new QPushButton("➕ Satır Ekle", this);
     mainLayout->addWidget(addButton);
 
     connect(addButton, &QPushButton::clicked, this, [this]() {

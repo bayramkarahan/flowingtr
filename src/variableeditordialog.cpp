@@ -106,8 +106,8 @@ VariableEditorDialog::VariableEditorDialog(QWidget *parent)
         loadVariables();
     });
 
-    addButton = new QPushButton("Ekle", this);
-    removeButton = new QPushButton("Sil", this);
+    addButton = new QPushButton("➕ Ekle", this);
+    removeButton = new QPushButton("🗑️ Sil", this);
     //saveButton = new QPushButton("Kaydet", this);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;

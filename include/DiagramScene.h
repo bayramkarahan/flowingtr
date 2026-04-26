@@ -90,6 +90,9 @@ public:
     QList<QList<QGraphicsItem*>> getAlignmentGroups();
     int myDiagramWidth=200;
     int myDiagramHeight=100;
+    QMenu *myItemMenu;
+    QColor myBorderColor;
+    QColor myTextColor;
 public slots:
     void setMode(Mode mode);
     void setItemType(Diagram::DiagramType type);
@@ -117,16 +120,16 @@ private:
     QString polarDiagramItem(DiagramItem *diagramItem, QPointF point);
     DiagramItem* findDiagramItemNear(QPointF point, qreal xTol, qreal yTol);
     Diagram::DiagramType myItemType;
-    QMenu *myItemMenu;
+
     Mode myMode;
     bool leftButtonDown;
     QPointF startPoint;
     QGraphicsLineItem *line;
     QFont myFont;
     DiagramTextItem *textItem;
-    QColor myTextColor;
+
     QColor myBackgroundColor;
-    QColor myBorderColor;
+
 
 };
 //! [0]

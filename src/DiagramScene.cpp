@@ -928,7 +928,7 @@ void DiagramScene::alignCenterVertical()
     for (const QList<QGraphicsItem*> &group : groups) {
         qreal groupSumY = 0;
         for (QGraphicsItem *item : group)
-            groupSumY += item->pos().y();
+            groupSumY += item->sceneBoundingRect().center().y();
         qreal groupCenterY = groupSumY / group.size();
         totalY += groupCenterY;
     }
@@ -938,7 +938,7 @@ void DiagramScene::alignCenterVertical()
     for (const QList<QGraphicsItem*> &group : groups) {
         qreal groupSumY = 0;
         for (QGraphicsItem *item : group)
-            groupSumY += item->pos().y();
+            groupSumY += item->sceneBoundingRect().center().y();
         qreal groupCenterY = groupSumY / group.size();
         qreal offsetY = averageY - groupCenterY;
 

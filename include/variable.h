@@ -29,6 +29,7 @@ public:
     int operationType;
     int startValue;
     int endValue;
+    QString endValueLabel;
     int stepValue;
     int counter=0;
     QString inputMessage;

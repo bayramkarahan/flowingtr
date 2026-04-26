@@ -32,7 +32,7 @@ VariableOutputDialog::VariableOutputDialog(QWidget *parent) : QDialog(parent)
     //addExpressionRow();
 
     // "Yeni İşlem Ekle" butonu
-    addButton = new QPushButton("Yeni İşlem Ekle", this);
+    addButton = new QPushButton("➕ Yeni İşlem Ekle", this);
     connect(addButton, &QPushButton::clicked, this, &VariableOutputDialog::addExpressionRow);
 
     // Expressions ve addButton aynı layoutta (scroll içinde)
@@ -84,7 +84,7 @@ void VariableOutputDialog::addExpressionRow()
     // OutputMessage edit
     row->outputMessageEdit = new QLineEdit(row->widget);
     row->outputMessageEdit->setFixedWidth(150);
-    row->outputMessageEdit->setPlaceholderText("Output Message");
+    row->outputMessageEdit->setPlaceholderText("Çıktı Mesajı");
     layout->addWidget(row->outputMessageEdit);
 
 

@@ -19,9 +19,9 @@ struct LoopRow {
     QLineEdit *startEdit;
     QLineEdit *endEdit;
     QLineEdit *stepEdit;
-    QComboBox *conditionVarCombo;
     QComboBox *conditionOpCombo;
     QLineEdit *conditionValEdit;
+    QComboBox *conditionVarCombo;
     QPushButton *removeButton;
 };
 struct LoopRecord {
@@ -32,6 +32,7 @@ struct LoopRecord {
     int stepValue;
     QString name;
     QString label;
+    QString endValueLabel;
 };
 class VariableLoopDialog : public QDialog
 {

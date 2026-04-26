@@ -35,7 +35,7 @@ VariableProcessDialog::VariableProcessDialog(QWidget *parent) : QDialog(parent)
     //addExpressionRow();
 
     // "Yeni İşlem Ekle" butonu
-    addButton = new QPushButton("Yeni İşlem Ekle", this);
+    addButton = new QPushButton("➕ Yeni İşlem Ekle", this);
     connect(addButton, &QPushButton::clicked, this, &VariableProcessDialog::addExpressionRow);
 
     // Expressions ve addButton aynı layoutta (scroll içinde)

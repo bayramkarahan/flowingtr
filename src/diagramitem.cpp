@@ -544,6 +544,7 @@ void DiagramItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                     selected.operationType=loop.loopType;
                     selected.startValue=loop.startValue;
                     selected.endValue=loop.endValue;
+                    selected.endValueLabel=loop.endValueLabel;
                     selected.stepValue=loop.stepValue;
                     selected.counter=0;
                     selectedVariables.append(selected);
@@ -565,10 +566,25 @@ void DiagramItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                         label.setText(ifade);
 
                     }else if(loop.loopType==2){
-                         qDebug()<<"while "<<selected.label<<loop.expression;
+                        qDebug()<<"while "<<selected.label<<loop.expression;
                         label.setText(loop.expression);
+                    }else if(loop.loopType==3){
+                        QString ifade = loop.label + "=" + QString::number(loop.startValue) + "; " +
+                                        loop.label + "<" + loop.endValueLabel + "; " +
+                                        loop.label + "=" + loop.label + "+" + QString::number(loop.stepValue) + ";";
+                        qDebug()<<"for pozitive "<<ifade;
+                    label.setText(ifade);
                     }
-           }
+                    else if(loop.loopType==4){
+                        qDebug()<<"while "<<selected.label<<loop.expression;
+                        QString ifade = loop.label + "<" + loop.endValueLabel ;
+
+                        label.setText(ifade);
+                        }
+
+
+
+            }
         }
         labelText=label.text();
         labelAlgoritma.setText(label.text());
