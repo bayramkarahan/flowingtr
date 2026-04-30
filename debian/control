@@ -14,6 +14,7 @@ Package: flowingtr
 Architecture: amd64
 Depends: ${shlibs:Depends},
          ${misc:Depends},
+          qt6-svg-plugins | qt6-base-plugins,
          fonts-noto-color-emoji
 Description: Akış Diyagram Uygulaması
  FlowingTR, kullanıcıların görsel olarak işlem adımlarını,
